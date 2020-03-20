@@ -283,5 +283,8 @@ TSWLatexianTemp*
 # Ignore raw files as they're so heavy;)
 /Raw
 
+# Ignore compiled files
+main.pdf
+
 # Temporarily disable images
 /Images
