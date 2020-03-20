@@ -1,0 +1,178 @@
+\chapter{Dividiendo los programas}
+
+La mayoría de textos introductorios a la programación (por lo menos en español) esperan hasta el final para enseñar al estudiante cómo descomponer sus programas en pequeñas partes más fáciles de manejar. Una pena, ya que durante todo el curso se mal acostumbra al estudiante a tener todo dentro de un sólo algoritmo, no se enseña el uso correcto de los \emph{return} y se hace mucho más difícil resolver los problemas.
+
+Dicho esto, veamos qué son los procedimientos.
+
+\section{Procedimientos}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+  \node[punkt] (procedimiento) {Procedimiento};
+  \node[above left=0.2cm and 1.3cm of procedimiento] (entradaA) {Entrada A};
+  \node[below left=0.2cm and 1.3cm of procedimiento] (entradaB) {Entrada B};
+  \node[right=1.3cm of procedimiento] (salida) {Salida};
+  
+  \draw [pil] (entradaA.east) -- node[] {} (procedimiento.west);
+  \draw [pil] (entradaB.east) -- node[] {} (procedimiento.west);
+  \draw [pil] (procedimiento) -- node[] {} (salida.west);
+\end{tikzpicture}
+\caption{Procedimiento con dos entradas y una salida}
+\label{figproc}
+\end{figure}
+
+Los procedimientos o funciones (¡vamos que el tiempo de Pascal ya pasó!\footnote{Pascal es un lenguaje que era muy utilizado hace algunos años en el que se hacía una diferencia explícita entre procedimientos y funciones. Los lenguajes de programación modernos no hacen este tipo de distinciones.}) son formas de reutilizar los programas ya realizados para que no tengamos que andar reescribiéndolos. La idea es que el código siempre sea el mismo, lo que van a cambiar son las entradas. Es decir, sumar dos números siempre se hace igual, ¿qué cambia? los números que sumemos, pero el proceso siempre es el mismo.
+
+En Python definimos un procedimiento así: \\
+
+\begin{tabular}{l l}
+def & \textbf{nombre\_procedimiento} (\textbf{entradas}): \\
+ & \textbf{instrucciones} \\
+ &	return \textbf{salida} \\
+\end{tabular} \\
+
+La palabra \emph{def} indica que se está definiendo un nombre para ese fragmento de código. Las entradas pueden ser únicas, múltiples o inclusive ninguna (en caso de presentarse varias entradas, éstas deben estar separadas por comas). La palabra \textbf{return} indica la salida del procedimiento, así que una vez el computador llegue a un \textbf{return}, deja de ejecutar el resto del código del procedimiento, comportamiento que nos resultará sumamente útil más adelante. 
+
+\emph{Importante:} no todos los procedimientos retornan valores, por ejemplo, la función \emph{print} es un procedimiento que no retorna ningún resultado, sólo muestra valores en la pantalla. Inicialmente, nuestros procedimientos tendrán salidas, pero más adelante habrá casos en los cuáles no sea necesario retornar nada.
+
+
+Por otra parte, es importante recordar que \textbf{las tabulaciones} son fundamentales en Python, ya que el código que está tabulado (como se ve en la sintaxis) es el que hará parte del procedimiento.
+
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+  \node[punkt] (procedimiento) {Sumar};
+  \node[above left=0.2cm and 1.3cm of procedimiento] (entradaA) {Número A};
+  \node[below left=0.2cm and 1.3cm of procedimiento] (entradaB) {Número B};
+  \node[right=1.3cm of procedimiento] (salida) {Resultado};
+  
+  \draw [pil] (entradaA.east) -- node[] {} (procedimiento.west);
+  \draw [pil] (entradaB.east) -- node[] {} (procedimiento.west);
+  \draw [pil] (procedimiento) -- node[] {} (salida.west);
+\end{tikzpicture}
+\caption{Procedimiento que recibe dos números y los suma}
+\label{figprocsuma}
+\end{figure}
+
+Por ejemplo, la figura \ref{figprocsuma} muestra gráficamente un procedimiento que suma dos números y arroja el resultado (este ejemplo es sólo para ilustrar al lector sobre el uso de procedimientos, más adelante en este capítulo veremos su verdadera utilidad, de momento lo mantendremos así de simple). Dicho procedimiento, está implementado en el código \ref{codsuma1}. \\
+
+\newpage
+
+\lstinputlisting[language=Python,caption=Procedimiento para sumar dos números en Python,label=codsuma1]{./py/cap3/suma.py}
+
+
+\subsection{Invocar procedimientos}
+
+Para ejecutar el procedimiento que hemos definido, bastará con escribir su nombre y entre paréntesis enviar los valores que se le asignan a cada una de las entradas. Si el procedimiento retorna un valor este puede imprimirse directamente o guardarse en una variable -de acuerdo a lo que necesitemos. El código \ref{codinv1} ilustra cómo invocar el procedimiento que hicimos anteriormente. \\
+
+\lstinputlisting[language=Python,caption=Llamado al procedimiento,label=codinv1]{./py/cap3/suma-inv1.py}
+
+El Python, el código completo debe incluir el procedimiento, como se ve en el código \ref{codinv2}. \\s
+
+\lstinputlisting[language=Python,caption=Programa completo,label=codinv2]{./py/cap3/suma-inv2.py}
+
+\subsection{Ejecución del programa}
+
+Revisemos cómo se ejecuta el programa. Primero, notemos que el código está ``dividido'' en dos partes:
+
+\begin{enumerate}
+\item La sección dónde declaramos los procedimientos. Ésta siempre debe aparecer al principio del programa. En este caso son las líneas 1 y del código \ref{codinv2}
+
+\item El resto del programa. Esta parte se conoce como \textbf{algoritmo principal}. Note que es la sección que \emph{no está contenida dentro de un def}.
+\end{enumerate}
+
+Cuando se inicia el programa, la ejecución comienza por el \textbf{algoritmo principal} y avanza línea a línea. Si se realiza una llamada a un procedimiento, éste se ejecuta, una vez termine, se continúa desde punto en el que se realizó la llamada.
+
+En este orden de ideas la ejecución del programa \ref{codinv2} es la siguiente:
+
+\begin{enumerate}
+\item Se inicia la ejecución desde el \textbf{algoritmo principal} en la línea 4.
+\item Se llama al procedimiento sumar con los valores 3 y 5, como entrada.
+\item Se ejecuta la única línea que tiene el procedimiento (línea 2), retornando la suma de los dos valores. Termina el procedimiento.
+\item Se continúa la ejecución en la línea 4, asignando el valor que retornó el procedimiento a la variable $resultado$.
+\item Se ejecuta la línea 5 y se imprime el número que estaba almacenado en la variable resultado.
+\end{enumerate}
+
+\newpage
+\subsection{Regresando con los números primos}
+
+¿Recuerda los números primos? En está ocasión vamos a revisar el programa que habíamos realizado en el capítulo anterior, intentando eliminar algunas validaciones que son innecesarias y descartando algunos números que sabemos con anterioridad, no son primos. El objetivo es optimizar el programa (en un capítulo posterior veremos cómo se mide la eficiencia de un algoritmo) y aprender a utilizar retornos para ahorrarnos tabulaciones (en algunos casos útiles).
+
+Tengamos en cuenta lo siguiente:
+
+\begin{itemize}
+	\item Ni el uno ni el cero son primo.
+	\item Ningún número par es primo, excepto el dos. 
+	\item Si ninguno de los casos anteriores se cumple, sólo debemos verificar desde 3 hasta $\sqrt{n}$. Si en la verificación encontramos que algún número es divisor de $n$, sabemos que $n$ no es primo.
+\end{itemize}
+
+Primero revimos el código que implementa todo esto sin usar procedimientos, teniendo en cuenta que imprimiremos TRUE si es primo y FALSE si no lo es. Para hallar la raíz cuadrada en Python se usa la función \emph{sqrt(número)} en el código \ref{codprimos1}. \\
+
+\lstinputlisting[language=Python,caption=Sólución sin procedimientos,label=codprimos1]{./py/cap3/primos1.py}
+
+\newpage
+
+Notemos una cosa de la última parte del código: tenemos que asignar una variable asumiendo que sí es primo, luego revisar los valores y si encontramos un divisor convertimos esa variable en falso, pero el programa sigue ejecutándose hasta la $\sqrt{n}$, sin importar que ya sepamos que no es primo. \\
+
+Dicho esto, miremos cómo quedaría una solución utilizando procedimientos y retornos de forma inteligente (Ver código \ref{codprimos2}). \\
+
+\lstinputlisting[language=Python,caption=Sólución usando procedimientos,label=codprimos2]{./py/cap3/primos2.py}
+
+Con esta solución nos ahorramos la tabulación del último \emph{else}, ya que si se llega a un retorno el resto del procedimiento no se ejecuta. De igual forma la última parte es más clara y no necesita que computemos los valores hasta $\sqrt{n}$, porque al encontrar un divisor del número, el procedimiento retorna \emph{False} como respuesta. Si el programa nunca encuentra un divisor, alcanza el último retorno y devuelve \emph{True}.
+
+Si quisiéramos usar el procedimiento, bastaría con llamarlo las veces que sea necesario, como se ve en el código \ref{codprimoscall}.
+
+\newpage
+
+\lstinputlisting[language=Python,caption=Llamada al procedimiento para saber si un número es primo,label=codprimoscall]{./py/cap3/primoscall.py}
+
+
+\section{Problemas}
+\begin{Exercise}[title={Calentamiento}]	
+	\begin{enumerate}
+		\item Realice un procedimiento en Python que reciba dos números ($a$, $b$) y los multiplque sin usar el signo por (*).
+		
+		\item Cree un procedimiento que reciba dos números ($a$, $b$) y realice la operación $a^b$ sin usar el signo de potenciación (**) y \emph{usando el procedimiento realizado en el paso anterior}.
+		
+		\item Cree un algoritmo principal que lea dos números, los envíe al procedimiento anterior e imprima la respuesta.
+	\end{enumerate}
+\end{Exercise}
+\begin{Answer}
+	
+	\lstinputlisting[language=Python,caption=Solución de los problemas de calentamiento de procedimientos.,label=cod-calentamiento-proc]{./py/cap3/calentamiento.py}
+	\newpage
+\end{Answer}
+\newpage
+\begin{Exercise}[title={Patrullas de policía}]	
+	En una estación de policía se tienen unas patrullas para atender los incidentes
+	que ocurren en el sector. De cada patrulla sabemos si está disponible o no, cuántos
+	agentes tiene asignados, si es motorizada y si los agentes tienen bolillos o armas de
+	fuego. Cada cierto tiempo se reciben llamados de emergencia, de estos conocemos
+	cuantos agentes se necesitan para controlar la situación, si se requieren patrullas con
+	vehículos y si es posible enfrentarse con sospechosos armados.
+	
+	\begin{enumerate}
+		\item Construya un procedimiento que reciba todos los datos necesarios para
+		determinar si una patrulla puede atender una emergencia.
+		
+		\begin{itemize}
+			\item Primero realice el procedimiento verificando si una patrulla CUMPLE con los requisitos, uno a uno valídelos.
+			
+			\item Programe de nuevo el procedimiento pero ahora hágalo DESCARTANDO las patrullas que no cumplen.
+			
+		\end{itemize}
+		
+		\item Construya un programa que solicite a un usuario los datos de una
+		emergencia, luego pida los datos de 10 patrullas, con cada una
+		debe llamar el procedimiento creado en el punto anterior e indicar si la patrulla puede o no atender la emergencia.
+	\end{enumerate}
+\end{Exercise}
+\begin{Answer}
+	
+	\lstinputlisting[language=Python,caption=Solución del problema Patrullas de Policía.,label=cod-policia]{./py/cap3/policia.py}
+	\newpage
+\end{Answer}
+
+

@@ -1,0 +1,261 @@
+% !TeX spellcheck = de_DE
+\documentclass[a4paper,12pt]{book}
+
+\usepackage{kpfonts}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[RE]{\textsc{\nouppercase{\leftmark}}}
+\fancyhead[LO]{\textsc{\nouppercase{\rightmark}}}
+
+\usepackage[explicit]{titlesec}
+
+
+% SECTIONS STYLE
+\titleformat{\section}
+{\normalfont\LARGE\bfseries}{\thesection.}{1em}{\textsc{#1}}
+\titleformat{\subsection}
+{\normalfont\Large\bfseries}{\thesubsection.}{1em}{\textsc{#1}}
+\titleformat{\subsubsection}
+{\normalfont\large\bfseries}{\thesubsubsection.}{1em}{\textsc{#1}}
+
+% CHAP STYLE
+\def\hrulefillthick{\leavevmode\leaders\hrule height3pt\hfill\kern0pt}
+\titleformat{\chapter}[display]
+{\normalfont\normalsize\scshape}
+{\centering\hrulefillthick\hspace*{.5cm}\chaptertitlename\  \thechapter\hspace*{.5cm}\hrulefillthick}
+{5pt}
+{\titlerule\centering\huge#1}
+[\titlerule]
+
+\titleformat{name=\chapter,numberless}[display]
+{\normalfont\normalsize\scshape}
+{\centering\hrulefillthick\hspace*{0cm}}
+{5pt}
+{\titlerule\centering\huge#1}
+[\titlerule]
+
+
+
+
+\usepackage[utf8]{inputenc}
+% no quoting para usar flechas en TIKZ!!!
+\usepackage[spanish,es-nodecimaldot,,es-noquoting]{babel}
+
+
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	menucolor=black,
+	linkcolor=black,
+	citecolor=black,
+	urlcolor=blue}
+
+\usepackage{apacite}
+\bibliographystyle{apacite}
+
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{qtree}
+\usepackage{url} 
+\usepackage{amsmath}
+\usepackage{pdfpages}
+\usepackage[font=small,labelfont=bf]{caption}
+
+\usepackage{wrapfig}
+\setlength{\columnsep}{20pt}
+
+% No indent
+\usepackage[parfill]{parskip}
+
+%qtree captions
+\usepackage{newfloat}
+\DeclareFloatingEnvironment[fileext=lod]{diagram}
+
+%exercises
+\usepackage[answerdelayed,lastexercise]{exercise}
+
+% code
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codered}{rgb}{0.6,0,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{1,1,1} 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codered},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    basicstyle=\small\ttfamily,
+    frame=tlbr,framesep=4pt,framerule=0.1pt
+}
+\lstset{style=mystyle}
+\lstset{upquote=true}
+
+% Graphics
+\usetikzlibrary{arrows,positioning,shapes} 
+\tikzset{
+    %Define standard arrow tip
+    >=stealth',
+    %Define style for boxes
+    box/.style={
+           rectangle,
+           rounded corners,
+           draw=black, very thick,
+           text width=6.5em,
+           minimum height=2em,
+           text centered},
+    % Define arrow style
+    arrow/.style={
+           ->,
+           thick,
+           shorten <=2pt,
+           shorten >=2pt,},
+    rect/.style={
+               rectangle,
+               draw=black, very thick,
+               text width=6.5em,
+               minimum height=2em,
+               text centered}
+}
+\usetikzlibrary{arrows,positioning,shapes} 
+\tikzset{
+    %Define standard arrow tip
+    >=stealth',
+    %Define style for boxes
+    punkt/.style={
+           rectangle,
+           rounded corners,
+           draw=black, very thick,
+           text width=6.5em,
+           minimum height=2em,
+           text centered},
+    % Define arrow style
+    pil/.style={
+           ->,
+           thick,
+           shorten <=2pt,
+           shorten >=2pt,}
+}
+
+
+%\setcounter{secnumdepth}{3}
+%\setcounter{tocdepth}{3}
+
+\renewcommand{\lstlistingname}{Código} 
+
+
+%TITLE
+\newcommand*{\plogo}{\fbox{$\mathcal{PL}$}} % Generic publisher logo
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\newcommand*{\titleGP}{\begingroup % Create the command for including the title page in the document
+	\centering % Center all text
+	\vspace*{\baselineskip} % White space at the top of the page
+	
+	\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal line
+	\rule{\textwidth}{0.4pt}\\[\baselineskip] % Thin horizontal line
+	
+	{\LARGE INTRODUCCIÓN PRÁCTICA\\ A \\[0.3\baselineskip] LAS CIENCIAS DE LA COMPUTACIÓN }\\[0.2\baselineskip] % Title
+	
+	\rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal line
+	\rule{\textwidth}{1.6pt}\\[\baselineskip] % Thick horizontal line
+	
+	\scshape % Small caps
+	Un viaje por el mundo de la computación \\ % Tagline(s) or further description
+	acompañado de exploraciones apasionantes \\[\baselineskip] % Tagline(s) or further description
+	Trabajo inicial 2015--2017. \\ Retomado en 2020.\par % Location and year
+	
+	\vspace*{2\baselineskip} % Whitespace between location/year and editors
+	
+	Escrito y editado por \\[\baselineskip]
+	{\Large DANIEL CAÑIZARES CORRALES \\ \par} % Editor list
+	{\itshape Cofundador de The Science of Code \\ Programador\par} % Editor affiliation
+	
+	\vfill % Whitespace between editor names and publisher logo
+	
+	
+	{\scshape 2020} \\[0.3\baselineskip] % Year published
+	{\large The Science of Code}\par % Publisher
+	
+	\endgroup}
+%ENDTITLE
+
+
+
+\begin{document}
+
+\includepdf{./Images/cover.png}
+\newpage
+\thispagestyle{empty}
+
+\frontmatter
+\thispagestyle{empty}
+\titleGP
+
+%\include{TeX_files/frontmatter/dedication}
+%\include{TeX_files/frontmatter/abstract}
+\include{tex/frontmatter/licencia}
+\include{tex/frontmatter/prefacio}
+\tableofcontents
+
+\newpage
+\thispagestyle{empty}
+
+\mainmatter
+
+\include{./tex/capitulo1}
+\include{./tex/capitulo2}
+\include{./tex/capitulo3}
+\include{./tex/capitulo4}
+\include{./tex/capitulo5}
+
+%\subsection{La secuencia de Fibonacci}
+
+%\begin{minipage}{.70\textwidth} 
+%Filius Bonacci era un monje y matemático italiano del siglo XII. Publicó un libro llamado %\emph{Liber Abbaci}, en el que trataba sobre la utilización de los números indo-arábigos, %que 
+%\end{minipage}
+%\begin{minipage}{.30\textwidth}
+%  \centering
+%  \includegraphics[height=5cm]{./Images/Fibonacci.jpg}
+%\end{minipage}
+
+
+\backmatter
+% bibliography, glossary and index would go here.
+\chapter{Respuestas}
+\shipoutAnswer
+
+
+\bibliography{./bibtex/EvansIntro,./bibtex/DiscMath,./bibtex/ConcMath}
+
+
+\end{document}
+
+% UNUSED 
+%\makeatletter
+%\renewcommand\chaptermark[1]{
+%	\markboth{\textsc{
+%			\ifnum\c@secnumdepth>\m@ne\if@mainmatter
+%			\@chapapp\ \thechapter. \ \fi\fi #1}}{}%
+%}
+%\makeatother

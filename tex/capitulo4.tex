@@ -1,0 +1,273 @@
+\chapter{Programas más complejos}
+
+En este capítulo veremos un par de herramientas adicionales, para finalmente poner en práctica todo lo aprendido en la programación de un juego en Python. La idea es también construir una estrategia que le permita al ordenador jugar contra una persona.
+
+\section{Otras formas de repetir}
+
+
+Utilizando un \emph{for} podemos iterar un número de veces determinado (de acuerdo al rango que definamos), sin embargo en ocasiones no sabemos de antemano cuántas veces debemos repetir, sólo sabemos que debemos hacerlo mientras se cumpla una condición en el estado de la máquina. En esos casos utilizamos el ciclo \textbf{while}, que traduce \emph{mientras} en español. El \textbf{while} tiene la siguiente sintaxis:
+
+\begin{tabular}{l l}
+	while & \textbf{condición}: \\
+	& \textbf{instrucciones a repetir} \\
+\end{tabular} \\
+
+Por ejemplo, podemos tener el mismo comportamiento que un \emph{for}, como se ve en código \ref{codwhilefor} (aunque es mejor utilizar un \emph{for} para estos casos, por obvias razones). 
+
+\newpage
+
+\lstinputlisting[language=Python,caption=While vs For,label=codwhilefor]{./py/cap3/whilefor.py}
+
+A continuación veremos un caso en el que sí se debe usar el \emph{while}.
+
+\subsection{El algoritmo de Euclides}
+
+El algoritmo de Euclides permite computar el \textbf{Máximo Común Divisor} (MCD) entre dos enteros positivos. El MCD está definido como el entero positivo más grande que divide a ambos números \cite{discretemath}. \\
+
+Sean $a$ y $b$ dos enteros positivos, para hallar su MCD esto es lo que debemos realizar: 
+
+\begin{enumerate}
+	\item Si el residuo de la división entre $a$ y $b$ es cero, entonces $b$ es el MCD.
+	\item Si el residuo de la división entre $a$ y $b$ es un entero $r$ diferente de 0, entonces el MCD entre $a$ y $b$ es el MCD entre $b$ y $r$.
+\end{enumerate}
+
+
+
+Por ejemplo, para hallar el MCD entre 18 y 12:
+
+\begin{itemize}
+	\item El residuo entre 18 y 12 es 6, luego toca aplicar la segunda propiedad.
+	\item Al aplicarla, operamos con 12 y 6, cuyo residuo es 0. Luego, el MCD(18,12) es 6. 	
+\end{itemize}
+
+Ahora, vamos a programar el algoritmo. Tendremos en cuenta las propiedades, pero haremos un pequeño ajuste para que nos sea más fácil programarlo: iteraremos una vez de más, de forma que el residuo quede cargado en la variable $b$, como se puede ver en la tabla \ref{euclidej}. Luego, la condición para iterar es que $b$ sea diferente de cero, cuando llegue a cero es porque hemos encontrado en MCD (que estará en la variable $a$).
+
+\newpage
+
+\begin{figure}[h!]
+	\centering
+\begin{tabular}{| p{1cm} | p{1cm} | p{1cm} |}\hline
+	\textbf{a} & 	\textbf{b} & 	\textbf{r} \\ \hline
+	18 & 12 & 6 \\ 
+	12 & 6 & 0 \\ 
+	6 & 0 & FIN \\ \hline
+\end{tabular}
+
+\caption{Aplicando el algoritmo de Euclides para 18 y 12}
+\label{euclidej}
+\end{figure}
+
+Para que los valores sobre los que operamos cambien en cada iteración, basta con intercambiar el valor que hay en $a$ por el de $b$ y el de $b$ por el del residuo que acabamos de calcular. Finalmente, el código \ref{codeuclid} expone lo que acabamos de describir. \\
+
+\lstinputlisting[language=Python,caption=El algoritmo de Euclides en Python,label=codeuclid]{./py/cap3/euclid.py}
+
+¿Por qué no usamos un \emph{for}? Porque no podemos saber de antemano cuántas veces vamos a repetir, dependiendo del valor que arroje el residuo debemos seguir repitiendo los pasos del algoritmo, o por el contrario sabemos si hemos encontrado la respuesta correcta.
+
+\subsection{Repitiendo por siempre}
+
+Una de las formas más comunes de utilizar el \emph{while} es poniendo un \textbf{True} en la condición, de forma que se repita por siempre. El \textbf{While True} requiere que se utilice un retorno (en caso de estar en un procedimiento) o la instrucción \textbf{break} (que traduce romper), para indicarle al programa cuándo salirse del ciclo y continuar ejecutando el resto del programa. Tiene la siguiente sintaxis: \\
+
+\begin{tabular}{l l}
+	while & True:  \\
+	& \textbf{instrucciones a repetir}  \\
+	& if \textbf{condición de salida}:  \\
+	&    \hspace{1cm} break \\
+\end{tabular} \\
+
+Veámos cómo funciona esto con un ejemplo. Suponga que necestiamos realizar un programa que obligue a la persona a digitar un número positivo, es posible realizarlo de dos formas: usando un while o usando un while true, como se puede observar en el código \ref{codwhiletrue}. \\
+
+\lstinputlisting[language=Python,caption=While True VS While,label=codwhiletrue]{./py/cap3/whiletrue.py}
+
+Aunque ambos cumplen con la misma función, con el \emph{While True} se evita la asignación de un valor temporal para entrar en el ciclo, el cuál nada tiene que ver con el objetivo real del programa.
+
+\section{Depurando los programas}
+
+La mayoría de las veces, los programas que construimos tienen errores lógicos o \emph{bugs}. Para eliminarlos y corregir el programa es necesario identificarlos, algo que en ocasiones es una tarea nada trivial. \\
+
+El proceso de arreglar programas con errores se conoce como \emph{depuración} \cite{evansIntro}. Las siguientes son recomendaciones útiles que usted puede seguir para corregir sus programas:
+
+\begin{enumerate}
+	\item No le pida ayuda a su profesor o a un programador. Puede sonar extraño, pero cuando usted se acostumbra a que otros corrijan sus programas se hace un daño terrible: usted aprende más corrigiendo un programa que no funciona, que programando un código que falla. 
+	
+	\item Aprenda a utilizar el \emph{depurador} que la mayoría de entornos de programación contienen, por lo menos aprenda a poner \emph{prints} en el código para identificar dónde está el error. Esto es, use \emph{prints} para imprimir los valores que tienen las variables que representan el estado de la máquina, revise si estos valores son correctos, si no, piense qué podría estar ocasionando el error.
+	
+	\item Identifique el procedimiento que está produciendo el error. Si tiene todo el programa en un solo \emph{mega-algoritmo}, piense mejor en empezar de cero.
+\end{enumerate}
+
+Algunas sugerencias que hace David Evans en su libro Introduction to Computing \cite{evansIntro}, son:
+
+\begin{enumerate}
+	\item Asegúrese de entender el comportamiento para el que está destinado su procedimiento. Piense en algunas entradas representativas y las salidas esperadas para esas entradas.
+	
+	\item Haga experimentos, observe el comportamiento actual de su procedimiento. Pruebe el programa con entradas pequeñas. ¿Cuál es la relación entre las salidas actuales y las esperadas? ¿Funciona correctamente para algunas entradas pero no para otras? 
+
+	\item Haga cambios en su procedimiento y vuelva a probarlo. Si usted no está seguro de qué hacer, haga cambios en pequeños pasos y cuidadosamente observe el impacto de cada cambio.
+\end{enumerate}
+
+Dicho todo lo anterior, empecemos a ver algunas cosas aplicaciones interesantes para todo lo aprendido.
+
+\newpage
+
+\section{Aplicando lo aprendido}
+
+Vamos a empezar programando un juego corto. El primer paso será dividir el problema en varias partes, ya que es más fácil solucionar pequeños pedazos del juego que intentar resolverlo todo al mismo tiempo. Al final, ensamblaremos los fragmentos de código resultantes, de forma que podamos construir un programa completamente funcional.
+
+\subsection{Thai 21}
+
+Thai 21 es una variante del juego Nim. Distintas versiones de este juego han sido practicadas a lo largo de muchos siglos, pero nadie sabe realmente de donde proviene el nombre \cite{evansIntro}.
+
+El juego consiste en una pila que contiene 21 rocas. Dos jugadores se enfrentan tomando una, dos o tres en cada turno. Al final gana quién tome la última de las piedras. \\
+
+Como dijimos anteriormente, empezaremos por separar el juego en varias partes, esta es la propuesta:
+
+\begin{enumerate}
+	\item Definir cómo representar los datos: responder a esta pregunta ¿cómo representar cada uno de los elementos del juego en Python?
+	\item Lectura de datos: tenemos que pedirle a los jugadores cuántas rocas tomar, pero deben cumplirse dos condiciones:
+	\begin{itemize}
+		\item Que haya suficientes rocas.
+		\item Que intente tomar una, dos o tres rocas.
+	\end{itemize}
+	
+	\item Definir un estado inicial: determinar qué jugador empieza y configurar la pila de las rocas.
+	
+	\item El ciclo del juego (gameloop): pedir los datos (usando el código que realicemos en el paso 2), quitar las rocas de la pila, ver si alguien gano o si se cambia de jugador.
+\end{enumerate}
+
+\subsubsection{Representación de los datos}
+Vamos a tener dos elementos en el juego: las rocas y los jugadores. Los representaremos así en el programa:
+
+\begin{itemize}
+	\item Para las rocas podemos utilizar un entero que nos indique cuántas piedras siguen en el juego.
+	
+	\item Para los jugadores, simplemente necesitamos saber si es el turno del jugador 1 o del jugador 2, para lo cuál usaremos un \emph{bool}, que represente con True al jugador 1 y con False al jugador 2.
+\end{itemize}
+
+
+\subsubsection{Lectura de los datos}
+Definiremos un procedimiento, que luego pueda ser llamado por el algoritmo principal, en el cuál sólo retornaremos el número de rocas que elija el jugador si y sólo si, dicho número es un valor válido para el estado actual del juego.
+
+El procedimiento necesita recibir como entrada el número de rocas disponibles, para determinar que el jugador no está intentando tomar más de las que hay en la pila. 
+
+Dicho procedimiento lo llamaremos \emph{pedir\textunderscore jugada}, como se ve en el código \ref{codthailectura}. \\
+
+\lstinputlisting[language=Python,caption=Lectura de datos para Thai 21,label=codthailectura]{./py/thai21/lectura.py}
+
+\subsubsection{Estado Inicial}
+Lo pondremos en el algoritmo principal. La idea es indicarle al computador que empieza el jugador 1 que hay 21 rocas en la pila, como se ve en el código \ref{codthaiinic}. \\
+
+\lstinputlisting[language=Python,caption=Inicialización del programa para Thai21,label=codthaiinic]{./py/thai21/inic.py}
+
+\subsubsection{Gameloop}
+Cómo no sabemos cuántos turnos son, el gameloop será un \emph{While True}, que terminará cuando no queden rocas. 
+
+Los pasos a realizar serán lo que especificamos anteriormente: pedir los datos (usando el procedimiento que ya definimos), quitar las rocas de la pila (una resta), ver si alguien ganó (si no quedan rocas) o si se cambia de jugador (como es jugador actual está representado por un \emph{bool}, bastará con hacer una negación: si está en verdadero pasará a falso, o viceversa). El gameloop se puede ver en el código \ref{codthaigameloop}. \\
+
+\lstinputlisting[language=Python,caption=Gameloop del Thai21 en Python,label=codthaigameloop]{./py/thai21/gameloop.py}
+
+\subsubsection{Programa final}
+
+Ya que cada parte está lista, podemos ver el programa completo en el código \ref{codthai}. En dicho código se añadió un print para mostrar cuántas rocas quedan en la pila. \\
+
+\lstinputlisting[language=Python,caption=Thai21 en Python,label=codthai]{./py/thai21/thai.py}
+
+\newpage
+
+Para terminar este capítulo, construiremos una estrategia de victoria para que el computador juegue contra una persona. La idea es la siguiente: ¿es posible crear una estrategia que permita al computador ganar cualquier partida sin importar qué movimientos realice el otro jugador? Asuma que siempre el computador hará la primera jugada. 
+
+\textbf{Piense unos minutos cómo podría ser dicha estrategia, antes de continuar leyendo}.
+
+\newpage
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=3cm]{./Images/thai21.png}
+	\caption{Posición de victoria para el jugador 1 (rojo).}
+	\label{figthaiA}
+\end{figure}
+
+\subsection{Estrategia de victoria}
+La idea es llegar a un punto en dónde, sin importar qué haga, el segundo jugador no pueda ganar. Por ejemplo, si quedan 4 piedras, no importa si el jugador 2 toma una, dos o tres piedras, en cualquier caso, el jugador 1 puede ganar (ver figura \ref{figthaiA}).
+
+\begin{itemize}
+\item Si el jugador 2 toma una piedra, quedan tres piedras. El jugador 1 toma las tres piedras y gana.
+\item Si el jugador 2 toma dos piedra, quedan dos piedras. El jugador 1 toma las dos piedras y gana.
+\item Si el jugador 2 toma tres piedra, queda una piedras. El jugador 1 toma la única piedra y gana.
+\end{itemize}
+
+Dicho esto, tenemos que obligar al jugador 2 a que caiga en cuatro, ¿desde cuáles se puede llegar a cuatro? Si es el turno del jugador 1, puede hacerlo desde cinco, seis y siete. Luego, el jugador 2 debe quedar en ocho, ya que sin importar qué haga, quedaremos en alguno de dichos números, como se puede observar en la figura \ref{figthaiB}. 
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=6cm]{./Images/thai21b.png}	
+	\caption{Otra posición clave en el juego.}
+	\label{figthaiB}	
+\end{figure}
+
+Siguiendo la misma idea, podemos devolvernos. A 8 se llega desde 9, 10 y 11. Luego el jugador 2 debe quedar en 12, pero antes en 16 y antes en 20. \\
+
+Si usted observa bien los números clave son múltiplos de 4 (20, 16, 12, 8 y 4), de forma que el número de rocas a tomar, en cada turno debe ser:
+
+\begin{equation}
+JugadaPC = Rocas \% 4
+\end{equation}
+
+Así, si al empezar hay 21 rocas: $21\%4=1$. Tomamos una roca y el otro queda en una posición desde la cuál sin importa qué haga, podemos obligarlo, con la misma fórmula, a que caiga en 16, luego en 12, más tarde en 8 y finalmente en 4.
+
+Para adaptar el código que tenemos hay que modificar el procedimiento que pide la jugada (ya que uno de los jugadores va a ser el computador). Vamos a recibir otro parámetro que será el jugador actual (obviamente habrá que enviarlo desde el algoritmo principal).
+
+El resultado final puede verse en el código \ref{codthaifull}.
+\newpage
+\lstinputlisting[language=Python,caption=Thai21 humano VS computador,label=codthaifull]{./py/thai21/thaifull.py}
+\newpage
+
+\section{Problemas}
+\begin{Exercise}[title={Calentamiento}]	
+	\begin{enumerate}
+		\item Entre a \url{http://codecombat.com/} para practicar sus habilidades como programador (y aprender cosas nuevas).
+		
+		\item Modifique el último código de Thai21 para que empiece un jugador al azar (no siempre el computador). Es posible que en ocasiones no pueda aplicar la estrategia de victoria. \\
+		
+		Cuando necesite generar valores al azar:
+		
+		\begin{enumerate}
+			\item Ponga en la primera línea del programa: \textbf{import random}. Esto le permitirá usar la librería de Python para generar números \emph{Pseudo-aleatorios}.
+			
+			\item Utilice la función:  \textbf{random.randint(a,b)}, para generar números al azar (el número generado, llamémoslo $X$ estará en el rango $a \leq X \leq b$). 
+			
+			\item Ejemplo:
+			\lstinputlisting[language=Python,caption=Números aleatorios en Python,label=codrandomn]{./py/thai21/randomn.py}
+		\end{enumerate}
+		
+		Otra función que puede serle útil es \textbf{min(a, b)} que recibe dos números y le retorna el menor de los dos (para evitar escribir el if y el else, como en el segundo capítulo).
+	\end{enumerate}
+\end{Exercise}
+\begin{Answer}	
+	\lstinputlisting[language=Python,caption=Thai21 definitivo.,label=codthai21def]{./py/thai21/thaicalentamiento.py}
+	\newpage
+\end{Answer}
+
+\newpage
+
+\begin{Exercise}[title={El juego del granjero}]	
+	Hace mucho tiempo, en un mundo alterno, un granjero fue al mercado del pueblo más cercano y compró: un lobo, una cabra y una col.
+	
+	Para volver a su casa tenía que cruzar un río. El granjero disponía de una barca para llegar a la otra orilla, pero en la barca solo cabían él y una de sus compras. Por supuesto, tenía ciertas restricciones:
+	\begin{itemize}
+		\item Si el lobo se quedaba solo con la cabra se la comía.
+		\item Si la cabra se quedaba sola con la col se la comía.
+		\item El granjero siempre debía ir en el bote (para manejarlo).
+	\end{itemize}
+
+	Sabemos que al final del día el granjero logro cruzar con todas sus compras, la pregunta es ¿cómo lo hizo?
+	
+	Elabore un programa en Python que permita a un jugador escoger quién irá en cada
+	viaje con el granjero y que valide de acuerdo a las reglas si en algún momento algo va mal o si se llega al final del juego.
+	
+	Imagine cómo podría pintar el escenario del juego usando prints.
+	 
+\end{Exercise}
+\begin{Answer}	
+	\lstinputlisting[language=Python,caption=El juego del granjero,label=codlccol]{./py/soluciones/lobocabracol.py}
+	\newpage
+\end{Answer}
