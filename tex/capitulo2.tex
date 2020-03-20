@@ -22,20 +22,20 @@ La idea es mantener el modelo lo más simple posible, razón por la cuál sólo 
 \begin{figure}[h!]
 \centering
   \begin{tikzpicture}
-   \coordinate (programa) at (2,1);
-   \coordinate (pa) at (0,2);   
-   \coordinate (pb) at (2,2);
-   \coordinate (pc) at (2,0);
-   \coordinate (pd) at (0,0);   
+  \coordinate (programa) at (2,1);
+  \coordinate (pa) at (0,2);   
+  \coordinate (pb) at (2,2);
+  \coordinate (pc) at (2,0);
+  \coordinate (pd) at (0,0);   
   
-   \coordinate (memoria) at (8,1);
-   \coordinate (ma) at (8,2);   
-   \coordinate (mb) at (10,2);
-   \coordinate (mc) at (10,0);
-   \coordinate (md) at (8,0);  
-   \coordinate (mml) at (8,1.5); 
-   \coordinate (mmr) at (10,1.5); 
-     
+  \coordinate (memoria) at (8,1);
+  \coordinate (ma) at (8,1.25);   
+  \coordinate (mb) at (10,1.25);
+  \coordinate (mc) at (10,0);
+  \coordinate (md) at (8,0);  
+  \coordinate (mml) at (8,0.75); 
+  \coordinate (mmr) at (10,0.75); 
+  
   
   % programa
   \draw (pa) -- (pb) node[above, midway] {Programa};
@@ -44,29 +44,29 @@ La idea es mantener el modelo lo más simple posible, razón por la cuál sólo 
   \draw (pd) -- (pa);   
   % lineas codigo
   \foreach \y in {0.2, 0.4,...,1.8}
-  	\draw (0.2, \y) -- (1.8, \y);  
+  \draw (0.2, \y) -- (1.8, \y);  
   
   %memoria
   \draw (ma) -- (mb) node[above, midway] {Memoria};
-  \draw (mb) -- (mc);
-  \draw (mc) -- (md);
-  \draw (md) -- (ma); 
+  %\draw (mb) -- (mc);
+  %\draw (mc) -- (md);
+  %\draw (md) -- (ma); 
   %memset
   \draw (mml) -- (mmr); 
   % lineas mem
   \foreach \x in {8, 8.4,...,10}   	
-	  \draw (\x,2) -- (\x,1.5);  
+  \draw (\x,0.75) -- (\x,1.25);  
   
-  	%ram
-    \node [right=1cm of programa] [box] (ram) {RAM};  
-  	\node [above=1cm of ram] (salida) {Salida};
-  	\node [below=1cm of ram] (entrada) {Entrada}; 
-  	
-  	% arrows  	
-  	\draw [arrow] (ram.north) -- node[] {} (salida.south); 	\draw [arrow] (entrada.north) -- node[] {} (ram.south);
- 	\draw [arrow] (programa.east) -- node[] {} (ram.west);
- 	\draw [arrow] (memoria.west) -- node[] {} (ram.east); 	
- 	\draw [arrow] (ram.east) -- node[] {} (memoria.west);  
+  %ram
+  \node [right=1cm of programa] [box] (ram) {RAM};  
+  \node [above=1cm of ram] (salida) {Salida};
+  \node [below=1cm of ram] (entrada) {Entrada}; 
+  
+  % arrows  	
+  \draw [arrow] (ram.north) -- node[] {} (salida.south); 	\draw [arrow] (entrada.north) -- node[] {} (ram.south);
+  \draw [arrow] (programa.east) -- node[] {} (ram.west);
+  \draw [arrow] (memoria.west) -- node[] {} (ram.east); 	
+  \draw [arrow] (ram.east) -- node[] {} (memoria.west);  
   \end{tikzpicture}
 
 \caption{Máquina RAM}
