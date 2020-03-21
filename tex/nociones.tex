@@ -36,7 +36,7 @@ Vamos a imaginar un computador abstracto que se comporta de forma muy similar a 
 De una u otra forma, el programa tendrá que interactuar con todos los componentes de la máquina, luego, los lenguajes de programación deben proveer mecanismos para manipular y representar la memoria, la entrada y la salida de datos. Cabe anotar que, como el programa depende del estado actual de la máquina, también se debería contar con estructuras que permitan repetir o ejecutar ciertas instrucciones de acuerdo a los datos almacenados en memoria. Por ejemplo, se deben ejecutar algunas instrucciones si la máquina entra o en un estado de error o se deben repetir algunas instrucciones mientras que una persona esté presionando una tecla en un videojuego. A propósito veamos con un ejemplo práctico todos estos conceptos.
 
 
-\subsection{Ejemplo práctico}
+\section{Ejemplo práctico}
 
 
 \begin{figure}[h!]
@@ -99,17 +99,56 @@ Para concluir, como podemos ver el programa termina siendo una serie de instrucc
 \section{Problemas}
 \begin{Exercise}[title={Acercamiento inicial}]	
 	
-Define en tus propias palabras, pero tratando de ser muy claro y ordenado, las entradas, las salidas, la memoria y el programa para que la Máquina RAM pueda simular las siguientes situaciones:
+Defina con sus propias palabras, pero tratando de ser muy claro y ordenado, las entradas, las salidas, la memoria y el programa para que la Máquina RAM pueda simular las siguientes situaciones:
 
 	\begin{enumerate}
-		\item Una calculadora que permita sumar y/o restar dos números.
+		\item Una calculadora que permita sumar o restar dos números.
 		
-		\item Un videojuego para jugar entre dos personas al \emph{triqui} o también conocido como tres en raya.
+		\item El videojuego \emph{Flappy Bird}. Es recomendable buscarlo en internet para tener claras las mecánicas del juego.
 	\end{enumerate}
 \end{Exercise}
 \begin{Answer}	
-	\lstinputlisting[language=Python,caption=Thai21 definitivo.,label=codthai21def]{./py/thai21/thaicalentamiento.py}
-	\newpage
+	
+Estos problemas no tienen una única solución, la idea es comenzar a interiorizar las mecánicas sobre las cuáles se escriben programas de computados (sin llegar a ser demasiado estrictos). El lector debería comparar sus respuestas con las soluciones propuestas y pensar en qué partes faltó claridad en su programa.
+		
+\begin{enumerate}
+\item Calculadora:
+	\begin{itemize}
+		\item Entrada: números ingresados por teclado además de las teclas +, - y ENTER.
+		\item Salida: resultado de la operación. También podríamos ir mostrando los datos ingresados por el usuario.
+		\item Memoria: deberíamos poder almacenar el \emph{numero1}, el \emph{numero2}, la \emph{operación} a realizar y el resultado. Para la operación podríamos ser más específicos, ya que en la memoria sólo podemos almacenar números, el 0 representará restar y el 1 sumar.
+		\item Programa:
+		\begin{itemize}
+			\item Almacenar el primer número digitado por el usuario en la memoria como  \emph{numero1}.					
+			\item Si el usuario digita el signo -, almacenar en la memoria en \emph{operación} un 0.
+			\item Si el usuario digita el signo +, almacenar en la memoria en \emph{operación} un 1.
+			\item Almacenar el segundo número digitado por el usuario en la memoria como  \emph{numero2}.
+			\item Si la \emph{operación} es 0, mostrar en la pantalla el resultado de restar: \emph{numero1 - numero2}.					
+			\item Si la \emph{operación} es 1, mostrar en la pantalla el resultado de sumar: \emph{numero1 + numero2}.
+			\item Repetir desde el primer paso hasta que el usuario se salga del programa.
+		\end{itemize}
+		
+	\end{itemize}
+	
+\item Flappy birds:
+	\begin{itemize}
+		\item Entrada: por turnos cada jugador debe escoger una posición en el tablero de juego, para hacer la selección el usuario debería digitar una .
+		\item Salida: resultado de la operación. También podríamos ir mostrando los datos ingresados por el usuario.
+		\item Memoria: deberíamos poder almacenar el \emph{numero1}, el \emph{numero2}, la \emph{operación} a realizar y el resultado. Para la operación podríamos ser más específicos, ya que en la memoria sólo podemos almacenar números, el 0 representará restar y el 1 sumar.
+		\item Programa:
+		\begin{itemize}
+			\item Almacenar el primer número digitado por el usuario en la memoria como  \emph{numero1}.					
+			\item Si el usuario digita el signo -, almacenar en la memoria en \emph{operación} un 0.
+			\item Si el usuario digita el signo +, almacenar en la memoria en \emph{operación} un 1.
+			\item Almacenar el segundo número digitado por el usuario en la memoria como  \emph{numero2}.
+			\item Si la \emph{operación} es 0, mostrar en la pantalla el resultado de restar: \emph{numero1 - numero2}.					
+			\item Si la \emph{operación} es 1, mostrar en la pantalla el resultado de sumar: \emph{numero1 + numero2}.
+			\item Repetir desde el primer paso hasta que el usuario se salga del programa.
+		\end{itemize}
+		
+	\end{itemize}
+\end{enumerate}
+\newpage
 \end{Answer}
 
 \newpage
