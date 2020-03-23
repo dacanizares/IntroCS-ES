@@ -36,7 +36,7 @@ Vamos a imaginar un computador abstracto que se comporta de forma muy similar a 
 De una u otra forma, el programa tendrá que interactuar con todos los componentes de la máquina, luego, los lenguajes de programación deben proveer mecanismos para manipular y representar la memoria, la entrada y la salida de datos. Cabe anotar que, como el programa depende del estado actual de la máquina, también se debería contar con estructuras que permitan repetir o ejecutar ciertas instrucciones de acuerdo a los datos almacenados en memoria. Por ejemplo, se deben ejecutar algunas instrucciones si la máquina entra o en un estado de error o se deben repetir algunas instrucciones mientras que una persona esté presionando una tecla en un videojuego. A propósito veamos con un ejemplo práctico todos estos conceptos.
 
 
-\section{Ejemplo práctico}
+\section{Modelando un videojuego}
 
 
 \begin{figure}[h!]
@@ -71,30 +71,30 @@ Intentemos comprender cómo representar este juego en nuestra \emph{Máquina RAM
 		\item La dirección en el eje Y de la pelota, es decir, si va hacia arriba o abajo.
 	\end{itemize}
 
-	Con todos estos datos, es posible saber el estado del juego y así, el computador puede pintar en pantalla qué es exactamente lo que está pasando.
+	Con todos estos datos, es posible saber el estado del juego y así, el computador puede pintar en pantalla qué es exactamente lo que está ocurriendo.
 	
 	\item El programa: para que nuestra máquina simule realmente el videojuego tendríamos que tener en cuenta darle instrucciones para cada uno de los siguientes casos: 
 	
 	\begin{itemize}
-		\item \textbf{Si} el jugador 1 presione la tecla arriba, mover la posición de su raqueta hacia arriba; cada vez que presione la tecla abajo, mover su raqueta hacia abajo. De igual forma habría que configurar un par de teclas para que el jugador 2 pueda moverse.
+		\item Pintar en la pantalla las raquetas, la pelota y la puntuación.
+		
+		\item \textbf{Si} el jugador 1 presiona la tecla arriba, mover la posición de su raqueta hacia arriba; \textbf{Si} presiona la tecla abajo, mover su raqueta hacia abajo. De igual forma habría que configurar un par de teclas para que el jugador 2 pueda moverse.
 		
 		\item Mover la posición de la pelota de acuerdo a su velocidad y dirección.
 		
 		\item \textbf{Si} la pelota colisiona con una raqueta, cambiar su dirección.
 		
 		\item \textbf{Si} la pelota toca la esquina izquierda, sumar más uno a la puntuación del jugador 1; \textbf{si} la pelota toca la esquina derecha, sumar a la puntuación del jugador 2.
-		
-		\item Luego de todo esto, pintar en la pantalla las raquetas, la pelota y la puntuación.
-		
+				
 		\item \textbf{Repetir} desde el primer paso, hasta que los jugadores se salgan del juego.
 	\end{itemize}
 \end{itemize}
 
-Nótese, que como dijimos anteriormente, hay ciertas palabras importantes (\textbf{Si}, \textbf{Repetir}) que  permiten definir cuando ejecutar o no una instrucción, o cuantas veces repetir una serie de pasos en nuestro código.
+Nótese que usamos palabras importantes (\textbf{Si}, \textbf{Repetir}) para definir cuando ejecutar o no una instrucción, o cuantas veces repetir una serie de pasos en nuestro código.
 
 Hecho todo esto, y si la Máquina RAM entendiera español, más o menos podría simular \emph{Pong} para nosotros. Sin embargo, nuestros computadores no son tan inteligentes, luego debemos ser mucho más explícitos en las instrucciones que utilizamos, tema que comenzaremos a explorar en el próximo capítulo.
 
-Para concluir, como podemos ver el programa termina siendo una serie de instrucciones para que el computador sepa que hacer en un momento determinado. Al principio puede parecer complejo entender los límites de lo que podemos programar o incluso más difícil aún, saber cómo expresar nuestras ideas en instrucciones que entienda la máquina. Similar a aprender un nuevo idioma, con poco de práctica y algo de imaginación, estas barreras irá desapareciendo a medida que avancemos.
+Para concluir, como podemos ver el programa termina siendo una serie de instrucciones para que el computador sepa que hacer en un momento determinado. Al principio puede parecer complejo entender los límites de lo que podemos programar o incluso más difícil aún, saber cómo expresar nuestras ideas en instrucciones que entienda la máquina. Similar a aprender un nuevo idioma, con poco de práctica y algo de imaginación, estas barreras irán desapareciendo a medida que avancemos.
 
 \section{Problemas}
 \begin{Exercise}[title={Acercamiento inicial}]	
@@ -120,30 +120,28 @@ Estos problemas no tienen una única solución, la idea es comenzar a interioriz
 		\item Programa:
 		\begin{itemize}
 			\item Almacenar el primer número digitado por el usuario en la memoria como  \emph{numero1}.					
-			\item Si el usuario digita el signo -, almacenar en la memoria en \emph{operación} un 0.
-			\item Si el usuario digita el signo +, almacenar en la memoria en \emph{operación} un 1.
+			\item \textbf{Si} el usuario digita el signo -, almacenar en la memoria en \emph{operación} un 0.
+			\item \textbf{Si} el usuario digita el signo +, almacenar en la memoria en \emph{operación} un 1.
 			\item Almacenar el segundo número digitado por el usuario en la memoria como  \emph{numero2}.
-			\item Si la \emph{operación} es 0, mostrar en la pantalla el resultado de restar: \emph{numero1 - numero2}.					
-			\item Si la \emph{operación} es 1, mostrar en la pantalla el resultado de sumar: \emph{numero1 + numero2}.
-			\item Repetir desde el primer paso hasta que el usuario se salga del programa.
+			\item \textbf{Si} la \emph{operación} es 0, mostrar en la pantalla el resultado de restar: \emph{numero1 - numero2}.					
+			\item \textbf{Si} la \emph{operación} es 1, mostrar en la pantalla el resultado de sumar: \emph{numero1 + numero2}.
+			\item \textbf{Repetir} desde el primer paso hasta que el usuario se salga del programa.
 		\end{itemize}
 		
 	\end{itemize}
 	
 \item Flappy birds:
 	\begin{itemize}
-		\item Entrada: por turnos cada jugador debe escoger una posición en el tablero de juego, para hacer la selección el usuario debería digitar una .
-		\item Salida: resultado de la operación. También podríamos ir mostrando los datos ingresados por el usuario.
-		\item Memoria: deberíamos poder almacenar el \emph{numero1}, el \emph{numero2}, la \emph{operación} a realizar y el resultado. Para la operación podríamos ser más específicos, ya que en la memoria sólo podemos almacenar números, el 0 representará restar y el 1 sumar.
+		\item Entrada: el jugador tiene una única tecla ue presiona para que el pajaro aletee y vuele hacia arriba.
+		\item Salida: en la pantalla debemos pintar el estado del juego, mostrando el jugador y los obstáculos.
+		\item Memoria: deberíamos poder almacenar la \emph{puntación del jugador}, su \emph{posición}, la \emph{velocidad en el eje X} del jugador, la \emph{velocidad en el eje Y} y para mantener las cosas simples, sólo diremos que guardaremos la posición y tamaño de algunos obstáculos que irán apareciendo en la pantalla.
 		\item Programa:
 		\begin{itemize}
-			\item Almacenar el primer número digitado por el usuario en la memoria como  \emph{numero1}.					
-			\item Si el usuario digita el signo -, almacenar en la memoria en \emph{operación} un 0.
-			\item Si el usuario digita el signo +, almacenar en la memoria en \emph{operación} un 1.
-			\item Almacenar el segundo número digitado por el usuario en la memoria como  \emph{numero2}.
-			\item Si la \emph{operación} es 0, mostrar en la pantalla el resultado de restar: \emph{numero1 - numero2}.					
-			\item Si la \emph{operación} es 1, mostrar en la pantalla el resultado de sumar: \emph{numero1 + numero2}.
-			\item Repetir desde el primer paso hasta que el usuario se salga del programa.
+			\item Pintar en la pantalla el pájaro y los obstáculos visibles. Calcular los obstáculos visibles puede ser un poco complejo, pero por facilidad en la explicación no entraremos de momento en detalles		
+			\item \textbf{Si} el jugador presiona la tecla de aletear, se debe incrementar la \emph{velocidad en el eje Y} de forma que el pájaro suba un poco.					
+			\item Actualizar la posición del jugador de acuerdo a su velocidad en cada eje. A la velocidad en Y se le debe restar una cantidad, para que el impulso que tenía se vaya perdiendo y vuelva a comenzar a caer eventualmente.
+			\item \textbf{Si} el jugador colisiona con un obstáculo pierde.
+			\item \textbf{Repetir} desde el primer paso hasta que el jugador pierda.
 		\end{itemize}
 		
 	\end{itemize}
