@@ -32,12 +32,19 @@ Python no sólo facilita la representación de los datos en memoria, sino tambi�
 
 \lstinputlisting[language=Python,caption=Asignaciones en Python,label=cod-asignacion]{./py/nociones/asignacion.py}
 
-Si ejecutamos ese código, el computador no mostrará nada, eso es porque aún no hemos definido instrucciones para la salida de datos. La forma básica de mostrar información en la pantalla es usando la instrucción \emph{print}. Basta con escribirla y seguido de un espacio colocar el valor, la operación o la variable que se desea mostrar. En Python podemos comentar el código, añadiendo el caracter \#, de forma que podamos escribir aclaraciones del programa, sin afectar su comportamiento. Todo lo anterior se ve en el código \ref{cod-salida}. \\
+Si ejecutamos ese código, el computador no mostrará nada, eso es porque aún no hemos definido instrucciones para la salida de datos. La forma básica de mostrar información en la pantalla es usando la instrucción \emph{print}. Basta con escribirla y dentro de paréntesis colocar el valor, la operación o la variable que se desea mostrar. En Python podemos comentar el código, añadiendo el caracter \#, de forma que podamos escribir aclaraciones del programa, sin afectar su comportamiento. Todo lo anterior se ve en el código \ref{cod-salida}. \\
 
 
 \lstinputlisting[language=Python,caption=Salida de datos en Python,label=cod-salida]{./py/nociones/salida.py}
 
-Por otro, la entrada de datos básica se hace con la instrucción \emph{input()}; entre los paréntesis se puede colocar un mensaje para aparezca a la persona que ejecuta el programa. Luego de ingresar los caracteres por teclado y presionar la tecla \emph{enter}, los datos quedan almacenados en la variable a la cuál se haya asignado la instrucción. Por ejemplo, el código \ref{cod-suma} muestra como solicitar dos números por teclado para luego imprimir el valor que resulta al sumarlos \footnote{Como lo importante es aprender, por ahora confiaremos en que el usuario no cometerá errores al ingresar los datos. He visto códigos que complican al estudiante con mil y una validaciones, bajo la excusa de que eso no se puede omitir en un programa comercial. Eso no tiene sentido, al fin y al cabo, cuando se realizan programas grandes, se usan otras herramientas que ayudan a prevenir estos errores.}. \\
+Por otro, la entrada de datos básica se hace con la instrucción \emph{input()}; entre los paréntesis se puede colocar un mensaje para que le aparezca al usuario. Luego de ingresar los caracteres por teclado y presionar la tecla \emph{enter}, los datos quedan almacenados en la variable a la cuál se haya asignado la instrucción. Sin embargo, hay que anotar que la instrucción \emph{input()} nos devuelve un \emph{string}(o texto), luego, si queremos hacer operaciones númericas, debemos convertir ese texto en un número usando alguna de las dos siguientes opciones:
+
+\begin{itemize}
+ \item Convertir una entrada a entero: \textbf{entero = int(input('Digita un entero'))}
+ \item Convertir una entrada a decimal: \textbf{entero = floats(input('Digita un entero'))}
+\end{itemize}
+
+ Por ejemplo, el código \ref{cod-suma} muestra como solicitar dos números por teclado para luego imprimir el valor que resulta al sumarlos \footnote{Como lo importante es aprender, por ahora confiaremos en que el usuario no cometerá errores al ingresar los datos. Hay libros complican al estudiante que poniendole a realizar con mil y una validaciones antes de poder hacer cualquier cosa, bajo la excusa de que eso no se puede omitir en un programa comercial. Eso no tiene sentido, al fin y al cabo, cuando se realizan programas grandes, se usan otras herramientas que ayudan a prevenir estos errores. En capítulos posteriores exploraremos cómo hacerlo.}. \textbf{Importante:} Qué pasa si no convertimos las entradas en enteros? Se recomienda al lector que ensaye en su computador. Si quedan dudas en la sección problemas de este capítulo podrá encontrar la respuesta. \\
 
 \newpage
 
