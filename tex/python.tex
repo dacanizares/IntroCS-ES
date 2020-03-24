@@ -10,7 +10,7 @@ Los códigos escritos para este libro están basados en la version 3 de Python. 
 
 Luego de instalar Python, podríamos usar el editor integrado que la herramienta contiene, se llama IDLE y deberías poder encontrarlo en el menú de inicio o en el listado de programas instalados de tu sistema operativo. Sin embargo, la mejor opción sea instalar VS Code, el cuál se puede descargar de \url{https://code.visualstudio.com/}. Luego de haberlo instalado, en la sección de \textbf{Extensiones} debería instalarse el complemento que da soporte a Python, bastará con buscar en la barra que tiene dicha sección y seleccionar la primera opción (Python, extesion de Microsoft).
 
-Para poder ejecutar cualquier código bastará con crear un archivo con extensión \textbf{.py} y presionar la tecla F5.
+Para poder ejecutar cualquier código bastará con crear un archivo con extensión \textbf{.py} y presionar la tecla F5 (o en su defecto clic derecho en el archivo, \emph{ejecutar archivo Python en la terminal}).
 
 \section{Programación en Python}
 
@@ -23,7 +23,7 @@ Si hablamos de la memoria, en Python contamos con diferentes \textbf{tipos de da
 
 Si luego de realizar una división queremos elimitar los decimales usamos el operador división entera (//). Ejemplo: \emph{5 / 2} da como resultado \emph{2.5}; \emph{5 // 2} da como resultado \emph{2}.
 
-Cuando hablamos de residuos, es el valor que sobra luego de realizar una división. Ejemplo: Si dividimos 5 entre 2 el residuo es 1, luego \emph{5 % 2} da como resultado \emph{1}.
+Cuando hablamos de residuos, es el valor que sobra luego de realizar una división. Ejemplo: Si dividimos 5 entre 2 el residuo es 1, luego \emph{5 \% 2} da como resultado \emph{1}.
 
 \item Valores lógicos: en Python se conocen como \textbf{bool} (booleanos) y sólo tienen dos valores posibles: verdadero (\textbf{True}) o falso (\textbf{False}). Podemos aplicar los operadores Y (\textbf{and}), O(\textbf{or}), Negación (\textbf{not}), entre otros, para componer proposiciones más complejas.  Ver código \ref{cod-asignacion}.
 
@@ -31,8 +31,6 @@ Cuando hablamos de residuos, es el valor que sobra luego de realizar una divisi�
 \end{itemize}
 
 Python no sólo facilita la representación de los datos en memoria, sino también su almacenamiento y manipulación. Para esto, existe el concepto de \textbf{variables}, que permiten dar un nombre arbitrario \footnote{Sólo hay tres restricciones: usar únicamente letras, números o guiones bajos, no empezar por un número y no dejar espacios en blanco} y un valor a partes de la memoria solamente utilizando el operador de igualdad (=), como se ve en el código \ref{cod-asignacion}. Python detecta automáticamente el tipo dato que se le asigna a una variable. \\
-
-\newpage
 
 \lstinputlisting[language=Python,caption=Asignaciones en Python,label=cod-asignacion]{./py/nociones/asignacion.py}
 
