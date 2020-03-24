@@ -1,14 +1,22 @@
 \chapter{Introducción a Python}
 
-Sin embargo en los ejemplos propuesto, no se modificó demasiado la memoria del equipo. A continuación hablaremos sobre algunos mecanismos propios de la programación imperativa que permiten resolver problemas mucho más complejos.
+Luego de ver a grandes rasgos cómo programar un computador, llegó la hora de explorar lo que hemos aprendido en un lenguaje de programación real. 
 
+Cómo vimos, los principales componentes de un computador son \emph{la entrada}, \emph{la salida}, \emph{la memoria} y \emph{el programa}. Ya que vamos a escribir nuestros programas en Python, surge una pregunta: ¿Cómo interactúa Python con los componentes de nuestro computador? Después de muchos intentos con distintas explicaciones, quizá que la mejor forma de responder esta pregunta es mediante ejemplos reales en el lenguaje de programación. Se recomienda encarecidamente al lector, que pruebe todos los programas en su máquina, para que los vea en funcionamiento. De igual forma, nada de esto tendrá sentido si el lector pasa rápidamente sobre este libro y no se toma el tiempo para interiorzar cada instrucción.
 
+\section{Instalando Python}
 
-Ahora, la pregunta es: ¿Cómo hace todo esto Python en un computador real? Después de muchos intentos con distintas explicaciones, creo que la mejor forma de responder esta pregunta es mediante ejemplos reales en el lenguaje de programación. Se recomienda encarecidamente al lector, que pruebe todos los programas en su máquina, para que los vea en funcionamiento. De igual forma, nada de esto tendrá sentido si el lector pasa rápidamente sobre este libro y no se toma el tiempo para entender qué hace cada instrucción.
+Los códigos escritos para este libro están basados en la version 3 de Python. Para instalarlo bastará con ir a la página oficial \url{https://www.python.org/} y en la sección descargas buscar las versión correspondiente para nuestro sistema operativo. Luego de completar la instalación se recomienda reiniciar el computador.
+
+Luego de instalar Python, podríamos usar el editor integrado que la herramienta contiene, se llama IDLE y deberías poder encontrarlo en el menú de inicio o en el listado de programas instalados de tu sistema operativo. Sin embargo, la mejor opción sea instalar VS Code, el cuál se puede descargar de \url{https://code.visualstudio.com/}. Luego de haberlo instalado, en la sección de \textbf{Extensiones} debería instalarse el complemento que da soporte a Python, bastará con buscar en la barra que tiene dicha sección y seleccionar la primera opción (Python, extesion de Microsoft).
+
+Para poder ejecutar cualquier código bastará con crear un archivo con extensión \textbf{.py} y presionar la tecla F5.
 
 \section{Programación en Python}
 
-Aunque en un computador todo termina siendo unos y ceros, Python tiene algunas abstracciones básicas (otras un poco más avanzadas, que veremos en el capítulos posteriores) que harán todo más fácil. Una abstracción permite manipular la máquina sin necesidad de conocer a fondo su funcionamiento. Por ejemplo, el pedal de un carro permite que usted acelere sin necesidad de conocer el funcionamiento del motor. Si hablamos de la memoria, en Python contamos con diferentes \textbf{tipos de datos} que determinan las acciones podemos realizar con los datos almacenados en memoria, sin necesidad de conocer a profundidad qué hace el computador con ellos. A saber:
+Aunque en un computador todo termina siendo unos y ceros, Python tiene algunas abstracciones básicas (otras un poco más avanzadas, que veremos en el capítulos posteriores) que harán todo más fácil. Una abstracción permite manipular la máquina sin necesidad de conocer a fondo su funcionamiento. Por ejemplo, el pedal de un carro permite que usted acelere sin necesidad de conocer el funcionamiento del motor. 
+
+Si hablamos de la memoria, en Python contamos con diferentes \textbf{tipos de datos} que determinan las acciones podemos realizar con los datos almacenados, sin necesidad de conocer a profundidad qué hace el computador con ellos. A saber:
 
 \begin{itemize}
 \item Números: con los números podemos efectuar operaciones aritméticas como sumas (+), restas (-), multiplicaciones (*), divisiones(/), residuos(\%) y potencias (**). En Python, los enteros se llaman \textbf{int} (de \emph{integer}, en inglés) y los que tienen decimales se conocen como \textbf{float}. Por ejemplo: 0, -1, 1, 40, 52, son enteros y 0.1, 0.7, -1.8 son decimales.
