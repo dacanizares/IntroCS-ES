@@ -1,7 +1,10 @@
 % !TeX spellcheck = de_DE
 \documentclass[letterpaper,12pt]{book}
 
-\usepackage{kpfonts}
+\usepackage{ccfonts}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhead{}
@@ -13,11 +16,11 @@
 
 % SECTIONS STYLE
 \titleformat{\section}
-{\normalfont\LARGE\bfseries}{\thesection.}{1em}{\textsc{#1}}
+{\normalfont\LARGE\scshape}{\thesection.}{1em}{\textsc{#1}}
 \titleformat{\subsection}
-{\normalfont\Large\bfseries}{\thesubsection.}{1em}{\textsc{#1}}
+{\normalfont\Large\scshape}{\thesubsection.}{1em}{\textsc{#1}}
 \titleformat{\subsubsection}
-{\normalfont\large\bfseries}{\thesubsubsection.}{1em}{\textsc{#1}}
+{\normalfont\large\scshape}{\thesubsubsection.}{1em}{\textsc{#1}}
 
 % CHAP STYLE
 \def\hrulefillthick{\leavevmode\leaders\hrule height3pt\hfill\kern0pt}
@@ -59,7 +62,6 @@
 \usepackage{listings}
 \usepackage{textcomp}
 \usepackage{color}
-\usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{qtree}
 \usepackage{url} 
@@ -109,51 +111,6 @@
 \lstset{style=mystyle}
 \lstset{upquote=true}
 
-% Graphics
-\usetikzlibrary{arrows,positioning,shapes} 
-\tikzset{
-    %Define standard arrow tip
-    >=stealth',
-    %Define style for boxes
-    box/.style={
-           rectangle,
-           rounded corners,
-           draw=black, very thick,
-           text width=6.5em,
-           minimum height=2em,
-           text centered},
-    % Define arrow style
-    arrow/.style={
-           ->,
-           thick,
-           shorten <=2pt,
-           shorten >=2pt,},
-    rect/.style={
-               rectangle,
-               draw=black, very thick,
-               text width=6.5em,
-               minimum height=2em,
-               text centered}
-}
-\usetikzlibrary{arrows,positioning,shapes} 
-\tikzset{
-    %Define standard arrow tip
-    >=stealth',
-    %Define style for boxes
-    punkt/.style={
-           rectangle,
-           rounded corners,
-           draw=black, very thick,
-           text width=6.5em,
-           minimum height=2em,
-           text centered},
-    % Define arrow style
-    pil/.style={
-           ->,
-           thick,
-           shorten <=2pt,
-           shorten >=2pt,}
-}
 
 
 %\setcounter{secnumdepth}{3}
@@ -229,6 +186,7 @@
 %\include{./tex/programacion-imperativa}
 %\include{./tex/capitulo4}
 %\include{./tex/capitulo5}
+\include{./tex/motor-3d}
 
 %\subsection{La secuencia de Fibonacci}
 
