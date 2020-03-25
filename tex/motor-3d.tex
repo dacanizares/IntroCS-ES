@@ -1,0 +1,99 @@
+\chapter{Programando un motor 3D}
+
+En este capítulo nos aventuraremos a desarrollar un pequeño motor tridimensional. No construiremos una pieza optimizada de alta tecnología pero aprenderemos algunos de los conceptos que permitieron en el año 1992 a una empresa llamada \emph{ID Software} crear uno de los juegos más emblemáticos de la historia, \textbf{Wolfenstein 3D}.
+
+¿Preparados para poner su cerebro a prueba?
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=10cm]{./Images/wolf3d.jpg}
+	\caption{Wolfenstein uno de los primeros juegos en usar motores 3D de forma efectiva. \emph{La imagen es propiedad de sus respectivos dueños, usada únicamente con fines educativos}.}
+	\label{wolf3d}
+\end{figure}
+
+\section{Contexto histórico}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=10cm]{./Images/keen.png}
+	\caption{Keen Commander, anterior a Wolfenstein, también de ID Software, uno de los primeros juegos de plataformas en aprovechar toda la potencia de los ordenadores de la época. \emph{La imagen es propiedad de sus respectivos dueños, usada únicamente con fines educativos}.}
+	\label{keen}
+\end{figure}
+
+Corría el año de 1992, la mayoría de computadores apenas si tenían capacidad para ejecutar de forma fluida algunos juegos en 2D. \emph{}.
+
+%\begin{figure}[h!]
+%	\centering
+%	\includegraphics[width=10cm]{./Images/wolf3d-juego.jpg}
+%	\caption{Gráficos dentro del juego Wolfenstein 3D. \emph{La imagen es propiedad de sus respectivos dueños, usada únicamente con fines educativos}.}
+%	\label{wolf3d-juego}
+%\end{figure}
+
+\newpage
+
+\section{Simulando gráficos en 3D}
+
+
+Dada la poca potencia de los computadores de la época, tener verdaderos gráficos en 3D era una tarea imposible, entonces, ¿cómo hicieron en ID para crear Wolfenstein 3D? La respuesta es que lo que realmente estamos viendo es \emph{una ilusión}.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=10cm]{./Images/wolf3d-mapa.png}
+	\caption{El mapa siempre fue una cuadrícula bidimensional. El jugador es el punto rojo y el triángulo amarillo refleja el campo de visión.}
+	\label{wolf3d-mapa}
+\end{figure}
+
+Como se puede apreciar en la figura \ref{wolf3d-mapa}, toda la lógica del juego ocurría en una cuadrícula; la magia era mostrar los laberintos y enemigos cómo si fueran parte de un entorno tridimensional, pero la verdad, nunca dejaron de ser 2D.
+
+Esto traía muchas ventajas a nivel de rendimiento, sin embargo venía con algunas limitaciones, como por ejemplo que al ser realmente un mapa 2D no podían tenerse cuartos unos encima de otros. Aún así, esta estrategia no era suficiente en sí misma, los procesadores de aquella época era muy limitados y para mantener una tasa de refresco lo suficientemente alta, fueron necesarias otras simplificaciones y optimizaciones, entre ellas: que los muros fueran todos en ángulos de $90^{\circ}$, que los mapas siguieran una estricta alineación a una grilla, que el techo y el piso fueran colores planos sin texturas de ningún tipo.
+
+Dicho esto, exploraremos un algoritmo simplificado para realizar el pintado de los escenarios.
+
+\newpage
+\subsection{Raycasting}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+	\begin{center}
+		\includegraphics[width=0.25\textwidth]{./Images/rays.png}
+	\end{center}	
+	\caption{Rayos lanzados en el campo de visión del jugador para calcular la distancia de los muros. \newline \newline}
+	\label{rays}
+	
+	\begin{center}
+		\includegraphics[width=0.4\textwidth]{./Images/raytracing.png}
+	\end{center}	
+	\caption{Pintado de los muros de acuerdo a la distancia. Como se puede observar, al final se genera la ilusión de un espacio en 3D. \newline \newline}
+	\label{raytracing}
+\end{wrapfigure}
+
+El \textbf{Raycasting} es una técnica que consiste en lanzar rayos para determinar cuál es la primer superficie que estos interceptan. El motor de Wolfenstein basaba su renderizado en está técnica. La idea general es la siguiente:
+
+\begin{enumerate}
+	\item De acuerdo al campo de visión del jugador empezando desde la izquierda y hasta recorrer todo el cono, se lanzarían unos \emph{rayos} verificando a qué distancia se encuentran los muros. Ver figura \ref{rays}.
+	
+	\item De acuerdo a esas distancias se pintan en la pantalla, de izquierda a derecha unas líneas verticales representando los muros (\ref{raytracing}). Entre mayor sea la distancia, más pequeña debe ser la línea (para dar la sensación de perspectiva).
+\end{enumerate}
+
+Con está técnica es posible pintar cualquier mapa de Wolfenstein. Ahora, el algoritmo utilizado por ID tiene muchas optimizaciones y detalles adicionales, sin embargo, para nuestro empeño nos valdremos de esta versión simplificada.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=4cm]{./Images/wolf3d-juego.jpg}
+	\caption{Gráficos dentro del Wolfenstein 3D.}
+	\label{wolf3d-mapa}
+\end{figure}
+
+\newpage
+\subsection{Algo de matemáticas}
+
+Para poder implementar nuestra solución será necesario revisar un par de conceptos matemáticos.
+
+\subsubsection{Vectores}
+
+
+
+\subsubsection{Vector unitario}
+
+\subsubsection{Radianes}
+
+
