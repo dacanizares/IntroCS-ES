@@ -166,6 +166,8 @@ Antes de continuar, cabe anotar que durante toda la ejecución tendremos acceso 
 	\item Posición del jugador: $x$ e $y$, dos números decimales.
 	\item Dirección en la que está mirando el jugador, almacenada como un número decimal que representa ángulo en radianes: $\theta$.
 	\item La velocidad de movimiento y de rotación del jugador, almacenados como dos números decimales: $v$,  $v_{rot}$. 
+	\item El campo de visión del jugador en radianes $FOV$ (Por sus siglas en inglés Field of View - Campo de Visión).
+	\item La resolución de la pantalla. En especial el ancho $Pantalla_{ancho}$.
 \end{itemize}
 
 Luego los cálculos que realicemos, podrán utilizar dichos valores.
@@ -214,5 +216,51 @@ Hablando de la $distancia$, como no la sabemos de antemano, lo que haremos es co
 \end{figure}
 
 
-\subsection{Raycasts en el campo de visión}
+\subsubsection{Raycasts en el campo de visión}
+
+El último cálculo que nos resta, es el de hallar los angulos de inicio y fin, desde los cuáles lanzaremos los rayos. Llamémoslos $FOV_{inicio}$ y $FOV_{fin}$ (FOV por las siglas en inglés de Field of View - Campo de Visión).
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=6cm]{./Images/fov.png}
+	\caption{El campo de visión del jugador.}
+	\label{fovgraph}
+\end{figure}
+
+De la gráfica \ref{fovgraph}, podemos ver que el inicio del FOV se encuentra restando la mitad del FOV total del ángulo al que está mirando el jugador. Para el fin de FOV, sumamos la mitad del total del FOV al ángulo. Todo esto se ve en la ecuación \ref{foveq}. 
+
+\begin{equation}
+\begin{aligned}
+\label{foveq}
+FOV_{inicio} = \theta - \frac{FOV}{2}\\
+FOV_{fin} = \theta + \frac{FOV}{2} \\
+\end{aligned}
+\end{equation}
+
+A continuación, debemos tener en cuenta que el FOV es en definitiva lo que vamos a pintar en el ancho de la pantalla. Luego, debemos hallar la proporción entre el FOV y el ancho de la pantalla para saber cuánto espacio debería haber entre cada rayo, de forma que al final se cubra toda la pantalla.
+
+\begin{equation}
+\begin{aligned}
+\label{foveq}
+Rayo_{espaciado} = \frac{FOV}{Pantalla_{ancho}}
+\end{aligned}
+\end{equation}
+
+Finalmente, deberíamos tirar un rayo en el equivalente a cada pixel horizontal de la pantalla empezando desde la $FOV_{inicio}$. Luego, debemos realizar la siguiente operación para $pixel$, desde 0 hasta el ancho de la pantalla:
+
+\begin{equation}
+\begin{aligned}
+\label{foveq}
+Rayo_{angulo} = FOV_{inicio} + pixel * Rayo_{espaciado} 
+\end{aligned}
+\end{equation}
+
+Reemplazando:
+
+\begin{equation}
+\begin{aligned}
+\label{foveq}
+Rayo_{angulo} = \left(\theta - \frac{FOV}{2} + pixel * \frac{FOV}{Pantalla_{ancho}} \right)
+\end{aligned}
+\end{equation}
 
