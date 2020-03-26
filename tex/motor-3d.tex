@@ -13,6 +13,12 @@ En este capítulo nos aventuraremos a desarrollar un pequeño motor tridimension
 
 \section{Contexto histórico}
 
+\begin{quote}
+	\emph{Tenemos esta oportunidad de hacer algo totalmente nuevo aquí, algo rápido y con texturas. Si podemos hacer que los gráficos se vean fantásticos y rápidos, y hacer el sonido fresco y fuerte, y hacer el juego explosivamente divertido, entonces tendremos algo ganador.} \\
+	John Romero, en Masters of Doom \cite[p.~92]{doom}.
+\end{quote}
+
+
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=10cm]{./Images/keen.png}
@@ -56,14 +62,21 @@ Dicho esto, exploraremos un algoritmo simplificado para realizar el pintado de l
 	\begin{center}
 		\includegraphics[width=0.25\textwidth]{./Images/rays.png}
 	\end{center}	
-	\caption{Rayos lanzados en el campo de visión del jugador para calcular la distancia de los muros. \newline \newline}
+	\caption{Rayos lanzados en el campo de visión del jugador para calcular la distancia de los muros. \newline}
 	\label{rays}
 	
 	\begin{center}
 		\includegraphics[width=0.4\textwidth]{./Images/raytracing.png}
 	\end{center}	
-	\caption{Pintado de los muros de acuerdo a la distancia. Como se puede observar, al final se genera la ilusión de un espacio en 3D. \newline \newline}
+	\caption{Pintado de los muros de acuerdo a la distancia. Al final se genera la ilusión de un espacio en 3D. \newline}
 	\label{raytracing}
+	
+	\begin{center}
+		\includegraphics[width=0.4\textwidth]{./Images/wolf3d-juego.jpg}
+	\end{center}
+	\caption{Gráficos dentro del Wolfenstein 3D.}
+	\label{wolf3d-mapa}
+
 \end{wrapfigure}
 
 El \textbf{Raycasting} es una técnica que consiste en lanzar rayos para determinar cuál es la primer superficie que estos interceptan. El motor de Wolfenstein basaba su renderizado en está técnica. La idea general es la siguiente:
@@ -71,29 +84,135 @@ El \textbf{Raycasting} es una técnica que consiste en lanzar rayos para determi
 \begin{enumerate}
 	\item De acuerdo al campo de visión del jugador empezando desde la izquierda y hasta recorrer todo el cono, se lanzarían unos \emph{rayos} verificando a qué distancia se encuentran los muros. Ver figura \ref{rays}.
 	
-	\item De acuerdo a esas distancias se pintan en la pantalla, de izquierda a derecha unas líneas verticales representando los muros (\ref{raytracing}). Entre mayor sea la distancia, más pequeña debe ser la línea (para dar la sensación de perspectiva).
+	\item De acuerdo a esas distancias se pintan en la pantalla, de izquierda a derecha unas líneas verticales representando los muros. Entre mayor sea la distancia, más pequeña debe ser la línea (para dar la sensación de perspectiva). Ver figura \ref{raytracing}.
 \end{enumerate}
 
-Con está técnica es posible pintar cualquier mapa de Wolfenstein. Ahora, el algoritmo utilizado por ID tiene muchas optimizaciones y detalles adicionales, sin embargo, para nuestro empeño nos valdremos de esta versión simplificada.
+Con está técnica es posible pintar cualquier mapa de Wolfenstein. Ahora, el algoritmo utilizado por ID tiene muchas optimizaciones y detalles adicionales para conseguir una velocidad de renderizado adecuada, así como permitir detalles que incluyen texturas en los muros, lámparas, objetos, enemigos, entre otros. Sin embargo, para nuestro empeño nos valdremos de esta versión simplificada.
 
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=4cm]{./Images/wolf3d-juego.jpg}
-	\caption{Gráficos dentro del Wolfenstein 3D.}
-	\label{wolf3d-mapa}
-\end{figure}
+
 
 \newpage
+\clearpage 
 \subsection{Algo de matemáticas}
 
-Para poder implementar nuestra solución será necesario revisar un par de conceptos matemáticos.
+Para poder implementar nuestra solución será necesario revisar un par de conceptos matemáticos. 
 
 \subsubsection{Vectores}
 
+Un vector es un objeto que tiene una magnitud y una dirección \cite{introVectors} \footnote{En español solemos decir que tienen módulo, dirección y sentido, pero nos ceñiremos a la definición anglosajona.}, gráficamente lo representamos con una flecha.
+ 
+ \begin{figure}[h!]
+ 	\centering
+ 	\includegraphics[width=6cm]{./Images/vector.png}
+ 	\caption{Representación gráfica de un vector.}
+ 	\label{vector}
+ \end{figure}
+
+Con los vectores podemos representar por ejemplo la velocidad en la que se mueve un personaje: la magnitud indicaría la rapidez y la dirección indicaría hacia dónde se está moviendo. En el computador esto lo podríamos representar de la siguiente forma:
+
+\begin{enumerate}
+\item Un ángulo ($\theta$) indicando \emph{la dirección}.
+
+\item Un número ($v$) indicando \emph{la rapidez}.
+\end{enumerate}
 
 
 \subsubsection{Vector unitario}
 
+Los vectores unitarios son aquellos cuya magnitud es 1, luego podemos utilizarlo cuando necesitamos saber sólamente la dirección en la que apunta el vector.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=6cm]{./Images/unitaria.png}
+	\caption{Circunferencia unitaria.}
+	\label{unitaria}
+\end{figure}
+
+
+Cuando tratamos problemas de dos dimensiones, nos referimos a la grafica \ref{unitaria}. De donde podemos sacar, dado un ángulo $\theta$, las componentes en X e Y del vector unitario que representa dicho ángulo.
+
+\begin{equation}
+\begin{aligned}
+\label{unitvector}
+ComponenteX = sin \theta \\
+ComponenteY = cos \theta
+\end{aligned}
+\end{equation}
+
+En otras palabras, dado un ángulo, al aplicar el \emph{sin} y el \emph{cos}, podemos obtener un vector unitario que apunta en la misma dirección. En breve, veremos cómo utilizar este concepto para darle movimiento al jugador y para disparar los \emph{raycast}, pero antes revisemos un último concepto.
+
 \subsubsection{Radianes}
 
+Los radianes es una unidad utilizada para representar ángulos. En los lenguajes de programación es más común que se utilicen \emph{radianes} en vez de \emph{grados} para la manipulación y operación de ángulos, dicho esto, las funciones como \emph{sin} y \emph{cos} en Python esperan recibir ángulo en \emph{radianes}. 
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{./Images/radianes.png}
+	\caption{¿Gráficamente qué son los radianes?}
+	\label{rads}
+\end{figure}
+
+En la gráfica \ref{rads} vemos una intuición sobre lo que son los radianes. De la misma gráfica, es posible notar que $\pi$ radianes equivale a $180^{\circ}
+$, luego $2\pi$ son $360^{\circ}$. Siguiendo la misma lógica, $\frac{\pi}{2}$ son  $90^{\circ}$.
+
+
+Vistos todos los conceptos matemáticos necesarios, es hora de modelar realmente las fórmulas que nos permitirán construír nuestro \textbf{motor 3D}.
+
+\subsection{Contruyendo las ecuaciones}
+
+Antes de continuar, cabe anotar que durante toda la ejecución tendremos acceso a los siguientes datos:
+
+\begin{itemize}
+	\item Posición del jugador: $x$ e $y$, dos números decimales.
+	\item Dirección en la que está mirando el jugador, almacenada como un número decimal que representa ángulo en radianes: $\theta$.
+	\item La velocidad de movimiento y de rotación del jugador, almacenados como dos números decimales: $v$,  $v_{rot}$. 
+\end{itemize}
+
+Luego los cálculos que realicemos, podrán utilizar dichos valores.
+
+\subsubsection{El movimiento del jugador}
+
+Cuando se presione la tecla arriba el jugador se moverá hacia adelante en la dirección en la que él está mirando. Luego, deberíamos obtener un vector unitario a partir de la variable $jugador\_rotacion$  y multiplicarlo por la $velocidad$ a la que se desplaza el jugador y sumarlo a su posición actual. Aplicaríamos este concepto a cada componente ($x$ e $y$) como se puede ver en las ecuaciones \ref{movforw}. 
+
+\begin{equation}
+\begin{aligned}
+\label{movforw}
+x = x + v * sin \theta  \\
+y = y + v * cos \theta
+\end{aligned}
+\end{equation}
+
+Para que camine hacia atrás podríamos hacer lo mismo, pero en vez de sumar, restaríamos. 
+
+\begin{equation}
+\begin{aligned}
+x = x - v * sin \theta  \\
+y = y - v * cos \theta
+\end{aligned}
+\end{equation}
+
+
+\subsubsection{El raycast}
+
+En nuestro caso, para poder realizar los \emph{Raycast} necesitamos saber en qué dirección dispararlo (para lo cuál usaríamos un vector unitario) y qué tan lejos hacerlo (de momento usaremos una variable llamada $distancia$ ya veremos cómo calcularla). Una simplificación que podemos hacer, es que como sabemos que el mapa está perfectamente alineado a una cuadrícula podemos omitir los decimales, para lo cuál usaremos la función \emph{floor} (que aproxima un número decimal a su entero más cercano por debajo). Todo esto lo podemos ver en la ecuación \ref{eqray}.
+
+\begin{equation}
+\begin{aligned}
+\label{eqray}
+rayo_x = floor(x + sin \theta * distancia)\\
+rayo_y = floor(y + cos \theta * distancia)\\
+\end{aligned}
+\end{equation}
+
+Hablando de la $distancia$, como no la sabemos de antemano, lo que haremos es comenzar a calcularla, iniciando desde 0, e incrementándola poco a poco hasta un valor máximo o hasta que toquemos una pared (Ver imagen \ref{raycastit}). La idea de poner un límite máximo es optimizar un poco las cosas, si ya el rayo está muy grande y no hemos encontrado una pared, no queremos seguir buscando infinitamente, porque el juego se bloquearía.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=6cm]{./Images/raycast.png}
+	\caption{Incrementando iterativamente la distancia del rayo hasta encontrar una pared o llegar a un límite máximo.}
+	\label{raycastit}
+\end{figure}
+
+
+\subsection{Raycasts en el campo de visión}
 
