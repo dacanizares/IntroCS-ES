@@ -160,7 +160,7 @@ Vistos todos los conceptos matemáticos necesarios, es hora de modelar realmente
 
 \subsection{Modelando el motor}
 
-Para realizar el modelo matemático que dará forma a nuestro motor, iremos contruyendo las soluciones formalmente y al final de cada sección escribiremos el código correspondiente para cada caso.
+Para realizar el modelo matemático que dará forma a nuestro motor, construiremos las soluciones formalmente y al final de cada sección escribiremos el código correspondiente para cada caso.
 
 Antes de continuar, cabe anotar que durante toda la ejecución tendremos acceso a los siguientes datos:
 
@@ -169,7 +169,9 @@ Antes de continuar, cabe anotar que durante toda la ejecución tendremos acceso 
 	\item Dirección en la que está mirando el jugador, almacenada como un número decimal que representa ángulo en radianes: $jugador_{rot}$.
 	\item La velocidad de movimiento y de rotación del jugador, almacenados como dos números decimales: $velocidad$,  $velocidad_{rot}$. 
 	\item El campo de visión del jugador en radianes $FOV$ (Por sus siglas en inglés Field of View - Campo de Visión).
-	\item La resolución de la pantalla. En especial el ancho $pantalla_{ancho}$.
+	\item La resolución de la pantalla, el alto y ancho de la pantalla.
+	\item Una distacia máxima para limitar qué tan lejos mandamos los raycast.
+	\item Un string donde almacenaremos el mapa.
 \end{itemize}
 
 Luego los cálculos que realicemos, estarán basados en dichos valores. Lo anterior podríamos codificarlo en Python como se ve en el código \ref{cod-motor-vars}.
@@ -221,6 +223,10 @@ Hablando de la $distancia$, como no la sabemos de antemano, lo que haremos es co
 	\caption{Incrementando iterativamente la distancia del rayo hasta encontrar una pared o llegar a un límite máximo.}
 	\label{raycastit}
 \end{figure}
+
+Para ver todo esto en Python, podemos utilizar un código como el \ref{cod-motor-raycast}.
+
+\lstinputlisting[language=Python,caption=Variables generales del programa con algunos valores posibles.,label=cod-motor-raycast]{./py/motor-3d/raycast.py}
 
 
 \subsubsection{Raycasts en el campo de visión}
