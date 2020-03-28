@@ -12,6 +12,10 @@ velocidad_rot = 0
 # Para un FOV de 90 grados aprox.
 FOV = 3.14159 / 4.0
 
-# Resolucion
-pantalla_ancho = 400
-pantalla_alto = 100
+# Otras constantes
+PATANLLA_ANCHO = 400
+PANTALLA_ALTO = 100
+DISTANCIA_MAX_RAYO = 16
+
+# Mapa (luego lo cargaremos con una funcion)
+mapa = ''
