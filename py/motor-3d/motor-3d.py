@@ -2,8 +2,8 @@ import pygame
 import math
 
 # Posicion del jugador
-jugador_x = 3
-jugador_y = 3
+jugador_x = 6
+jugador_y = 6
 
 # Direccion
 jugador_rot = 0
@@ -42,7 +42,7 @@ def cargar_mapa():
   mapa.append("##########")
   mapa.append("#...#....#")
   mapa.append("#........#")
-  mapa.append("#...####.#")
+  mapa.append("###.####.#")
   mapa.append("#...#....#")
   mapa.append("#...#....#")
   mapa.append("#........#")
