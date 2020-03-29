@@ -2,8 +2,8 @@ import pygame
 import math
 
 # Posicion del jugador
-jugador_x = 6
-jugador_y = 6
+jugador_x = 14
+jugador_y = 2
 
 # Direccion
 jugador_rot = 0
@@ -18,11 +18,11 @@ FOV = 3.14159 / 4.0
 # Otras constantes
 PANTALLA_ANCHO = 320
 PANTALLA_ALTO = 240
-DISTANCIA_MAX_RAYO = 7
+DISTANCIA_MAX_RAYO = 9
 
 # Mapa
-MAPA_ANCHO = 10
-MAPA_ALTO = 10
+MAPA_ANCHO = 16
+MAPA_ALTO = 16
 mapa = []
 
 # Teclas presionadas
@@ -39,16 +39,19 @@ pantalla = pygame.display.set_mode((PANTALLA_ANCHO, PANTALLA_ALTO))
 
 def cargar_mapa():
   global map
-  mapa.append("##########")
-  mapa.append("#...#....#")
-  mapa.append("#........#")
-  mapa.append("###.####.#")
-  mapa.append("#...#....#")
-  mapa.append("#...#....#")
-  mapa.append("#........#")
-  mapa.append("#...#..###")
-  mapa.append("#..##....#")
-  mapa.append("##########")
+  mapa.append("################")
+  mapa.append("#.....#........#")
+  mapa.append("#.....#........#")
+  mapa.append("#.....#........#")
+  mapa.append("#.....##..##...#")
+  mapa.append("#..........#...#")
+  mapa.append("#...#......#...#")
+  mapa.append("#..............#")
+  mapa.append("#..............#")
+  mapa.append("####...##..##.##")
+  mapa.append("#......#.......#")
+  mapa.append("#......#.......#")
+  mapa.append("################")
 
 def toca_muro(x, y):
   if x < 0 or x >= MAPA_ANCHO:
@@ -62,11 +65,16 @@ def dibujar_rectangulo(x, y, ancho, alto, color):
   pygame.draw.rect(pantalla, color, pygame.Rect(x, y, ancho, alto))
 
 
+# Algoritmo básico
+# Para mayor calidad y rendimiento
+# se deben usar otras técnicas 
 def raycast(x, y, rot):
   distancia = 0
   direccion_x = math.sin(rot)
   direccion_y = math.cos(rot)
   while distancia < DISTANCIA_MAX_RAYO:
+    # Menores valores mejoran la calidad
+    # pero empeoran el desempeno.
     distancia += 0.1
     rayo_x = math.floor(x + direccion_x * distancia)
     rayo_y = math.floor(y + direccion_y * distancia)
@@ -134,9 +142,10 @@ while True:
     distancia = raycast(jugador_x, jugador_y, rayo_angulo)     
       
     # Pintamos el fragmento de muro
-    muro = PANTALLA_ALTO - (PANTALLA_ALTO / distancia)
+    techo = PANTALLA_ALTO / 2.0 - (PANTALLA_ALTO / distancia)
+    piso = techo
     shading = max(0, 1 - distancia / DISTANCIA_MAX_RAYO)
-    dibujar_rectangulo(pixel, muro / 2, 1, PANTALLA_ALTO - muro, (0, 255 * shading, 0))   
+    dibujar_rectangulo(pixel, techo, 1, PANTALLA_ALTO - techo - piso, (0, 255 * shading, 0))   
 
   fps = fuente.render(str(int(reloj.get_fps())), True, (255, 0, 0))
   pantalla.blit(fps, (50, 50))
