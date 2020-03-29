@@ -13,9 +13,9 @@ velocidad_rot = 0
 FOV = 3.14159 / 4.0
 
 # Otras constantes
-PATANLLA_ANCHO = 400
+PANTALLA_ANCHO = 400
 PANTALLA_ALTO = 100
 DISTANCIA_MAX_RAYO = 16
 
-# Mapa (luego lo cargaremos con una funcion)
-mapa = ''
+# Mapa
+mapa = [[]]
