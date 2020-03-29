@@ -1,7 +1,7 @@
 def raycast(x, y, rot):
   distancia = 0
   while distancia < DISTANCIA_MAX_RAYO: 
-    distanceToWall += 0.1
+    distancia += 0.1 
     rayo_x = math.floor(x + math.sin(rot) * distancia)
     rayo_y = math.floor(y + math.cos(rot) * distancia)
 
