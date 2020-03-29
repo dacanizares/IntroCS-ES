@@ -1,4 +1,5 @@
 \chapter{Programando un motor 3D}
+\label{chap:motor-3d}
 
 En este capítulo nos aventuraremos a desarrollar un pequeño motor tridimensional. No construiremos una pieza optimizada de alta tecnología pero aprenderemos algunos de los conceptos que permitieron en el año 1992 a una empresa llamada \emph{ID Software} crear uno de los juegos más emblemáticos de la historia, \textbf{Wolfenstein 3D}.
 
@@ -99,7 +100,7 @@ Para poder implementar nuestra solución será necesario revisar un par de conce
 
 \subsubsection{Vectores}
 
-Un vector es un objeto que tiene una magnitud y una dirección \cite{introVectors} \footnote{En español solemos decir que tienen módulo, dirección y sentido, pero nos ceñiremos a la definición anglosajona.}, gráficamente lo representamos con una flecha.
+Un vector es un objeto que tiene una magnitud y una dirección \cite{introVectors} \footnote{En español solemos decir que tienen módulo, dirección y sentido, pero nos ceñiremos a la definición anglosajona.}, gráficamente lo representamos como una \emph{flecha}.
  
  \begin{figure}[h!]
  	\centering
@@ -160,7 +161,7 @@ Vistos todos los conceptos matemáticos necesarios, es hora de modelar realmente
 
 \subsection{Modelando el motor}
 
-Para realizar el modelo matemático que dará forma a nuestro motor, construiremos las soluciones formalmente y al final de cada sección escribiremos el código correspondiente para cada caso.
+Para realizar el modelo matemático que dará forma a nuestro motor, construiremos las soluciones formalmente y al final de cada sección escribiremos el código de lo previamente analizado, de forma que sea posible aterrizar un poco más los conceptos. En el \autoref{chap:enlaces} (Enlaces adicionales) el lector podrá encontrar contenidos extra para profundizar este tópico.
 
 Antes de continuar, cabe anotar que durante toda la ejecución tendremos acceso a los siguientes datos:
 
@@ -171,7 +172,7 @@ Antes de continuar, cabe anotar que durante toda la ejecución tendremos acceso 
 	\item El campo de visión del jugador en radianes $FOV$ (Por sus siglas en inglés Field of View - Campo de Visión).
 	\item La resolución de la pantalla, el alto y ancho de la pantalla.
 	\item Una distacia máxima para limitar qué tan lejos mandamos los raycast.
-	\item Un string donde almacenaremos el mapa.
+	\item El mapa, una matriz que definiremos más adelante.
 \end{itemize}
 
 Luego los cálculos que realicemos, estarán basados en dichos valores. Lo anterior podríamos codificarlo en Python como se ve en el código \ref{cod-motor-vars}.
@@ -215,7 +216,7 @@ rayo_y = floor(y + cos \theta * distancia)\\
 \end{aligned}
 \end{equation}
 
-Hablando de la $distancia$, como no la sabemos de antemano, lo que haremos es comenzar a calcularla, iniciando desde 0, e incrementándola poco a poco hasta un valor máximo o hasta que toquemos una pared (Ver imagen \ref{raycastit}). La idea de poner un límite máximo es optimizar un poco las cosas, si ya el rayo está muy grande y no hemos encontrado una pared, no queremos seguir buscando infinitamente, porque el juego se bloquearía.
+Hablando de la $distancia$, la calcularemos iniciando desde 0, e incrementándola poco a poco hasta llegar a un valor máximo o hasta que toquemos una pared (Ver imagen \ref{raycastit}). La idea de poner un límite máximo es optimizar un poco las cosas, si ya el rayo está muy grande y no hemos encontrado una pared, no queremos seguir buscando infinitamente, porque el juego se bloquearía.
 
 \begin{figure}[h!]
 	\centering
@@ -224,14 +225,18 @@ Hablando de la $distancia$, como no la sabemos de antemano, lo que haremos es co
 	\label{raycastit}
 \end{figure}
 
-Para ver todo esto en Python, podemos utilizar un código como el \ref{cod-motor-raycast}.
+Para ver todo esto en Python, podemos utilizar un código como el \ref{cod-motor-raycast}. Nótese que para mayor órden, hemos definido el código como una función que podamos reutilizar. A dicha función le enviamos la coordenada $x$ e $y$ y la $rotacion$ desde la cuál disparar el rayo; al final recibimos la distancia en la cuál hubo colisión, o en su defecto el valor que hallamos configurado como distancia máxima del rayo.
 
-\lstinputlisting[language=Python,caption=Variables generales del programa con algunos valores posibles.,label=cod-motor-raycast]{./py/motor-3d/raycast.py}
+\lstinputlisting[language=Python,caption=Función para realizar un raycast.,label=cod-motor-raycast]{./py/motor-3d/raycast.py}
 
+Notemos que el valor de \emph{math.sin(rot)} y \emph{math.cos(rot)}, será el mismo durante un llamado a la función, luego podríamos optimizar ligeramente nuestro código haciendo el cálculo previamente y reutilizando el valor, como se puede ver en el código \ref{cod-motor-raycast-opt}.
+
+\lstinputlisting[language=Python,caption=Optimizando ligeramente la función del raycast.,label=cod-motor-raycast-opt]{./py/motor-3d/raycast-opt.py}
+
+
+\newpage
 
 \subsubsection{Raycasts en el campo de visión}
-
-El último cálculo que nos resta, es el de hallar los angulos de inicio y fin, desde los cuáles lanzaremos los rayos. Llamémoslos $FOV_{inicio}$ y $FOV_{fin}$ (FOV por las siglas en inglés de Field of View - Campo de Visión).
 
 \begin{figure}[h!]
 	\centering
@@ -240,13 +245,15 @@ El último cálculo que nos resta, es el de hallar los angulos de inicio y fin, 
 	\label{fovgraph}
 \end{figure}
 
-De la gráfica \ref{fovgraph}, podemos ver que el inicio del FOV se encuentra restando la mitad del FOV total del ángulo al que está mirando el jugador. Para el fin de FOV, sumamos la mitad del total del FOV al ángulo. Todo esto se ve en la ecuación \ref{foveq}. 
+Ahora, necesitamos calcular cómo mandar varios \emph{raycasts}, de forma que podamos dibujar todo el campo de visión (FOV) del jugador. Para este propósito, lo primero será hallar los angulos de inicio y fin, desde los cuáles lanzaremos los rayos. Llamémoslos $FOV_{inicio}$ y $FOV_{fin}$ .
+
+De la gráfica \ref{fovgraph}, podemos ver que el inicio del FOV se encuentra restando la mitad del FOV total del ángulo al que está mirando el jugador ($\theta$, en el gráfico). Para el fin de FOV, sumamos la mitad del total del FOV al ángulo. Todo esto se ve en la ecuación \ref{foveq}. 
 
 \begin{equation}
 \begin{aligned}
 \label{foveq}
-FOV_{inicio} = \theta - \frac{FOV}{2}\\
-FOV_{fin} = \theta + \frac{FOV}{2} \\
+FOV_{inicio} = jugador_{rot} - \frac{FOV}{2}\\
+FOV_{fin} = jugador_{rot} + \frac{FOV}{2} \\
 \end{aligned}
 \end{equation}
 
@@ -273,7 +280,34 @@ Reemplazando:
 \begin{equation}
 \begin{aligned}
 \label{foveq}
-Rayo_{angulo} = \left(\theta - \frac{FOV}{2} + pixel * \frac{FOV}{Pantalla_{ancho}} \right)
+Rayo_{angulo} = \left(jugador_{rot} - \frac{FOV}{2} \right) + pixel * \left(\frac{FOV}{Pantalla_{ancho}}\right)
 \end{aligned}
 \end{equation}
 
+Para el programa, bastaría con calcular el ángulo de cada uno de los rayos y utilizar la función \textbf{raycast} que definimos en la sección anterior, disparando el rayo desde la posición del jugador, en el ángulo que recién calculamos. Todo esto reflejado en el código \ref{raycasts-fov}.
+
+\lstinputlisting[language=Python,caption=Raycasts para todo el campo de visión del jugador.,label=raycasts-fov]{./py/motor-3d/raycasts-fov.py}
+
+\subsubsection{Pintando la pantalla}
+
+
+Al dibujar la escena tenemos 3 partes en la pantalla, a saber: el techo, el piso y el muro.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=6cm]{./Images/partes-3d.png}
+	\caption{El campo de visión del jugador.}
+	\label{partes-3d}
+\end{figure}
+
+El algoritmo de pintado será, más o menos el siguiente: 
+
+\begin{enumerate}
+\item Pintamos la mitad superior de la pantalla con color negro, para indicar cuál es el techo.
+\item Pintamos la mitad inferior de la pantalla con color café, indicando el piso.
+\item Pintamos los muros de acuerdo a la distancia calculada, teniendo presente que la sensación de perspectiva la obtenemos así: entre más cercano el muro, debemos pintar una franja verde más grande; a mayor distancia, más pequeña la franja verde.
+\end{enumerate}
+
+
+
+Para ayudar a dar más sensación de profundidad, haremos que entre más lejos esté el muro, no sólo sea más pequeño, si no que también se ve ligeramente más oscuro.
