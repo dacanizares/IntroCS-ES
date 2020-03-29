@@ -225,11 +225,13 @@ Hablando de la $distancia$, la calcularemos iniciando desde 0, e incrementándol
 	\label{raycastit}
 \end{figure}
 
-Para ver todo esto en Python, podemos utilizar un código como el \ref{cod-motor-raycast}. Nótese que para mayor órden, hemos definido el código como una función que podamos reutilizar. A dicha función le enviamos la coordenada $x$ e $y$ y la $rotacion$ desde la cuál disparar el rayo; al final recibimos la distancia en la cuál hubo colisión, o en su defecto el valor que hallamos configurado como distancia máxima del rayo.
+Para ver todo esto en Python, podemos utilizar un código como el \ref{cod-motor-raycast}. Nótese que para mayor órden, hemos definido las instrucciones como una función que podamos reutilizar. A dicha función le enviamos la coordenada $x$ e $y$ y la $rotacion$ desde la cuál disparar el rayo; al final recibimos la distancia en la cuál hubo colisión, o en su defecto el valor que hallamos configurado como distancia máxima del rayo. En cuanto a \emph{saber cuándo tocamos un muro}, simplemente llamamos una función que recibe las coordenadas del rayo y chequea si están dentro del mapa, de ser así revisa si dicha posición es o no un muro.
 
 \lstinputlisting[language=Python,caption=Función para realizar un raycast.,label=cod-motor-raycast]{./py/motor-3d/raycast.py}
 
 Notemos que el valor de \emph{math.sin(rot)} y \emph{math.cos(rot)}, será el mismo durante un llamado a la función, luego podríamos optimizar ligeramente nuestro código haciendo el cálculo previamente y reutilizando el valor, como se puede ver en el código \ref{cod-motor-raycast-opt}.
+
+\newpage
 
 \lstinputlisting[language=Python,caption=Optimizando ligeramente la función del raycast.,label=cod-motor-raycast-opt]{./py/motor-3d/raycast-opt.py}
 
@@ -296,7 +298,7 @@ Al dibujar la escena tenemos 3 partes en la pantalla, a saber: el techo, el piso
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=6cm]{./Images/partes-3d.png}
-	\caption{El campo de visión del jugador.}
+	\caption{Renderizado del campo de visión del jugador.}
 	\label{partes-3d}
 \end{figure}
 
