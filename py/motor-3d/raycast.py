@@ -1,3 +1,10 @@
+def toca_muro(x, y):
+  if x < 0 or x >= MAPA_ANCHO:
+    return False
+  if y < 0 or y >= MAPA_ALTO:
+    return False
+  return mapa[y][x] == '#'
+
 def raycast(x, y, rot):
   distancia = 0
   while distancia < DISTANCIA_MAX_RAYO: 
