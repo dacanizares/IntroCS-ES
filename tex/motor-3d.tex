@@ -177,12 +177,19 @@ Antes de continuar, cabe anotar que durante toda la ejecución tendremos acceso 
 	\item El campo de visión del jugador en radianes $FOV$ (Por sus siglas en inglés Field of View - Campo de Visión).
 	\item La resolución de la pantalla, el alto y ancho de la pantalla.
 	\item Una distacia máxima para limitar qué tan lejos mandamos los raycast.
-	\item El mapa, una matriz que definiremos más adelante.
+	\item El mapa, que definiremos en breve.
 \end{itemize}
 
 Luego los cálculos que realicemos, estarán basados en dichos valores. Lo anterior podríamos codificarlo en Python como se ve en el código \ref{cod-motor-vars}.
 
 \lstinputlisting[language=Python,caption=Variables generales del programa con algunos valores posibles.,label=cod-motor-vars]{./py/motor-3d/variables.py}
+
+\subsubsection{Cargando el mapa}
+
+El primer paso es algo sencillo: definir es el cargado del mapa en memoria. Para tal empeño, una simple función que acceda la variable global \emph{mapa}, y que agregue múliples líneas representando un mapa, donde los $.$ significan espacio vacío y los $\#$  simbolizan muros.
+
+\lstinputlisting[language=Python,caption=Función para cargar el mapa.,label=cod-motor-vars]{./py/motor-3d/mapa.py}
+
 
 \subsubsection{El movimiento del jugador}
 
@@ -374,7 +381,7 @@ techo = \frac{Pantalla_{alto}}{2} - ProporcionDistancia
 \end{aligned}
 \end{equation}
 
-La proporción la podemos calcular de diferentes formas, sin embargo, una que funciona bien y no genera demasiados efectos ópticos extraños, es simplemente dividir el alto de la pantalla entre la distancia con respecto al muro. 
+Es posible calcular la proporción usando diferentes métodos, sin embargo, una que funciona bien y no genera demasiados efectos ópticos extraños, es simplemente dividir el alto de la pantalla entre la distancia con respecto al muro. 
 
 \begin{equation}
 \begin{aligned}
@@ -392,10 +399,36 @@ techo = \frac{Pantalla_{alto}}{2} - \left(\frac{Pantalla_{alto}}{distancia}\righ
 \end{aligned}
 \end{equation}
 
-max 0
 
-shading
+Debido a la proporción usada, es posible que la fórmula en ocasiones arroje valores negativos, para prevenirlo bastará con hallar el máximo entre 0 y el valor obtenido.
 
-dibujo codigo
+Por otro lado, teniendo el valor del techo y sabiendo que el piso es del mismo tamaño, entonces podemos encontrar el tamaño del muro restando de la altura total de la pantalla dichos valores.
+
+\begin{equation}
+\begin{aligned}
+\label{eq-muros}
+& piso = techo \\
+& muro = Pantalla_{alto} - piso - techo \\
+\end{aligned}
+\end{equation}
+
+
+Por otro lado, para agregar un mayor efecto (\emph{shading}) de profundidad, podemos hacer el color más oscuro a medida que está más lejos el muro. Utilizando la fórmula \ref{shading} podemos hacerlo fácilmente. Cabe anotar, que también deberíamos garantizar que no vayan a existir valores negativos.
+
+\begin{equation}
+\begin{aligned}
+\label{eq-techo-completa}
+shading = 1 - \frac{distancia}{DISTANCIA_{MAX}}
+\end{aligned}
+\end{equation}
+
+Todo lo anterior, podemos aplicarlo en el código \ref{motor-3d-dibujar}.
+
+\lstinputlisting[language=Python,caption=Código para pintar los muros con un shading que agudiza el efecto de profundidad.,label=motor-3d-dibujar,basicstyle=\fontsize{9}{9}\selectfont\ttfamily]{./py/motor-3d/dibujar.py}
 
 \section{Código completo}
+
+Teniendo todos los fragmentos analizados y codificados, bastará con unir todo en un programa completo y \emph{voilà}, tendremos nuestro primer motor 3D funcionando. No es óptimo, pero ha sido toda una aventura programarlo. Si quieres seguir profundizando en este tópico, recuerda revisar la sección enlaces adicionales \autoref{chap:motor-3d}.
+
+\lstinputlisting[language=Python,caption=Código para pintar los muros con un shading que agudiza el efecto de profundidad.,label=motor-3d-dibujar,basicstyle=\fontsize{9}{9}\selectfont\ttfamily]{./py/motor-3d/motor-3d.py}
+
