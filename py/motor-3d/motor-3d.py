@@ -18,6 +18,7 @@ FOV = 3.14159 / 4.0
 # Otras constantes
 PANTALLA_ANCHO = 320
 PANTALLA_ALTO = 240
+MITAD = PANTALLA_ALTO / 2
 DISTANCIA_MAX_RAYO = 9
 
 # Mapa
@@ -104,7 +105,7 @@ def actualizar_eventos():
     if evento.key == pygame.K_LEFT:
       izquierda = evento.type == pygame.KEYDOWN 
 
-  # Nunca se encontró el evento salir
+  # Nunca se encontro el evento salir
   return 0
 
 
@@ -128,9 +129,9 @@ while True:
     jugador_rot += 0.05
 
   # Dibujamos el techo
-  dibujar_rectangulo(0, 0, PANTALLA_ANCHO, PANTALLA_ALTO / 2, (0, 0, 0))
+  dibujar_rectangulo(0, 0, PANTALLA_ANCHO, MITAD, (0, 0, 0))
   # Dibujamos el piso
-  dibujar_rectangulo(0, PANTALLA_ALTO / 2, PANTALLA_ANCHO, PANTALLA_ALTO / 2, (170, 85, 0))
+  dibujar_rectangulo(0, MITAD, PANTALLA_ANCHO, MITAD, (170, 85, 0)) 
   
   # Calculamos los valores necesarios...
   fov_inicio = jugador_rot - FOV / 2
@@ -142,7 +143,7 @@ while True:
     distancia = raycast(jugador_x, jugador_y, rayo_angulo)     
       
     # Pintamos el fragmento de muro
-    techo = PANTALLA_ALTO / 2.0 - (PANTALLA_ALTO / distancia)
+    techo = max(0, PANTALLA_ALTO / 2.0 - PANTALLA_ALTO / distancia)
     piso = techo
     shading = max(0, 1 - distancia / DISTANCIA_MAX_RAYO)
     dibujar_rectangulo(pixel, techo, 1, PANTALLA_ALTO - techo - piso, (0, 255 * shading, 0))   
