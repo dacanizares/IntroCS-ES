@@ -1,10 +1,10 @@
-if tecla_adelante:
+if adelante:
     jugador_x +=  velocidad * math.sin(jugador_rot)
     jugador_y +=  velocidad * math.cos(jugador_rot)
-if tecla_atras:
+if atras:
     jugador_x -=  velocidad * math.sin(jugador_rot)
     jugador_y -=  velocidad * math.cos(jugador_rot)
-if tecla_derecha:
+if derecha:
     jugador_rot += velocidad_rot
-if tecla_izquierda:
+if izquierda:
     jugador_rot -= velocidad_rot
