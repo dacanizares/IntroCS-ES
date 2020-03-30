@@ -39,7 +39,7 @@ def actualizar_eventos():
     if evento.type == pygame.QUIT:
       return -1
     # Solo nos interesan los eventos del teclado
-    if evento.type != pygame.KEYDOWN and evento.type != pygame.KEYUP:
+    if evento.type not in [pygame.KEYDOWN, pygame.KEYUP]:
       continue
     # Mapeos de las teclas
     if evento.key == pygame.K_UP:

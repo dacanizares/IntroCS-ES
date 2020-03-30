@@ -66,9 +66,8 @@ def dibujar_rectangulo(x, y, ancho, alto, color):
   pygame.draw.rect(pantalla, color, pygame.Rect(x, y, ancho, alto))
 
 
-# Algoritmo básico
-# Para mayor calidad y rendimiento
-# se deben usar otras técnicas 
+# Algoritmo basico
+# Para mayor calidad y rendimiento se deben usar otras tecnicas 
 def raycast(x, y, rot):
   distancia = 0
   direccion_x = math.sin(rot)
@@ -93,7 +92,7 @@ def actualizar_eventos():
     if evento.type == pygame.QUIT:
       return -1
     # Solo nos interesan los eventos del teclado
-    if evento.type != pygame.KEYDOWN and evento.type != pygame.KEYUP:
+    if evento.type not in [pygame.KEYDOWN, pygame.KEYUP]:
       continue
     # Mapeos de las teclas
     if evento.key == pygame.K_UP:
@@ -145,8 +144,9 @@ while True:
     # Pintamos el fragmento de muro
     techo = max(0, PANTALLA_ALTO / 2.0 - PANTALLA_ALTO / distancia)
     piso = techo
+    muro = PANTALLA_ALTO - techo - piso
     shading = max(0, 1 - distancia / DISTANCIA_MAX_RAYO)
-    dibujar_rectangulo(pixel, techo, 1, PANTALLA_ALTO - techo - piso, (0, 255 * shading, 0))   
+    dibujar_rectangulo(pixel, techo, 1, muro, (0, 255 * shading, 0))
 
   fps = fuente.render(str(int(reloj.get_fps())), True, (255, 0, 0))
   pantalla.blit(fps, (50, 50))
