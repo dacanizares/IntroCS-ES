@@ -90,10 +90,15 @@ El \textbf{Raycasting} es una técnica que consiste en lanzar rayos para determi
 
 Con está técnica es posible pintar cualquier mapa de Wolfenstein. Ahora, el algoritmo utilizado por ID tiene muchas optimizaciones y detalles adicionales para conseguir una velocidad de renderizado adecuada, así como permitir detalles que incluyen texturas en los muros, lámparas, objetos, enemigos, entre otros. Sin embargo, para nuestro empeño nos valdremos de esta versión simplificada.
 
-
-
 \newpage
-\clearpage 
+\clearpage
+
+\subsection{Código base en PyGame}
+
+\lstinputlisting[language=Python,caption=Código base para el motor.,label=cod-motor-3d-pygame,basicstyle=\fontsize{9}{9}\selectfont\ttfamily]{./py/motor-3d/base-pygame.py}
+
+
+\newpage 
 \subsection{Algo de matemáticas}
 
 Para poder implementar nuestra solución será necesario revisar un par de conceptos matemáticos. 
@@ -195,7 +200,7 @@ Finalmente, para la rotación, bastaría con sumar o restar \emph{la velocidad d
 
 \begin{equation}
 \begin{aligned}
-\label{movforw}
+\label{eq-rot}
 jugador_{rot} = jugador_{rot} \pm velocidad_{rot}
 \end{aligned}
 \end{equation}
@@ -272,7 +277,7 @@ Finalmente, deberíamos tirar un rayo en el equivalente a cada pixel horizontal 
 
 \begin{equation}
 \begin{aligned}
-\label{foveq}
+\label{eq-rayo}
 Rayo_{angulo} = FOV_{inicio} + pixel * Rayo_{espaciado} 
 \end{aligned}
 \end{equation}
@@ -281,7 +286,7 @@ Reemplazando:
 
 \begin{equation}
 \begin{aligned}
-\label{foveq}
+\label{eq-rayo-2}
 Rayo_{angulo} = \left(jugador_{rot} - \frac{FOV}{2} \right) + pixel * \left(\frac{FOV}{Pantalla_{ancho}}\right)
 \end{aligned}
 \end{equation}
@@ -310,6 +315,87 @@ El algoritmo de pintado será, más o menos el siguiente:
 \item Pintamos los muros de acuerdo a la distancia calculada, teniendo presente que la sensación de perspectiva la obtenemos así: entre más cercano el muro, debemos pintar una franja verde más grande; a mayor distancia, más pequeña la franja verde.
 \end{enumerate}
 
+En esta parte nos valdremos de una función llamada \textbf{dibujar\_rectangulo} que recibe los siguientes parámetros:
+
+\begin{itemize}
+\item La coordenada en X de la pantalla donde se va a pintar el rectángulo.
+\item La coordenada en Y de la pantalla donde se va a pintar el rectángulo.
+\item El ancho del rectángulo.
+\item El alto del rectángulo.
+\item El color en RGB (Red-rojo, Green-verde, Blue-azul), representado como una tupla. Por ejemplo, los siguientes son algunos colores válidos:
+	\begin{itemize}
+	\item (0, 0, 0): negro.
+	\item (255, 0, 0): rojo.
+	\item (0, 255, 0): verde.
+	\item (0, 0, 255): azul.
+	\item (255, 255, 255): blanco.
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{El techo y el piso}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=10cm]{./Images/techo-piso.png}
+	\caption{Pintado de los elementos básicos de la pantalla.}
+	\label{techo-piso}
+\end{figure}
+
+Para dibujar el techo usaremos el color negro (0, 0, 0) y para el piso un color café (170, 85, 0). 
+
+El techo es la mitad superior de la pantalla, luego debería pintarse como un rectángulo en la posición (0, 0), el tamaño debería ser de todo el ancho de la pantalla y de la mitad del alto de la misma; para el piso, el tamaño debería ser el mismo, pero la posición debería ser (0, mitad del alto de la pantalla). Lo anterior, reflejado en el código \ref{cod-motor-techo-piso}.
+
+\newpage
+\lstinputlisting[language=Python,caption=Código para pintar el techo y el piso.,label=cod-motor-techo-piso,basicstyle=\fontsize{9}{9}\selectfont\ttfamily]{./py/motor-3d/techo-piso.py}
 
 
-Para ayudar a dar más sensación de profundidad, haremos que entre más lejos esté el muro, no sólo sea más pequeño, si no que también se ve ligeramente más oscuro.
+\subsubsection{Los muros}
+
+Con respecto a los muros, recordemos que lo más importante es que a mayor distancia, debería verse más pequeño. Es necesario resaltar, que en un motor real la distancia se calcula haciendo una proyección ortogonal al vector en la dirección exacta que está mirando el jugador, de esta forma se evita un efecto llamado \emph{fish-eye effect}. Sin embargo, en nuestro caso simplemente usaremos una fórmula para pintar que nos dará un buen efecto, sin necesidad de entrar en detalles adicionales.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=10cm]{./Images/techo-piso-muro.png}
+	\caption{Cambio en las proporciones de los elementos de la pantalla de acuerdo a la distancia de los muros.}
+	\label{techo-piso-muro}
+\end{figure}
+
+El cálculo, cómo se puede ver en la figuro \ref{techo-piso-muro}, es determinar el tamaño de la sección de techo y piso, de acuerdo a la distancia calculada contra el muro. Teniendo ese dato, podemos saber qué tan grande pintamos la sección verde de la pantalla.
+
+Lo primero que podemos determinar es que el $techo$ y el $piso$ tienen el mismo tamaño, luego teniendo uno de ellos, sabremos el otro. Ahora, centrándonos en el techo, 
+
+
+Para ayudar a dar más sensación de profundidad, haremos que entre más lejos esté el muro, no sólo sea más pequeño, si no que también se vea ligeramente más oscuro. El valor máximo del $techo$ es la mitad del alto de la pantalla (en caso de no haber muro, como se ve en la figura \ref{techo-piso}), a dicho valor le restaremos una proporción de la pantalla.
+
+\begin{equation}
+\begin{aligned}
+\label{eq-techo}
+techo = \frac{Pantalla_{alto}}{2} - ProporcionDistancia
+\end{aligned}
+\end{equation}
+
+La proporción la podemos calcular de diferentes formas, sin embargo, una que funciona bien y no genera demasiados efectos ópticos extraños, es simplemente dividir el alto de la pantalla entre la distancia con respecto al muro. 
+
+\begin{equation}
+\begin{aligned}
+\label{eq-propdist}
+ProporcionDistancia = \left(\frac{Pantalla_{alto}}{distancia}\right)
+\end{aligned}
+\end{equation}
+
+Reemplazando en la ecuación \ref{eq-techo} obtenemos la fórmula completa (\ref{eq-techo-completa}).
+
+\begin{equation}
+\begin{aligned}
+\label{eq-techo-completa}
+techo = \frac{Pantalla_{alto}}{2} - \left(\frac{Pantalla_{alto}}{distancia}\right)
+\end{aligned}
+\end{equation}
+
+max 0
+
+shading
+
+dibujo codigo
+
+\section{Código completo}
