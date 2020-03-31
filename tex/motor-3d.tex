@@ -8,26 +8,33 @@ En este capítulo nos aventuraremos a desarrollar un pequeño motor tridimension
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=10cm]{./Images/wolf3d.jpg}
-	\caption{Wolfenstein uno de los primeros juegos en usar motores 3D de forma efectiva. \emph{La imagen es propiedad de sus respectivos dueños, usada únicamente con fines educativos}.}
+	\caption{Wolfenstein uno de los primeros juegos en utilizar gráficos 3D de forma efectiva. \emph{Las imágenes de juegos de id Software usadas en este capítulo son propiedad de sus respectivos dueños. Imágenes incluidas únicamente con fines educativos}.}
 	\label{wolf3d}
 \end{figure}
 
 \section{Contexto histórico}
 
 \begin{quote}
-	\emph{Tenemos esta oportunidad de hacer algo totalmente nuevo aquí, algo rápido y con texturas. Si podemos hacer que los gráficos se vean fantásticos y rápidos, y hacer el sonido fresco y fuerte, y hacer el juego explosivamente divertido, entonces tendremos algo ganador.} \\
-	John Romero, en Masters of Doom \cite[p.~92]{doom}.
+\emph{Tenemos esta oportunidad de hacer algo totalmente nuevo aquí (...) Si podemos hacer que los gráficos se vean fantásticos y rápidos, y hacer el sonido fresco y fuerte, y el juego explosivamente divertido, entonces tendremos algo ganador.} \\
+John Romero, en Masters of Doom \cite[p.~92]{doom}.
 \end{quote}
 
 
+
+Corría el año de 1992, la mayoría de computadores eran vistos como máquinas inferiores a las consolas: apenas si tenían capacidad para ejecutar de forma fluida algunos juegos en 2D.
+
+Luego de su éxito con \emph{Keen Commander}, John Carmack, John Romero, Tom Hall y Adrian Carmack, fundadores de id Software, decidieron crear un videojuego totalmente diferente, uno con una perspectiva en primera persona y grandes dosis de acción frenética.
+
+John Carmack, que llevaba ya unos cuántos meses interesado en generar gráficos 3D en los limitados ordenadores del momento, fue el encargado de construír el motor que renderizaría los gráficos de aquel juego. Exprimiendo al máximo el poder de esos ordenadores, y valiéndose de inteligentes optimizaciones matemáticas y algorítmicas, John Carmack logró lo que parecía imposible, y en Mayo de 1992, id Software saltó al éxito con uno de los títulos gráficamente más impresionantes de la época. Había nacido: \emph{Wolfenstein 3D}.
+
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=10cm]{./Images/keen.png}
-	\caption{Keen Commander, anterior a Wolfenstein, también de ID Software, uno de los primeros juegos de plataformas en aprovechar toda la potencia de los ordenadores de la época. \emph{La imagen es propiedad de sus respectivos dueños, usada únicamente con fines educativos}.}
+	\includegraphics[width=6cm]{./Images/keen.png}
+	\caption{Keen Commander, de de ID Software, uno de los primeros juegos de plataformas en aprovechar toda la potencia de los ordenadores de la época.}
 	\label{keen}
 \end{figure}
+ 
 
-Corría el año de 1992, la mayoría de computadores apenas si tenían capacidad para ejecutar de forma fluida algunos juegos en 2D. \emph{}.
 
 %\begin{figure}[h!]
 %	\centering
@@ -41,7 +48,7 @@ Corría el año de 1992, la mayoría de computadores apenas si tenían capacidad
 \section{Simulando gráficos en 3D}
 
 
-Dada la poca potencia de los computadores de la época, tener verdaderos gráficos en 3D era una tarea imposible, entonces, ¿cómo hicieron en ID para crear Wolfenstein 3D? La respuesta es que lo que realmente estamos viendo es \emph{una ilusión}.
+Dada la poca potencia de los computadores de la época, tener verdaderos gráficos en 3D era una tarea imposible, entonces, ¿cómo hicieron en id para crear Wolfenstein 3D? La respuesta es más simple de lo que parecen: \emph{todo es una ilusión}.
 
 \begin{figure}[h!]
 	\centering
@@ -52,9 +59,9 @@ Dada la poca potencia de los computadores de la época, tener verdaderos gráfic
 
 Como se puede apreciar en la figura \ref{wolf3d-mapa}, toda la lógica del juego ocurría en una cuadrícula; la magia era mostrar los laberintos y enemigos cómo si fueran parte de un entorno tridimensional, pero la verdad, nunca dejaron de ser 2D.
 
-Esto traía muchas ventajas a nivel de rendimiento, sin embargo venía con algunas limitaciones, como por ejemplo que al ser realmente un mapa 2D no podían tenerse cuartos unos encima de otros. Aún así, esta estrategia no era suficiente en sí misma, los procesadores de aquella época era muy limitados y para mantener una tasa de refresco lo suficientemente alta, fueron necesarias otras simplificaciones y optimizaciones, entre ellas: que los muros fueran todos en ángulos de $90^{\circ}$, que los mapas siguieran una estricta alineación a una grilla, que el techo y el piso fueran colores planos sin texturas de ningún tipo.
+Esto traía muchas ventajas a nivel de rendimiento pero venía con algunas limitaciones, como por ejemplo, que al ser realmente un mapa 2D no podían tenerse cuartos unos encima de otros. Sin embargo, esta estrategia no era suficiente en sí misma, los procesadores de aquella época era muy limitados y para mantener una tasa de refresco lo suficientemente alta, fueron necesarias otras simplificaciones y optimizaciones, entre ellas: que los muros fueran todos en ángulos de $90^{\circ}$, que los mapas siguieran una estricta alineación a una grilla, que el techo y el piso fueran colores planos sin texturas de ningún tipo. Al final, y dados los tiempos que corrían, el resultado fue increíble. 
 
-Dicho esto, exploraremos un algoritmo simplificado para realizar el pintado de los escenarios.
+A continuación, exploraremos, con algunas simplificaciones, el engranaje que permitía generar esos increíbles gráficos en esos limitados computadores de principios de los 90's.
 
 \newpage
 \subsection{Raycasting}
@@ -76,7 +83,7 @@ Dicho esto, exploraremos un algoritmo simplificado para realizar el pintado de l
 		\includegraphics[width=0.4\textwidth]{./Images/wolf3d-juego.jpg}
 	\end{center}
 	\caption{Gráficos dentro del Wolfenstein 3D.}
-	\label{wolf3d-mapa}
+	\label{wolf3d-inside}
 
 \end{wrapfigure}
 
