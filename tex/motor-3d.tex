@@ -59,9 +59,9 @@ Dada la poca potencia de los computadores de la época, tener verdaderos gráfic
 
 Como se puede apreciar en la figura \ref{wolf3d-mapa}, toda la lógica del juego ocurría en una cuadrícula; la magia era mostrar los laberintos y enemigos cómo si fueran parte de un entorno tridimensional, pero la verdad, nunca dejaron de ser 2D.
 
-Esto traía muchas ventajas a nivel de rendimiento pero venía con algunas limitaciones, como por ejemplo, que al ser realmente un mapa 2D no podían tenerse cuartos unos encima de otros. Sin embargo, esta estrategia no era suficiente en sí misma, los procesadores de aquella época era muy limitados y para mantener una tasa de refresco lo suficientemente alta, fueron necesarias otras simplificaciones y optimizaciones, entre ellas: que los muros fueran todos en ángulos de $90^{\circ}$, que los mapas siguieran una estricta alineación a una grilla, que el techo y el piso fueran colores planos sin texturas de ningún tipo. Al final, y dados los tiempos que corrían, el resultado fue increíble. 
+Esto traía muchas ventajas a nivel de rendimiento pero venía con algunas limitaciones, como por ejemplo, que al ser realmente un mapa 2D no podían tenerse cuartos unos encima de otros. Sin embargo, esta estrategia no era suficiente en sí misma, los procesadores de aquella época era muy limitados y para mantener una tasa de refresco lo suficientemente alta, fueron necesarias otras simplificaciones y optimizaciones, entre ellas: que los muros fueran todos en ángulos de $90^{\circ}$, que los mapas siguieran una estricta alineación a una grilla, que el techo y el piso fueran colores planos sin texturas de ningún tipo. Al final, pese a todo esto, dados los tiempos que corrían, el resultado fue impresionante. 
 
-A continuación, exploraremos, con algunas simplificaciones, el engranaje que permitía generar esos increíbles gráficos en esos limitados computadores de principios de los 90's.
+A continuación, exploraremos, el engranaje que permitía generar esos increíbles gráficos en esos limitados computadores de principios de los 90's.
 
 \newpage
 \subsection{Raycasting}
@@ -87,7 +87,7 @@ A continuación, exploraremos, con algunas simplificaciones, el engranaje que pe
 
 \end{wrapfigure}
 
-El \textbf{Raycasting} es una técnica que consiste en lanzar rayos para determinar cuál es la primer superficie que estos interceptan. El motor de Wolfenstein basaba su renderizado en está técnica. La idea general es la siguiente:
+El \textbf{Raycasting} es una técnica que consiste en lanzar rayos para determinar cuál es la primera superficie que estos interceptan. El motor de Wolfenstein basaba su renderizado en está técnica. La idea general es la siguiente:
 
 \begin{enumerate}
 	\item De acuerdo al campo de visión del jugador empezando desde la izquierda y hasta recorrer todo el cono, se lanzarían unos \emph{rayos} verificando a qué distancia se encuentran los muros. Ver figura \ref{rays}.
@@ -95,7 +95,7 @@ El \textbf{Raycasting} es una técnica que consiste en lanzar rayos para determi
 	\item A continuación, esas distancias se utilizan para pintar en la pantalla, de izquierda a derecha unas líneas verticales representando los muros. Entre mayor sea la distancia, más pequeña debe ser la línea (para dar la sensación de perspectiva). Ver figura \ref{raytracing}.
 \end{enumerate}
 
-Con está técnica es posible pintar cualquier mapa de Wolfenstein. Ahora, el algoritmo utilizado por ID tiene muchas optimizaciones y detalles adicionales para conseguir una velocidad de renderizado adecuada, así como permitir detalles que incluyen texturas en los muros, lámparas, objetos, enemigos, entre otros. Sin embargo, para nuestro empeño nos valdremos de esta versión simplificada.
+Con está técnica es posible pintar cualquier mapa de Wolfenstein. Ahora, el algoritmo original tiene muchas optimizaciones y detalles adicionales para conseguir una velocidad de renderizado adecuada, así como permitir detalles que incluyen texturas en los muros, lámparas, objetos, enemigos, entre otros. Sin embargo, para nuestro empeño nos valdremos de esta versión simplificada.
 
 \newpage
 \clearpage
