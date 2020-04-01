@@ -1,0 +1,22 @@
+\chapter{PyGame Básico}
+\label{chap:motor-3d}
+
+En este capítulo diseccionaremos un código que nos permite utilizar PyGame para crear experiencias más interactivas en Python, entre ellas, \emph{videojuegos}.
+
+\section{Entendiendo el gameloop}
+
+Antes de hablar de PyGame, es necesario comprender cómo funciona a grandes rasgos un \emph{videojuego}. Aquí palabra clave es: \textbf{REPETIR}.
+
+Igual que pasa en una animación, cuando una serie de imagenes pasa a la velocidad suficiente, los personajes parecen estar vivos. Los videjuegos no son más que una seríe de imágenes calculadas muchas veces por segundo para dar la ilusión de movimiento. El computador debe estar \emph{repitiendo} constantemente una serie de instrucciones para tal efecto. A esa parte que repetimos lo llamamos \emph{gameloop} (algo como \emph{ciclo de juego}). Un \emph{gameloop} tiene diferentes instrucciones dependiendo del juego que se esté ejecutando, pero a grandes rasgos, podría verse más o menos así:
+
+\begin{enumerate}
+\item Se revisan que teclas ha pulsado el jugador.
+\item Se actualiza la inteligencia artificial (de existir una).
+
+\end{enumerate}
+
+\newpage
+
+\subsection{Código base en PyGame}
+
+\lstinputlisting[language=Python,caption=Código base para el motor.,label=cod-motor-3d-pygame,basicstyle=\fontsize{9}{9}\selectfont\ttfamily]{./py/motor-3d/base-pygame.py}
