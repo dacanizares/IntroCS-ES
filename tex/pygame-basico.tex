@@ -11,11 +11,45 @@ Igual que pasa en una animación, cuando una serie de imagenes pasa a la velocid
 
 \begin{enumerate}
 \item Se revisan que teclas ha pulsado el jugador.
-\item Se actualiza la inteligencia artificial (de existir una).
-
+\item Se actualiza la lógica del juego.
+\item Se pinta en pantalla una representación del estado del juego.
+\item Se repite desde el paso hasta que termine el juego.
 \end{enumerate}
 
 \newpage
+
+Suponiendo que vamos a pintar un jugador que se mueve hacia la derecha cuando se presiona la tecla con la misma dirección, un posible \emph{bosquejo} en Python podría verse como el código \ref{cod-pygame-gameloop}. 
+
+
+\lstinputlisting[language=Python,caption=Código base para el motor.,label=cod-pygame-gameloop,basicstyle=\fontsize{9}{9}\selectfont\ttfamily]{./py/pygame/gameloop.py}
+
+
+\section{Introducción a PyGame}
+
+\subsection{Instalación}
+
+Para instalar PyGame usaremos una herramienta que permite descargar librerías para Python, \emph{pip}. Ya debería estar instalado si se descargó Python de \url{https://python.org}, pero en caso de tener algún problema puede consultarse el siguiente enlace \url{https://pip.pypa.io/en/stable/installing/}.
+
+Bastará con abrir una consola del sistema operativo (FALTA: Añadir explicación VS Code), y ejecutar el siguiente comando:
+
+\begin{lstlisting}
+pip install pygame
+\end{lstlisting}
+
+\subsection{Instrucciones básicas}
+
+Lo primero, será aprender cómo crear una ventana básica en PyGame. Para tal fin, es necesario importar la librería en nuestro código y usar las siguientes instrucciones:
+
+\begin{enumerate}
+\item \textbf{pygame.init()}: que sirve para arrancar los módulos importados de PyGame. \url{https://devdocs.io/pygame/ref/pygame#pygame.init}
+
+\item \textbf{pygame.display.set\_mode(resolucion, flags)}: que realiza la configuración de la pantalla, siendo resolución una tupla donde determinamos el tamaño de la misma y, opcionalmente, se puede enviar pygame.FULLSCREEN para el modo pantalla completa. En el siguiente están todas las opciones de configuración permitidas: \url{https://devdocs.io/pygame/ref/display#pygame.display.set_mode}.
+\end{enumerate}
+
+El código base para un gameloop podría ser algo así:
+
+\lstinputlisting[language=Python,caption=Código base para el motor.,label=cod-pygame-gameloop,basicstyle=\fontsize{9}{9}\selectfont\ttfamily]{./py/pygame/iniciar.py}
+
 
 \subsection{Código base en PyGame}
 
