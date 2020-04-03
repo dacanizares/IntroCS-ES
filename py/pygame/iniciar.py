@@ -7,7 +7,7 @@ PANTALLA_ALTO = 240
 # Pygame
 pygame.init()
 pantalla = pygame.display.set_mode((PANTALLA_ANCHO, PANTALLA_ALTO))
-# Para pantanlla completa
+# Para pantalla completa
 # pygame.display.set_mode((PANTALLA_ANCHO, PANTALLA_ALTO), pygame.FULLSCREEN)
 
 # Gameloop
