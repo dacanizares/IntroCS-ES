@@ -43,14 +43,58 @@ Lo primero, será aprender cómo crear una ventana básica en PyGame. Para tal f
 \begin{enumerate}
 \item \textbf{pygame.init()}: que sirve para arrancar los módulos importados de PyGame. \url{https://devdocs.io/pygame/ref/pygame#pygame.init}
 
-\item \textbf{pygame.display.set\_mode(resolucion, flags)}: que realiza la configuración de la pantalla, siendo resolución una tupla donde determinamos el tamaño de la misma y, opcionalmente, se puede enviar pygame.FULLSCREEN para el modo pantalla completa. En el siguiente están todas las opciones de configuración permitidas: \url{https://devdocs.io/pygame/ref/display#pygame.display.set_mode}.
+\item \textbf{pygame.display.set\_mode(resolucion, flags)}: que realiza la configuración de la pantalla, siendo resolución una tupla donde determinamos el tamaño de la misma y, opcionalmente, se puede enviar pygame.FULLSCREEN para el modo pantalla completa (para salir de la pantalla completa en Windows o Linux presiona Alt+F4, en Mac Command+W). En el siguiente están todas las opciones de configuración permitidas: \url{https://devdocs.io/pygame/ref/display#pygame.display.set_mode}.
 \end{enumerate}
 
-El código base para un gameloop podría ser algo así:
+El código básico para comenzar a crear un juego podría ser algo así:
 
 \lstinputlisting[language=Python,caption=Código base para el motor.,label=cod-pygame-gameloop,basicstyle=\fontsize{9}{9}\selectfont\ttfamily]{./py/pygame/iniciar.py}
 
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=6cm]{./Images/pygame-pantalla.png}
+	\caption{La pantalla en PyGame.}
+	\label{pygame-pantalla}
+\end{figure}
 
-\subsection{Código base en PyGame}
+Para pintar en pantalla, es necesario tener en cuenta que para PyGame la esquina superior izquierda de la pantalla es la coordenada $(0,0)$, y que la componente en $X$ crece hacia la derecha, mientras que la componente en $Y$ aumenta a medida que se acerca más al límite inferior de la pantalla, como se ve en la figura \ref{pygame-pantalla}.
 
-\lstinputlisting[language=Python,caption=Código base para el motor.,label=cod-motor-3d-pygame,basicstyle=\fontsize{9}{9}\selectfont\ttfamily]{./py/motor-3d/base-pygame.py}
+Dicho esto, en nuestro caso vamos a utilizar la función para pintar rectángulos \textbf{pygame.draw.rect}. Sin embargo, para mayor facilidad dicho llamado lo abstraeremos dentro de una función propia que nos sea más fácil de recordar y utilizar, la llamaremos \textbf{dibujar\_rectangulo} y recibirá los siguientes parámetros:
+
+\begin{itemize}
+	\item La coordenada en X de la pantalla donde se va a pintar el rectángulo.
+	\item La coordenada en Y de la pantalla donde se va a pintar el rectángulo.
+	\item El ancho del rectángulo.
+	\item El alto del rectángulo.
+	\item El color en RGB (Red-rojo, Green-verde, Blue-azul), representado como una tupla de 3 valores, cada uno de ellos entre 0 y 255. Por ejemplo, los siguientes son algunos colores válidos:
+	\begin{itemize}
+		\item (0, 0, 0): negro.
+		\item (255, 0, 0): rojo.
+		\item (0, 255, 0): verde.
+		\item (0, 0, 255): azul.
+		\item (255, 255, 255): blanco.
+	\end{itemize}
+\end{itemize}
+
+En el código \ref{cod-pygame-pintar} se relaciona la función que usaremos, junto con un ejemplo de como llamarla.
+
+\lstinputlisting[language=Python,caption=La función que usaremos para el pintado.,label=cod-pygame-pintar,basicstyle=\fontsize{9}{9}\selectfont\ttfamily]{./py/pygame/pintar.py}
+
+Finalmente, para los eventos, es necesario recorrer un arreglo que se obtiene al llamar a \textbf{pygame.event.get()}, dicha función retorna, entre otras cosas, las teclas presionadas y si el jugador ha cerrado la ventana del juego. Para facilitar también las cosas en este punto, vamos a crear una función llamada \textbf{actualizar\_eventos}, así:
+
+\begin{itemize}
+\item La función nos retorna -1 si terminó el juego, 0 en cualquier otro caso.
+\item De paso, la función va a mapear las teclas presionadas a variables globales, desde la que luego podremos saber qué estaba pulsando el usuario.
+\end{itemize} 
+
+En el código \ref{cod-pygame-eventos} podemos ver la función, cómo mapear las teclas arriba, abajo, izquierda y derecha (para ver todas las demás opciones está este link \url{https://devdocs.io/pygame/ref/key}). Al final del código está un posible ejemplo sobre cómo utilizar todo esto.
+
+\lstinputlisting[language=Python,caption=Los eventos en PyGame y cómo integrarlos en el gameloop.,label=cod-pygame-eventos,basicstyle=\fontsize{9}{9}\selectfont\ttfamily]{./py/pygame/eventos.py}
+
+\subsection{Ejemplo completo}
+
+A continuación, tenemos un caso completo que permite pintar un rectágulo rojo en la pantalla y moverlo con las teclas direccionales. 
+
+Nótese que se han agregado un par de líneas con un \emph{reloj}, lo anterior para que el juego no vaya a ir más rápido en unos computadores que en otros. La tasa de refresco máxima la hemos fijado en 60 cuadros por segundo (FPS - Frames per second).
+
+\lstinputlisting[language=Python,caption=Código base para el motor.,label=cod-motor-3d-pygame,basicstyle=\fontsize{9}{9}\selectfont\ttfamily]{./py/pygame/completo.py}
