@@ -4,6 +4,10 @@ import pygame
 PANTALLA_ANCHO = 320
 PANTALLA_ALTO = 240
 
+# Coordenadas cuadrado
+x = 0
+y = 0
+
 # Teclas presionadas
 arriba = False
 derecha = False
@@ -13,7 +17,6 @@ izquierda = False
 # Pygame
 pygame.init()
 pantalla = pygame.display.set_mode((PANTALLA_ANCHO, PANTALLA_ALTO))
-fuente = pygame.font.Font(None, 30)
 
 
 ## Dibuja un rectangulo en la pantalla
@@ -61,13 +64,22 @@ while True:
   if actualizar_eventos() == -1:
     break
 
+  # Movimiento del rectangulo
+  if arriba:
+    y -= 1
+  if abajo:
+    y += 1
+  if derecha:
+    x += 1
+  if izquierda:
+    x -= 1
+
+  # Borramos la pantalla que estaba pintada
+  dibujar_rectangulo(0, 0, PANTALLA_ANCHO, PANTALLA_ALTO, (0, 0, 0))
+
   # Dibujamos un rectangulo rojo
   # Notese el RGB: (255, 0, 0) 
-  dibujar_rectangulo(0, 0, PANTALLA_ANCHO, PANTALLA_ALTO / 2, (255, 0, 0))
-  
-  # Pintamos los FPS actuales
-  fps = fuente.render(str(int(reloj.get_fps())), True, (255, 0, 0))
-  pantalla.blit(fps, (50, 50))
+  dibujar_rectangulo(x, y, 20, 30, (255, 0, 0))
   
   # Actualizamos 
   pygame.display.flip()
