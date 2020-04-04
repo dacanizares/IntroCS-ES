@@ -1,8 +1,6 @@
 # Posicion del jugador
 jugador_x = 0
 jugador_y = 0
-
-# Direccion
 jugador_rot = 0
 
 # Velocidad
@@ -18,4 +16,6 @@ PANTALLA_ALTO = 100
 DISTANCIA_MAX_RAYO = 16
 
 # Mapa
-mapa = [[]]
+MAPA_ANCHO = 16
+MAPA_ALTO = 13
+mapa = []

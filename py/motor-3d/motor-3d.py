@@ -4,8 +4,6 @@ import math
 # Posicion del jugador
 jugador_x = 14
 jugador_y = 2
-
-# Direccion
 jugador_rot = 0
 
 # Velocidad
@@ -23,7 +21,7 @@ DISTANCIA_MAX_RAYO = 9
 
 # Mapa
 MAPA_ANCHO = 16
-MAPA_ALTO = 16
+MAPA_ALTO = 13
 mapa = []
 
 # Teclas presionadas
