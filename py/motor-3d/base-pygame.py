@@ -12,25 +12,19 @@ izquierda = False
 
 # Pygame
 pygame.init()
-fuente = pygame.font.Font(None, 30)
 pantalla = pygame.display.set_mode((PANTALLA_ANCHO, PANTALLA_ALTO))
+fuente = pygame.font.Font(None, 30)
 
 
 ## Dibuja un rectangulo en la pantalla
-## -----------------------------------
-## Recibe las coordenadas y dimensions
-## El parametro color debe ser una tupla (R,G,B)
 def dibujar_rectangulo(x, y, ancho, alto, color):
   global pantalla
   pygame.draw.rect(pantalla, color, pygame.Rect(x, y, ancho, alto))
 
 
 ## Actualiza los eventos recibidos 
-## ------------------------------------
-## Actualiza las teclas presionadas
-## Retorna -1 si se recibe un evento
-## para cerrar el juego. En otro caso
-## retorna 0.
+## Retorna -1 si se recibe un evento para cerrar el juego. 
+## En otro caso retorna 0.
 def actualizar_eventos():
   global arriba, derecha, abajo, izquierda
 
@@ -61,8 +55,7 @@ while True:
   if actualizar_eventos() == -1:
     break
 
-  # Dibujamos un rectangulo rojo
-  # Notese el RGB: (255, 0, 0) 
+  # Por ejemplo, dibujamos un retangulo rojo
   dibujar_rectangulo(0, 0, PANTALLA_ANCHO, PANTALLA_ALTO / 2, (255, 0, 0))
   
   # Pintamos los FPS actuales
