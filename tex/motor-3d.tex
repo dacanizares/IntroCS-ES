@@ -1,47 +1,40 @@
 \chapter{Programando un motor 3D}
 \label{chap:motor-3d}
 
-En este capítulo nos aventuraremos a desarrollar un pequeño motor tridimensional. No construiremos una pieza optimizada de alta tecnología pero aprenderemos algunos de los conceptos que permitieron en el año 1992 a una empresa llamada \emph{ID Software} crear uno de los juegos más emblemáticos de la historia, \textbf{Wolfenstein 3D}.
+En este capítulo nos aventuraremos a desarrollar un pequeño motor tridimensional. No construiremos una pieza optimizada de alta tecnología pero aprenderemos algunos de los conceptos que permitieron en el año 1992 a una empresa llamada \emph{ID Software} \footnote{Las imágenes de juegos de id Software usadas en este capítulo son propiedad de sus respectivos dueños. Imágenes incluidas únicamente con fines educativos} crear uno de los juegos más emblemáticos de la historia, \textbf{Wolfenstein 3D}. ¿Preparados para poner su cerebro a prueba?
 
-¿Preparados para poner su cerebro a prueba?
+Antes de continuar se recomienda revisar el capítulo \autoref{chap:pygame}.
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=10cm]{./Images/wolf3d.jpg}
-	\caption{Wolfenstein uno de los primeros juegos en utilizar gráficos 3D de forma efectiva. \emph{Las imágenes de juegos de id Software usadas en este capítulo son propiedad de sus respectivos dueños. Imágenes incluidas únicamente con fines educativos}.}
+	\includegraphics[width=8cm]{./Images/wolf3d.jpg}
+	\caption{Wolfenstein uno de los primeros juegos en utilizar gráficos 3D de forma efectiva.}
 	\label{wolf3d}
 \end{figure}
 
+\newpage
+
 \section{Contexto histórico}
 
-\begin{quote}
-\emph{Tenemos esta oportunidad de hacer algo totalmente nuevo aquí (...) Si podemos hacer que los gráficos se vean fantásticos y rápidos, y hacer el sonido fresco y fuerte, y el juego explosivamente divertido, entonces tendremos algo ganador.} \\
-John Romero, en Masters of Doom \cite[p.~92]{doom}.
-\end{quote}
-
-
+\begin{wrapfigure}{r}{0.4\textwidth}	
+	\begin{center}
+		\includegraphics[width=0.4\textwidth]{./Images/keen.png}
+	\end{center}
+	\caption{Keen Commander, de de ID Software, uno de los primeros juegos de plataformas en aprovechar toda la potencia de los ordenadores de la época.}
+	\label{keen}	
+\end{wrapfigure}
 
 Corría el año de 1992, la mayoría de computadores eran vistos como máquinas inferiores a las consolas: apenas si tenían capacidad para ejecutar de forma fluida algunos juegos en 2D.
 
 Luego de su éxito con \emph{Keen Commander}, John Carmack, John Romero, Tom Hall y Adrian Carmack, fundadores de id Software, decidieron crear un videojuego totalmente diferente, uno con una perspectiva en primera persona y grandes dosis de acción frenética.
 
 John Carmack, que llevaba ya unos cuántos meses interesado en generar gráficos 3D en los limitados ordenadores del momento, fue el encargado de construír el motor que renderizaría los gráficos de aquel juego. Exprimiendo al máximo el poder de esos ordenadores, y valiéndose de inteligentes optimizaciones matemáticas y algorítmicas, John Carmack logró lo que parecía imposible, y en Mayo de 1992, id Software saltó al éxito con uno de los títulos gráficamente más impresionantes de la época. Había nacido: \emph{Wolfenstein 3D}.
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=6cm]{./Images/keen.png}
-	\caption{Keen Commander, de de ID Software, uno de los primeros juegos de plataformas en aprovechar toda la potencia de los ordenadores de la época.}
-	\label{keen}
-\end{figure}
  
-
-
-%\begin{figure}[h!]
-%	\centering
-%	\includegraphics[width=10cm]{./Images/wolf3d-juego.jpg}
-%	\caption{Gráficos dentro del juego Wolfenstein 3D. \emph{La imagen es propiedad de sus respectivos dueños, usada únicamente con fines educativos}.}
-%	\label{wolf3d-juego}
-%\end{figure}
+ 
+ \begin{quote}
+ 	\emph{Tenemos esta oportunidad de hacer algo totalmente nuevo aquí (...) Si podemos hacer que los gráficos se vean fantásticos y rápidos, y hacer el sonido fresco y fuerte, y el juego explosivamente divertido, entonces tendremos algo ganador.} \\
+ 	John Romero, en Masters of Doom \cite[p.~92]{doom}.
+ \end{quote}
 
 \newpage
 
@@ -99,11 +92,6 @@ Con está técnica es posible pintar cualquier mapa de Wolfenstein. Ahora, el al
 
 \newpage
 \clearpage
-
-\subsection{Código base en PyGame}
-
-\lstinputlisting[language=Python,caption=Código base para el motor.,label=cod-motor-3d-pygame,basicstyle=\fontsize{9}{9}\selectfont\ttfamily]{./py/motor-3d/base-pygame.py}
-
 
 \newpage 
 \subsection{Algo de matemáticas}
@@ -169,7 +157,16 @@ En la gráfica \ref{rads} vemos una intuición sobre lo que son los radianes. De
 $, luego $2\pi$ son $360^{\circ}$. Siguiendo la misma lógica, $\frac{\pi}{2}$ son  $90^{\circ}$.
 
 
-Vistos todos los conceptos matemáticos necesarios, es hora de modelar realmente las fórmulas que nos permitirán construír nuestro \textbf{motor 3D}.
+Vistos todos los conceptos matemáticos necesarios, vamos modelar realmente las fórmulas que nos permitirán construír nuestro \textbf{motor 3D}, no sin antes revisar el código base sobre el cuál programaremos.
+
+
+\subsection{Código base en PyGame}
+
+El Siguiente será el código base que usaremos para construír el motor. Antes de continuar se recomienda encarecidamente revisar el \autoref{chap:pygame}.
+
+Nótese que en el código hemos añadido un par de líneas para cargar una fuente y pintar en pantalla los cuadros por segundo (FPS - Frames per second) a los que está cargando el motor, de forma que podamos tener una medida de qué tan rápido (o tan lento) es el renderizado.
+
+\lstinputlisting[language=Python,caption=Código base para el motor.,label=cod-motor-3d-pygame,basicstyle=\fontsize{9}{9}\selectfont\ttfamily]{./py/motor-3d/base-pygame.py}
 
 \subsection{Modelando el motor}
 
@@ -435,7 +432,7 @@ Todo lo anterior, podemos aplicarlo en el código \ref{motor-3d-dibujar}.
 
 \section{Código completo}
 
-Teniendo todos los fragmentos analizados y codificados, bastará con unir todo en un programa completo y \emph{voilà}, tendremos nuestro primer motor 3D funcionando. No es óptimo, pero ha sido toda una aventura programarlo. Si quieres seguir profundizando en este tópico, recuerda revisar la sección enlaces adicionales \autoref{chap:motor-3d}.
+Teniendo todos los fragmentos analizados y codificados, bastará con unir todo en un programa completo y \emph{voilà}, tendremos nuestro primer motor 3D funcionando. No es óptimo, pero ha sido toda una aventura programarlo. Para profundizar en este tópico, recuerde revisar la sección enlaces adicionales \autoref{chap:motor-3d}.
 
 \lstinputlisting[language=Python,caption=Código para pintar los muros con un shading que agudiza el efecto de profundidad.,label=motor-3d-dibujar,basicstyle=\fontsize{9}{9}\selectfont\ttfamily]{./py/motor-3d/motor-3d.py}
 
