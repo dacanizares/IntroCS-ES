@@ -96,11 +96,11 @@ Con está técnica es posible pintar cualquier mapa de Wolfenstein. Ahora, el al
 \newpage 
 \subsection{Algo de matemáticas}
 
-Para poder implementar nuestra solución será necesario revisar un par de conceptos matemáticos. 
+Para poder implementar nuestra solución será necesario revisar algunos conceptos matemáticos. 
 
 \subsubsection{Vectores}
 
-Un vector es un objeto que tiene una magnitud y una dirección \cite{introVectors} \footnote{En español solemos decir que tienen módulo, dirección y sentido, pero nos ceñiremos a la definición anglosajona.}, gráficamente lo representamos como una \emph{flecha}.
+Un vector es un objeto que tiene una magnitud y una dirección \cite{introVectors} \footnote{En español solemos decir que tienen módulo, dirección y sentido, pero nos ceñiremos a la definición anglosajona, ya que resulta a todas luces más clara para un programador.}, gráficamente lo representamos como una \emph{flecha}.
  
  \begin{figure}[h!]
  	\centering
@@ -109,7 +109,7 @@ Un vector es un objeto que tiene una magnitud y una dirección \cite{introVector
  	\label{vector}
  \end{figure}
 
-Con los vectores podemos representar por ejemplo la velocidad en la que se mueve un personaje: la magnitud indicaría la rapidez y la dirección indicaría hacia dónde se está moviendo. En el computador esto lo podríamos representar de la siguiente forma:
+Con los vectores podemos representar por ejemplo la velocidad en la que se mueve un personaje: la magnitud indicaría la rapidez y la dirección indicaría hacia dónde se está moviendo. En el computador, una representación admisible requeriría dos variables:
 
 \begin{enumerate}
 \item Un ángulo ($\theta$) indicando \emph{la dirección}.
@@ -120,7 +120,7 @@ Con los vectores podemos representar por ejemplo la velocidad en la que se mueve
 
 \subsubsection{Vector unitario}
 
-Los vectores unitarios son aquellos cuya magnitud es 1, luego podemos utilizarlo cuando necesitamos saber sólamente la dirección en la que apunta el vector.
+Los vectores unitarios son aquellos cuya magnitud es 1, luego suelen utilizarse cuando necesitamos saber \textbf{solamente} la dirección en la que apunta el vector.
 
 \begin{figure}[h!]
 	\centering
@@ -130,7 +130,7 @@ Los vectores unitarios son aquellos cuya magnitud es 1, luego podemos utilizarlo
 \end{figure}
 
 
-Cuando tratamos problemas de dos dimensiones, nos referimos a la grafica \ref{unitaria}. De donde podemos sacar, dado un ángulo $\theta$, las componentes en X e Y del vector unitario que representa dicho ángulo.
+Cuando tratamos problemas de dos dimensiones, nos referimos a la grafica \ref{unitaria}. De dicha gráfica podemos sacar, dado un ángulo $\theta$, las componentes en X e Y del vector unitario que representa dicho ángulo.
 
 \begin{equation}
 \begin{aligned}
@@ -140,11 +140,11 @@ ComponenteY = cos \theta
 \end{aligned}
 \end{equation}
 
-En otras palabras, dado un ángulo, al aplicar el \emph{sin} y el \emph{cos}, podemos obtener un vector unitario que apunta en la misma dirección. En breve, veremos cómo utilizar este concepto para darle movimiento al jugador y para disparar los \emph{raycast}.
+En otras palabras, dado un ángulo, al aplicar el \emph{sin} y el \emph{cos}, podemos obtener un vector unitario que apunta en la misma dirección. En breve, veremos cómo utilizar este concepto para darle movimiento al jugador y para disparar los \emph{raycasts}.
 
 \subsubsection{Radianes}
 
-Los radianes es una unidad utilizada para representar ángulos. En los lenguajes de programación es más común que se utilicen \emph{radianes} en vez de \emph{grados} para la manipulación y operación de ángulos, dicho esto, las funciones como \emph{sin} y \emph{cos} en Python esperan recibir ángulo en \emph{radianes}. 
+Los radianes son una unidad utilizada para representar ángulos. En los lenguajes de programación es más común que se utilicen \emph{radianes} en vez de \emph{grados} para la manipulación y operación de ángulos, dicho esto, las funciones como \emph{sin} y \emph{cos} en Python esperan recibir ángulo en \emph{radianes}. 
 
 \begin{figure}[h!]
 	\centering
@@ -154,50 +154,50 @@ Los radianes es una unidad utilizada para representar ángulos. En los lenguajes
 \end{figure}
 
 En la gráfica \ref{rads} vemos una intuición sobre lo que son los radianes. De la misma gráfica, es posible notar que $\pi$ radianes equivale a $180^{\circ}
-$, luego $2\pi$ son $360^{\circ}$. Siguiendo la misma lógica, $\frac{\pi}{2}$ son  $90^{\circ}$.
+$, luego $2\pi$ son $360^{\circ}$. Siguiendo la misma lógica, $\frac{\pi}{2}$ son  $90^{\circ}$ y $\frac{\pi}{4}$ son  $45^{\circ}$.
 
 
-Vistos todos los conceptos matemáticos necesarios, vamos modelar realmente las fórmulas que nos permitirán construír nuestro \textbf{motor 3D}, no sin antes revisar el código base sobre el cuál programaremos.
+Estos conceptos matemáticos que introducimos brevemente, serán los necesarios para modelar las ecuaciones que nos permitirán construir nuestro \textbf{motor 3D}. A continuación veremos como aplicar lo aprendido, no sin antes revisar el código base sobre el cuál programaremos.
 
 
 \subsection{Código base en PyGame}
 
-El Siguiente será el código base que usaremos para construír el motor. Antes de continuar se recomienda encarecidamente revisar el \autoref{chap:pygame}.
-
-Nótese que en el código hemos añadido un par de líneas para cargar una fuente y pintar en pantalla los cuadros por segundo (FPS - Frames per second) a los que está cargando el motor, de forma que podamos tener una medida de qué tan rápido (o tan lento) es el renderizado.
+El Siguiente será el código base que usaremos para construír el motor. Nótese que en el código, además de los conceptos introducidos en el \autoref{chap:pygame}, hemos añadido un par de líneas para cargar una fuente y pintar en pantalla los cuadros por segundo (FPS - Frames per second) a los que está cargando el motor, de forma que podamos tener una medida de qué tan rápido (o tan lento) es el renderizado.
 
 \lstinputlisting[language=Python,caption=Código base para el motor.,label=cod-motor-3d-pygame,basicstyle=\fontsize{9}{9}\selectfont\ttfamily]{./py/motor-3d/base-pygame.py}
 
+\newpage
 \subsection{Modelando el motor}
 
-Para realizar el modelo matemático que dará forma a nuestro motor, construiremos las soluciones formalmente y al final de cada sección escribiremos el código de lo previamente analizado, de forma que sea posible aterrizar un poco más los conceptos. En el \autoref{chap:enlaces} (Enlaces adicionales) el lector podrá encontrar contenidos extra para profundizar este tópico.
+Para realizar el modelo matemático que dará forma a nuestro motor, construiremos las soluciones formalmente y al final de cada sección escribiremos el código de lo previamente analizado, de forma que sea posible interiorizar y contrastar los conceptos matemáticos con la implementación real. En el \autoref{chap:enlaces} (Enlaces adicionales) el lector podrá encontrar contenidos adicionales para profundizar este tópico.
 
-Antes de continuar, cabe anotar que durante toda la ejecución tendremos acceso a los siguientes datos:
+Para empezar, cabe anotar que durante toda la ejecución tendremos acceso a los siguientes datos:
 
 \begin{itemize}
 	\item Posición del jugador: $jugador_x$ y $jugador_y$, dos números decimales.
 	\item Dirección en la que está mirando el jugador, almacenada como un número decimal que representa ángulo en radianes: $jugador_{rot}$.
 	\item La velocidad de movimiento y de rotación del jugador, almacenados como dos números decimales: $velocidad$,  $velocidad_{rot}$. 
 	\item El campo de visión del jugador en radianes $FOV$ (Por sus siglas en inglés Field of View - Campo de Visión).
-	\item La resolución de la pantalla, el alto y ancho de la pantalla.
-	\item Una distacia máxima para limitar qué tan lejos mandamos los raycast.
+	\item La resolución de la pantalla: el alto y ancho de la pantalla, dos enteros.
+	\item Una distacia máxima para limitar qué tan lejos mandamos los raycast, un decimal.
 	\item El mapa, que definiremos en breve.
 \end{itemize}
 
-Luego los cálculos que realicemos, estarán basados en dichos valores. Lo anterior podríamos codificarlo en Python como se ve en el código \ref{cod-motor-vars}.
+Luego los cálculos que realicemos, estarán basados en dichos valores. Lo anterior podríamos codificarlo en Python como se ve en el fragmento \ref{cod-motor-vars}.
 
-\lstinputlisting[language=Python,caption=Variables generales del programa con algunos valores posibles.,label=cod-motor-vars]{./py/motor-3d/variables.py}
+\newpage
+\lstinputlisting[language=Python,caption=Variables generales del programa con algunos valores posibles.,label=cod-motor-vars,basicstyle=\fontsize{9}{9}\selectfont\ttfamily]{./py/motor-3d/variables.py}
 
 \subsubsection{Cargando el mapa}
 
-El primer paso es algo sencillo: definir es el cargado del mapa en memoria. Para tal empeño, una simple función que acceda la variable global \emph{mapa}, y que agregue múliples líneas representando un mapa, donde los $.$ significan espacio vacío y los $\#$  simbolizan muros.
+Definir el cargado del mapa en memoria es algo sencillo. Para tal empeño, una simple función que acceda la variable global \emph{mapa}, y que agregue múltiples líneas representando un nivel, donde los $.$ significan espacio vacío y los $\#$ simbolizan muros.
 
-\lstinputlisting[language=Python,caption=Función para cargar el mapa.,label=cod-motor-vars]{./py/motor-3d/mapa.py}
+\lstinputlisting[language=Python,caption=Función para cargar el mapa.,label=cod-motor-vars,basicstyle=\fontsize{9}{9}\selectfont\ttfamily]{./py/motor-3d/mapa.py}
 
 
 \subsubsection{El movimiento del jugador}
 
-Cuando se presione la tecla arriba el jugador se moverá hacia adelante en la dirección en la que él está mirando. Luego, deberíamos obtener un vector unitario a partir de la variable $jugador_{rot}$ , multiplicarlo por la $velocidad$ a la que se desplaza el jugador y sumarlo a su posición actual. Aplicaríamos este concepto a cada componente ($x$ e $y$) como se puede ver en las ecuaciones \ref{movforw}. Para que camine hacia atrás, en vez de sumar, restamos. 
+Para el movimiento, necesitamos aplicar los conceptos de vectores que revisamos previamente. La idea es la siguiente: cuando se presione la tecla arriba, el jugador se moverá hacia adelante en la dirección en la que él está mirando. Luego, deberíamos obtener un vector unitario a partir de la variable $jugador_{rot}$ , multiplicarlo por la $velocidad$ a la que se desplaza el jugador y sumarlo a su posición actual. Aplicaríamos este concepto a cada componente ($x$ e $y$) como se puede ver en las ecuaciones \ref{movforw}. Para que camine hacia atrás, en vez de sumar, restamos. 
 
 \begin{equation}
 \begin{aligned}
@@ -216,13 +216,13 @@ jugador_{rot} = jugador_{rot} \pm velocidad_{rot}
 \end{aligned}
 \end{equation}
 
-\lstinputlisting[language=Python,caption=Movimiento del personaje de acuerdo a las teclas presionadas.,label=cod-motor-mov]{./py/motor-3d/movimiento.py}
+\lstinputlisting[language=Python,caption=Movimiento de acuerdo a las teclas presionadas.,label=cod-motor-mov]{./py/motor-3d/movimiento.py}
 
-
+\newpage
 
 \subsubsection{El raycast}
 
-En nuestro caso, para poder realizar los \emph{Raycast} necesitamos saber en qué dirección dispararlo (para lo cuál usaríamos un vector unitario) y qué tan lejos hacerlo (de momento usaremos una variable llamada $distancia$ ya veremos cómo calcularla). Una simplificación que podemos hacer, es que como sabemos que el mapa está perfectamente alineado a una cuadrícula podemos omitir los decimales, para lo cuál usaremos la función \emph{floor} (que aproxima un número decimal a su entero más cercano por debajo). Todo esto lo podemos ver en la ecuación \ref{eqray}.
+El cálculo de un \emph{Raycast} implica que sepamos dirección dispararlo (para lo cuál usaríamos un vector unitario) y qué tan lejos hacerlo (de momento introduciremos una variable llamada $distancia$, que ya veremos cómo calcularla). Una simplificación que podemos hacer, gracias a que el mapa está perfectamente alineado a una cuadrícula, es omitir los decimales al calcular las coordenadas del rayo. Para esto usaremos la función \emph{floor} (que aproxima un número decimal a su entero más cercano por debajo). Todo lo anterior lo podemos ver en la ecuación \ref{eqray}.
 
 \begin{equation}
 \begin{aligned}
@@ -232,7 +232,7 @@ rayo_y = floor(y + cos \theta * distancia)\\
 \end{aligned}
 \end{equation}
 
-Hablando de la $distancia$, la calcularemos iniciando desde 0, e incrementándola poco a poco hasta llegar a un valor máximo o hasta que toquemos una pared (Ver imagen \ref{raycastit}). La idea de poner un límite máximo es optimizar un poco las cosas, si ya el rayo está muy grande y no hemos encontrado una pared, no queremos seguir buscando infinitamente, porque el juego se bloquearía.
+Hablando de la $distancia$, la calcularemos de la siguiente forma: la iniciamos en 0 e iterativamene la iremos incrementando poco a poco hasta llegar a un valor máximo o hasta que toquemos una pared (Ver imagen \ref{raycastit}). La idea de poner un límite máximo es optimizar un poco las cosas, si ya el rayo está muy grande y no hemos encontrado una pared, no queremos seguir buscando infinitamente, porque el juego se bloquearía o cargaría extremadamente lento.
 
 \begin{figure}[h!]
 	\centering
@@ -241,31 +241,32 @@ Hablando de la $distancia$, la calcularemos iniciando desde 0, e incrementándol
 	\label{raycastit}
 \end{figure}
 
-Para ver todo esto en Python, podemos utilizar un código como el \ref{cod-motor-raycast}. Nótese que para mayor órden, hemos definido las instrucciones como una función que podamos reutilizar. A dicha función le enviamos la coordenada $x$ e $y$ y la $rotacion$ desde la cuál disparar el rayo; al final recibimos la distancia en la cuál hubo colisión, o en su defecto el valor que hallamos configurado como distancia máxima del rayo. En cuanto a \emph{saber cuándo tocamos un muro}, simplemente llamamos una función que recibe las coordenadas del rayo y chequea si están dentro del mapa, de ser así revisa si dicha posición es o no un muro.
+La lógica del \emph{raycast} puede traducirse a Pytohn utilizando un código como el del fragmento \ref{cod-motor-raycast}. Nótese que para mayor orden, hemos definido las instrucciones como una función que podamos reutilizar. A dicha función le enviamos la coordenada $x$ e $y$ y la $rotacion$ desde la cuál disparar el rayo; al final recibimos la distancia en la cuál hubo colisión, o en su defecto el valor que hallamos configurado como distancia máxima del rayo. En cuanto a \emph{saber cuándo tocamos un muro}, simplemente llamamos una función que recibe las coordenadas del rayo y chequea si están dentro del mapa, de ser así revisa si dicha posición es o no un muro.
 
 \lstinputlisting[language=Python,caption=Función para realizar un raycast.,label=cod-motor-raycast]{./py/motor-3d/raycast.py}
 
-Notemos que el valor de \emph{math.sin(rot)} y \emph{math.cos(rot)}, será el mismo durante un llamado a la función, luego podríamos optimizar ligeramente nuestro código haciendo el cálculo previamente y reutilizando el valor, como se puede ver en el código \ref{cod-motor-raycast-opt}.
+Si miramos detenidamente, encontraremos que el valor de \emph{math.sin(rot)} y \emph{math.cos(rot)}, será el mismo durante un llamado a la función, luego podríamos optimizar ligeramente nuestro código haciendo el cálculo previamente y reutilizando el valor, como se puede ver en el código \ref{cod-motor-raycast-opt}.
 
 \newpage
 
 \lstinputlisting[language=Python,caption=Optimizando ligeramente la función del raycast.,label=cod-motor-raycast-opt]{./py/motor-3d/raycast-opt.py}
 
 
-\newpage
-
-\subsubsection{Raycasts en el campo de visión}
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=6cm]{./Images/fov.png}
+\begin{wrapfigure}{r}{0.4\textwidth}	
+	\begin{center}
+		\includegraphics[width=0.4\textwidth]{./Images/fov.png}
+	\end{center}
 	\caption{El campo de visión del jugador.}
-	\label{fovgraph}
-\end{figure}
+	\label{fovgraph}	
+\end{wrapfigure}
 
-Ahora, necesitamos calcular cómo mandar varios \emph{raycasts}, de forma que podamos dibujar todo el campo de visión (FOV) del jugador. Para este propósito, lo primero será hallar los angulos de inicio y fin, desde los cuáles lanzaremos los rayos. Llamémoslos $FOV_{inicio}$ y $FOV_{fin}$ .
+\subsubsection{\mbox{Raycasts para el campo de visión}}
 
-De la gráfica \ref{fovgraph}, podemos ver que el inicio del FOV se encuentra restando la mitad del FOV total del ángulo al que está mirando el jugador ($\theta$, en el gráfico). Para el fin de FOV, sumamos la mitad del total del FOV al ángulo. Todo esto se ve en la ecuación \ref{foveq}. 
+Ahora, necesitamos calcular cómo mandar varios \emph{raycasts}, de forma que podamos dibujar todo el campo de visión (FOV) del jugador. Para este propósito, lo primero será hallar los angulos de inicio y fin desde los cuáles lanzar los rayos. Llamémoslos $FOV_{inicio}$ y $FOV_{fin}$.
+
+De la gráfica \ref{fovgraph}, podemos ver que en la mitad del FOV se encuentra el ángulo en el que está mirando el jugador ($\theta$), luego $FOV_{inicio}$ podríamos calcularlo restando la \textbf{mitad} del FOV total a $\theta$ y $FOV_{fin}$ lo encontraríamos sumamos la mitad del total del FOV $\theta$. Tal y como se ve en la ecuación \ref{foveq}. 
+
+\clearpage
 
 \begin{equation}
 \begin{aligned}
@@ -293,16 +294,7 @@ Rayo_{angulo} = FOV_{inicio} + pixel * Rayo_{espaciado}
 \end{aligned}
 \end{equation}
 
-Reemplazando:
-
-\begin{equation}
-\begin{aligned}
-\label{eq-rayo-2}
-Rayo_{angulo} = \left(jugador_{rot} - \frac{FOV}{2} \right) + pixel * \left(\frac{FOV}{Pantalla_{ancho}}\right)
-\end{aligned}
-\end{equation}
-
-Para el programa, bastaría con calcular el ángulo de cada uno de los rayos y utilizar la función \textbf{raycast} que definimos en la sección anterior, disparando el rayo desde la posición del jugador, en el ángulo que recién calculamos. Todo esto reflejado en el código \ref{raycasts-fov}.
+Hablando del programa, bastaría con calcular el ángulo de cada uno de los rayos y utilizar la función \textbf{raycast} que definimos en la sección anterior, para así disparar el rayo desde la posición del jugador en el ángulo mencionado anteriormente. Todo esto reflejado en el código \ref{raycasts-fov}.
 
 \lstinputlisting[language=Python,caption=Raycasts para todo el campo de visión del jugador.,label=raycasts-fov]{./py/motor-3d/raycasts-fov.py}
 
@@ -362,7 +354,7 @@ El techo es la mitad superior de la pantalla, luego debería pintarse como un re
 
 \subsubsection{Los muros}
 
-Con respecto a los muros, recordemos que lo más importante es que a mayor distancia, debería verse más pequeño. Es necesario resaltar, que en un motor real la distancia se calcula haciendo una proyección ortogonal al vector en la dirección exacta que está mirando el jugador, de esta forma se evita un efecto llamado \emph{fish-eye effect}. Sin embargo, en nuestro caso simplemente usaremos una fórmula para pintar que nos dará un buen efecto, sin necesidad de entrar en detalles adicionales.
+Con respecto a los muros, recordemos que lo más importante es que a mayor distancia, debería verse más pequeño. Es necesario resaltar, que en un motor real la distancia se calcula haciendo una proyección ortogonal al vector en la dirección exacta que está mirando el jugador, de esta forma se evita un efecto llamado \emph{fish-eye effect}. Sin embargo, en nuestro caso usaremos una fórmula simplificada que nos dará un buen efecto, sin necesidad de entrar en detalles adicionales.
 
 \begin{figure}[h!]
 	\centering
@@ -373,10 +365,9 @@ Con respecto a los muros, recordemos que lo más importante es que a mayor dista
 
 El cálculo, cómo se puede ver en la figuro \ref{techo-piso-muro}, es determinar el tamaño de la sección de techo y piso, de acuerdo a la distancia calculada contra el muro. Teniendo ese dato, podemos saber qué tan grande pintamos la sección verde de la pantalla.
 
-Lo primero que podemos determinar es que el $techo$ y el $piso$ tienen el mismo tamaño, luego teniendo uno de ellos, sabremos el otro. Ahora, centrándonos en el techo, 
+Lo primero que podemos determinar es que el $techo$ y el $piso$ tienen el mismo tamaño, luego teniendo uno de ellos, sabremos el otro.
 
-
-Para ayudar a dar más sensación de profundidad, haremos que entre más lejos esté el muro, no sólo sea más pequeño, si no que también se vea ligeramente más oscuro. El valor máximo del $techo$ es la mitad del alto de la pantalla (en caso de no haber muro, como se ve en la figura \ref{techo-piso}), a dicho valor le restaremos una proporción de la pantalla.
+Ahora, centrándonos en el techo, podemos ver lo siguiente: el valor máximo del $techo$ es la mitad del alto de la pantalla (en caso de no haber muro, como se ve en la figura \ref{techo-piso}), a dicho valor le restaremos una proporción de la pantalla de acuerdo a la distancia en la que se encuentra el muro.
 
 \begin{equation}
 \begin{aligned}
@@ -385,7 +376,7 @@ techo = \frac{Pantalla_{alto}}{2} - ProporcionDistancia
 \end{aligned}
 \end{equation}
 
-Es posible calcular la proporción usando diferentes métodos, sin embargo, una que funciona bien y no genera demasiados efectos ópticos extraños, es simplemente dividir el alto de la pantalla entre la distancia con respecto al muro. 
+Es posible calcular la proporción usando diferentes métodos, sin embargo, una que funciona bien y no genera demasiados efectos ópticos extraños, es dividir el alto de la pantalla entre la distancia con respecto al muro. 
 
 \begin{equation}
 \begin{aligned}
@@ -417,11 +408,11 @@ Por otro lado, teniendo el valor del techo y sabiendo que el piso es del mismo t
 \end{equation}
 
 
-Por otro lado, para agregar un mayor efecto (\emph{shading}) de profundidad, podemos hacer el color más oscuro a medida que está más lejos el muro. Utilizando la fórmula \ref{shading} podemos hacerlo fácilmente. Cabe anotar, que también deberíamos garantizar que no vayan a existir valores negativos.
+Para concluir, agregaremos un mayor efecto (\emph{shading}) de profundidad, haciendo el color más oscuro a medida que está más lejos el muro. Utilizando la fórmula \ref{eq-shading} podemos hacerlo fácilmente. Cabe anotar, que también deberíamos garantizar que no vayan a existir valores negativos, de igual forma, hallando el máximo valor entre 0 y el \emph{shading} calculado.
 
 \begin{equation}
 \begin{aligned}
-\label{eq-techo-completa}
+\label{eq-shading}
 shading = 1 - \frac{distancia}{DISTANCIA_{MAX}}
 \end{aligned}
 \end{equation}
@@ -432,7 +423,10 @@ Todo lo anterior, podemos aplicarlo en el código \ref{motor-3d-dibujar}.
 
 \section{Código completo}
 
-Teniendo todos los fragmentos analizados y codificados, bastará con unir todo en un programa completo y \emph{voilà}, tendremos nuestro primer motor 3D funcionando. No es óptimo, pero ha sido toda una aventura programarlo. Para profundizar en este tópico, recuerde revisar la sección enlaces adicionales \autoref{chap:motor-3d}.
+Aunque parezca magia, con los fragmentos anteriormente analizados y codificados, bastará con unir todo en un programa completo y \emph{voilà}, tendremos nuestro primer motor 3D funcionando. No es óptimo, pero ha sido toda una aventura programarlo. 
 
-\lstinputlisting[language=Python,caption=Código para pintar los muros con un shading que agudiza el efecto de profundidad.,label=motor-3d-dibujar,basicstyle=\fontsize{9}{9}\selectfont\ttfamily]{./py/motor-3d/motor-3d.py}
+Para profundizar en este tópico, recuerde revisar la sección enlaces adicionales \autoref{chap:motor-3d}.
+
+\newpage
+\lstinputlisting[language=Python,caption=Código completo de nuestro primer motor 3D.,label=motor-3d-dibujar,basicstyle=\fontsize{9}{9}\selectfont\ttfamily]{./py/motor-3d/motor-3d.py}
 
