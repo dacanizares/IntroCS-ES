@@ -2,7 +2,7 @@
 
 Luego de ver a grandes rasgos cómo programar un computador, llegó la hora de explorar lo que hemos aprendido en un lenguaje de programación real. 
 
-Cómo vimos, los principales componentes de un computador son \emph{la entrada}, \emph{la salida}, \emph{la memoria} y \emph{el programa}. Ya que vamos a escribir nuestros programas en Python, surge una pregunta: ¿Cómo interactúa Python con los componentes de nuestro computador? Después de muchos intentos con distintas explicaciones, quizá que la mejor forma de responder esta pregunta es mediante ejemplos reales en el lenguaje de programación. Se recomienda encarecidamente al lector, que pruebe todos los programas en su máquina, para que los vea en funcionamiento. De igual forma, nada de esto tendrá sentido si el lector pasa rápidamente sobre este libro y no se toma el tiempo para interiorizar cada instrucción.
+Cómo vimos, los principales componentes de un computador son \emph{la entrada}, \emph{la salida}, \emph{la memoria} y \emph{el programa}. Ya que vamos a escribir nuestros programas en Python, surge una pregunta: ¿Cómo interactúa Python con los componentes de nuestro computador? Después de muchos intentos con distintas explicaciones, quizá la mejor forma de responder esta pregunta es mediante ejemplos reales en el lenguaje de programación. Se recomienda encarecidamente al lector, que pruebe todos los programas en su máquina, para que los vea en funcionamiento. De igual forma, nada de esto tendrá sentido si el lector pasa rápidamente sobre este libro y no se toma el tiempo para interiorizar cada instrucción.
 
 \section{Instalando Python}
 
@@ -21,9 +21,9 @@ Para poder ejecutar cualquier código bastará con crear un archivo con extensi�
 
 \section{Programación en Python}
 
-Aunque en un computador todo termina siendo unos y ceros, Python tiene algunas abstracciones básicas (otras un poco más avanzadas, que veremos en el capítulos posteriores) que harán todo más fácil. Una abstracción permite manipular la máquina sin necesidad de conocer a fondo su funcionamiento. Por ejemplo, el pedal de un carro permite que usted acelere sin necesidad de conocer el funcionamiento del motor. 
+Aunque en un computador todo termina siendo unos y ceros, Python tiene algunas abstracciones básicas (otras más avanzadas, que veremos en capítulos posteriores) que harán todo más fácil. Una abstracción permite manipular la máquina sin necesidad de conocer a fondo su funcionamiento. Por ejemplo, el pedal de un carro permite que usted acelere sin necesidad de conocer el funcionamiento del motor. 
 
-Si hablamos de la memoria, en Python contamos con diferentes \textbf{tipos de datos} que determinan las acciones podemos realizar con los datos almacenados, sin necesidad de conocer a profundidad qué hace el computador con ellos. A saber:
+Si hablamos de la memoria, en Python contamos con diferentes \textbf{tipos de datos} que determinan las acciones que podemos realizar con los datos almacenados, sin necesidad de conocer a profundidad qué hace el computador con ellos. A saber:
 
 \begin{itemize}
 \item Números: con los números podemos efectuar operaciones aritméticas como sumas (+), restas (-), multiplicaciones (*), divisiones(/), residuos(\%) y potencias (**). En Python, los enteros se llaman \textbf{int} (de \emph{integer}, en inglés) y los que tienen decimales se conocen como \textbf{float}. Por ejemplo: 0, -1, 1, 40, 52, son enteros y 0.1, 0.7, -1.8 son decimales. 
@@ -46,7 +46,7 @@ Si ejecutamos ese código, el computador no mostrará nada, eso es porque aún n
 
 \lstinputlisting[language=Python,caption=Salida de datos en Python,label=cod-salida]{./py/nociones/salida.py}
 
-Por otro, la entrada de datos básica se hace con la instrucción \emph{input()}; entre los paréntesis se puede colocar un mensaje para que le aparezca al usuario. Luego de ingresar los caracteres por teclado y presionar la tecla \emph{enter}, los datos quedan almacenados en la variable a la cuál se haya asignado la instrucción. Sin embargo, hay que anotar que la instrucción \emph{input()} nos devuelve un \emph{string}(o texto), luego, si queremos hacer operaciones númericas, debemos convertir ese texto en un número usando alguna de las dos siguientes opciones:
+Por otro lado, la entrada de datos básica se hace con la instrucción \emph{input()}; entre los paréntesis se puede colocar un mensaje para que le aparezca al usuario. Luego de ingresar los caracteres por teclado y presionar la tecla \emph{enter}, los datos quedan almacenados en la variable a la cuál se haya asignado la instrucción. Sin embargo, hay que anotar que la instrucción \emph{input()} nos devuelve un \emph{string}(o texto), luego, si queremos hacer operaciones númericas, debemos convertir ese texto en un número usando alguna de las dos siguientes opciones:
 
 \begin{itemize}
  \item Convertir una entrada a entero: 
@@ -54,10 +54,10 @@ Por otro, la entrada de datos básica se hace con la instrucción \emph{input()}
  entero = int(input('Digite un entero')) \end{lstlisting}
  \item Convertir una entrada a decimal:
  \begin{lstlisting}[language=Python]
- decimal = float(input('Digite un entero')) \end{lstlisting}
+ decimal = float(input('Digite un decimal')) \end{lstlisting}
 \end{itemize}
 
- Por ejemplo, el código \ref{cod-suma} muestra como solicitar dos números por teclado para luego imprimir el valor que resulta al sumarlos \footnote{Como lo importante es aprender, por ahora confiaremos en que el usuario no cometerá errores al ingresar los datos. Hay libros complican al estudiante que poniendole a realizar con mil y una validaciones antes de poder hacer cualquier cosa, bajo la excusa de que eso no se puede omitir en un programa comercial. Eso no tiene sentido, al fin y al cabo, cuando se realizan programas grandes, se usan otras herramientas que ayudan a prevenir estos errores. En capítulos posteriores exploraremos cómo hacerlo.}. \textbf{Importante:} Qué pasa si no convertimos las entradas en enteros? Se recomienda al lector que ensaye en su computador. Si quedan dudas en la sección problemas de este capítulo podrá encontrar la respuesta. \\
+ Por ejemplo, el código \ref{cod-suma} muestra como solicitar dos números por teclado para luego imprimir el valor que resulta al sumarlos \footnote{REVISAR: Como lo importante es aprender, por ahora confiaremos en que el usuario no cometerá errores al ingresar los datos. Algunos libros complican al estudiante obligándole a realizar un montón de validaciones antes de poder hacer cualquier cosa, bajo la excusa de que eso no se puede omitir en un programa comercial. Eso no tiene sentido, al fin y al cabo, cuando se realizan programas grandes, se usan otras herramientas que ayudan a prevenir estos errores. En capítulos posteriores exploraremos cómo hacerlo.}. \textbf{Importante:} Qué pasa si no convertimos las entradas en enteros? Se recomienda al lector que ensaye en su computador. Si quedan dudas en la sección problemas de este capítulo podrá encontrar la respuesta. \\
 
 \lstinputlisting[language=Python,caption=Lectura y suma de dos números en Python,label=cod-suma]{./py/nociones/suma.py}
 
