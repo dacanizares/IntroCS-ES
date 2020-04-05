@@ -48,7 +48,7 @@ De una u otra forma, el programa tendrá que interactuar con todos los component
 
 Supongamos un videojuego sencillo como \emph{Pong} (ver figura \ref{figpong}). El juego es una especie de \emph{tenis} en el que dos jugadores, cada uno en control de una barra que representa una raqueta, deben golpear una pelota e intentar que el otro jugador no alcance a responder el golpe, para marcar un punto. 
 
-Intentemos comprender cómo representar este juego en nuestra \emph{Máquina RAM}. No lo haremos exhaustivo pero un bosquejo, que permita entender a nivel general las mecánicas de la programación. Empecemos de lo más fácil a lo más complejo:
+Intentemos comprender, mediante un bosquejo cómo representar este juego en nuestra \emph{Máquina RAM}. Empecemos de lo más fácil a lo más complejo:
 
 \begin{itemize}
 
@@ -84,7 +84,7 @@ Intentemos comprender cómo representar este juego en nuestra \emph{Máquina RAM
 		
 		\item \textbf{Si} la pelota colisiona con una raqueta, cambiar su dirección.
 		
-		\item \textbf{Si} la pelota toca la esquina izquierda, sumar más uno a la puntuación del jugador 1; \textbf{si} la pelota toca la esquina derecha, sumar a la puntuación del jugador 2.
+		\item \textbf{Si} la pelota toca el limite izquierdo de la pantalla, sumar más uno a la puntuación del jugador 2; \textbf{si} la pelota toca el limite derecho, sumar a la puntuación del jugador 1.
 				
 		\item \textbf{Repetir} desde el primer paso, hasta que los jugadores se salgan del juego.
 	\end{itemize}
@@ -132,7 +132,7 @@ Estos problemas no tienen una única solución, la idea es comenzar a interioriz
 	
 \item Flappy birds:
 	\begin{itemize}
-		\item Entrada: el jugador tiene una única tecla ue presiona para que el pajaro aletee y vuele hacia arriba.
+		\item Entrada: el jugador tiene una única tecla que presiona para que el pajaro aletee y vuele hacia arriba.
 		\item Salida: en la pantalla debemos pintar el estado del juego, mostrando el jugador y los obstáculos.
 		\item Memoria: deberíamos poder almacenar la \emph{puntación del jugador}, su \emph{posición}, la \emph{velocidad en el eje X} del jugador, la \emph{velocidad en el eje Y} y para mantener las cosas simples, sólo diremos que guardaremos la posición y tamaño de algunos obstáculos que irán apareciendo en la pantalla.
 		\item Programa:
