@@ -1,3 +1,3 @@
-n = input('Digite un nro ')
+n = int(input('Digite un nro '))
 if n == 0:
-    print 'Es cero'
+  print('Es cero')

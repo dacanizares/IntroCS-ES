@@ -5,7 +5,7 @@ q = int(input())
 respuesta = x // q
 # Si falto un poco de espacio
 if x % q != 0:
-    # Se debe comprar otro
-    respuesta = respuesta + 1
+  # Se debe comprar otro
+  respuesta = respuesta + 1
 
 print(respuesta)

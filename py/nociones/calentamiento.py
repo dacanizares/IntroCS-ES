@@ -7,7 +7,7 @@ a = input()
 b = input()
 suma = 0
 for i in range(0,b):
-    suma = suma + a
+  suma = suma + a
 print suma
 
 # Punto 3
@@ -15,5 +15,5 @@ a = input()
 b = input()
 mult = 1
 for i in range(0,b):
-    mult = mult * a
+  mult = mult * a
 print mult

@@ -1,3 +1,3 @@
-a = input('Digite un nro.')
-b = input('Digite un nro.')
-print a + b
+a = int(input('Digite un nro.'))
+b = int(input('Digite un nro.'))
+print(a + b)
