@@ -102,77 +102,106 @@ Python no sólo facilita la representación de los datos en memoria, sino tambi�
 
 \subsubsection{Las variables}
 
-Permiten dar un nombre arbitrario \footnote{Hay tres pequeñas restricciones que debemos tener en cuenta: usar únicamente letras, números o guiones bajos, no empezar por un número y no dejar espacios en blanco} y un valor a partes de la memoria utilizando el signo igual (=). Es importante aclarar que \emph{Python detecta automáticamente el tipo dato que se le asigna a una variable}, luego simplemente podemos realizar las asignaciones como se ve en el código \ref{cod-asignacion}. \\
+Permiten dar un nombre arbitrario y un valor a partes de la memoria utilizando el signo igual (=). Es importante aclarar que \emph{Python detecta automáticamente el tipo dato que se le asigna a una variable}, luego simplemente podemos realizar las asignaciones como se ve en el código \ref{cod-asignacion}. \\
 
-\lstinputlisting[language=Python,caption=Asignaciones en Python,label=cod-asignacion]{./py/nociones/asignacion.py}
+\lstinputlisting[language=Python,caption=Asignaciones en Python,label=cod-asignacion]{./py/python/asignacion.py}
 
-La forma más común de nombrar variables en Python, aunque no es obligatoria es recomendada: consiste en escribir todo en minúsculas y si el nombre son varias palabras, se separan por guiones bajos.
+Existen tres restricciones que debemos tener en cuenta antes de nombrar una variable: usar únicamente letras, números o guiones bajos, no empezar por un número y no dejar espacios en blanco. Si esto no se cumple el código presentará un error.
 
-FALTA: ejemplo.
+Por otro lado, la forma más común de nombrar variables en Python, aunque no es obligatoria es recomendada: consiste en escribir todo en minúsculas y usar nombres \emph{descriptivos}, si el nombre son varias palabras se separan por guiones bajos. Si esto no se cumple el código aún funcionará, pero el programa será, probablemente, menos claro que si seguimos las recomendaciones. \\
+
+Anotemos también que es posible realizar comentarios a nuestro código añadiendo el caracter \#, donde podemos escribir aclaraciones del programa, sin afectar su comportamiento.
+
+En el fragmento \ref{cod-constantes} podemos ver ejemplos de nombramientos correctos, no recomendados e incorrectos. \\
+
+\lstinputlisting[language=Python,caption=Ejemplos para nombres de variables,label=cod-asignacion]{./py/python/nombres.py}
+
+Es también importante anotar, que en programas pequeños, como los ejemplos que veremos en breve, es posible que usemos nombres más cortos (como una letra, similar a cómo se hace en las expresiones matemáticas), para facilitar la manipulación de las variables; en programa más grandes, se privilegia en general el uso de nombres más largos y descriptivos.
 
 \subsubsection{Las constantes}
 
-Cuando estamos programando, es común encontrarnos con valores generales que no cambian durante la ejecución del código. Dichos valores los llamamos constantes, y aunque en Python no existe una distinción especial entre \emph{variables} y \emph{constantes}, se acostumbra a nombrarlos con MAYÚSCULAS\_SOSTENIDAS, de esta forma podemos distinguir fácilmente que valores NO deberíamos cambiar bajo ninguna circunstancia.
+Cuando estamos programando, es común encontrarnos con valores generales que no cambian durante la ejecución del código. Dichos valores los llamamos constantes, y aunque en Python no existe una distinción especial entre \emph{variables} y \emph{constantes}, se acostumbra a nombrarlos con MAYÚSCULAS\_SOSTENIDAS, de esta forma podemos distinguir fácilmente que valores NO deberíamos cambiar bajo ninguna circunstancia. \\
 
-FALTA: ejemplo.
+\lstinputlisting[language=Python,caption=Asignaciones en Python,label=cod-constantes]{./py/python/constantes.py}
 
-Si ejecutamos alguno de los códigos anterior en el computador no veremos nada porque aún no hemos definido instrucciones para la salida de datos.
+Hasta este punto, si ejecutáramos alguno de los códigos anteriores en el computador no veríamos nada porque aún no hemos definido instrucciones para la salida de datos.
 
 \subsection{Abstracciones de entrada y salida}
 
-La forma básica de mostrar información en la pantalla es usando la instrucción \emph{print}. Basta con escribirla y dentro de paréntesis colocar el valor, la operación o la variable que se desea mostrar. En Python podemos comentar el código, añadiendo el caracter \#, de forma que podamos escribir aclaraciones del programa, sin afectar su comportamiento. Todo lo anterior se ve en el código \ref{cod-salida}. \\
+Las siguientes instrucciones nos permiten interactuar con el usuario de una forma básica.
 
+\subsubsection{Salida de datos}
 
-\lstinputlisting[language=Python,caption=Salida de datos en Python,label=cod-salida]{./py/nociones/salida.py}
+La forma básica de mostrar información en la pantalla es usando la instrucción \emph{print}. Basta con escribirla y dentro de paréntesis colocar el valor, la operación o variable que se desea mostrar. En caso de necesitar imprimir múltiples valores, se pueden poner separados por comas, como se ve en el fragmento \ref{cod-salida} \\
 
-Por otro lado, la entrada de datos básica se hace con la instrucción \emph{input()}; entre los paréntesis se puede colocar un mensaje para que le aparezca al usuario. Luego de ingresar los caracteres por teclado y presionar la tecla \emph{enter}, los datos quedan almacenados en la variable a la cuál se haya asignado la instrucción. Sin embargo, hay que anotar que la instrucción \emph{input()} nos devuelve un \emph{string}(o texto), luego, si queremos hacer operaciones númericas, debemos convertir ese texto en un número usando alguna de las dos siguientes opciones:
+\lstinputlisting[language=Python,caption=Salida de datos en Python,label=cod-salida]{./py/python/salida.py}
+
+\subsubsection{Entrada de datos}
+
+En cuanto a la entrada de datos básica, tenemos la instrucción \emph{input()}; entre los paréntesis se puede colocar un mensaje para que le aparezca al usuario. Luego de ingresar los caracteres por teclado y presionar la tecla \emph{enter}, los datos quedan almacenados en la variable a la cuál se haya asignado la instrucción. Sin embargo, hay que anotar que la instrucción \emph{input()} nos devuelve un \emph{string}(o texto), luego, si queremos hacer operaciones númericas, debemos convertir ese texto en un número. Dicha conversión se conoce con el nombre de \emph{casting}. De momento, usaremos alguna de las dos opciones que se ve en el fragmento \ref{cod-casting}. \\
+
+\lstinputlisting[language=Python,caption=Algunos castings en Python,label=cod-casting]{./py/python/casting.py}
+
+ Por ejemplo, el código \ref{cod-suma} muestra como solicitar dos números por teclado para luego imprimir el valor que resulta al sumarlos \footnote{Si estamos esperando un número y el usuario ingresa una palabra, el programa terminará. Existen mecanismos de validación, pero por motivos pedagógicos, de momento omitiremos validaciones adicionales y nos centraremos en el proceso de construcción de nuestras soluciones.}. 
+ \newpage
+ \textbf{Importante:} Qué pasa si no convertimos las entradas en enteros? Se recomienda al lector que ensaye en su computador. Si quedan dudas, en la sección problemas de este capítulo podrá encontrar la respuesta. \\
+
+\lstinputlisting[language=Python,caption=Lectura y suma de dos números en Python,label=cod-suma]{./py/python/suma.py}
+
+\subsection{Abstracciones para el programa}
+
+Existen dos mecanismos básicos para controlar el flujo de nuestro programa, a saber:
 
 \begin{itemize}
- \item Convertir una entrada a entero: 
- \begin{lstlisting}[language=Python]
- entero = int(input('Digite un entero')) \end{lstlisting}
- \item Convertir una entrada a decimal:
- \begin{lstlisting}[language=Python]
- decimal = float(input('Digite un decimal')) \end{lstlisting}
+\item Condicionar las instrucciones: es decir, indicar en qué casos se debería o no ejecutar una parte de nuestro código.
+\item Repetir las instrucciones: para determinar fácilmente que bloques de nuestro código se deben ejecutar más de una vez.
 \end{itemize}
 
- Por ejemplo, el código \ref{cod-suma} muestra como solicitar dos números por teclado para luego imprimir el valor que resulta al sumarlos \footnote{REVISAR: Como lo importante es aprender, por ahora confiaremos en que el usuario no cometerá errores al ingresar los datos. Algunos libros complican al estudiante obligándole a realizar un montón de validaciones antes de poder hacer cualquier cosa, bajo la excusa de que eso no se puede omitir en un programa comercial. Eso no tiene sentido, al fin y al cabo, cuando se realizan programas grandes, se usan otras herramientas que ayudan a prevenir estos errores. En capítulos posteriores exploraremos cómo hacerlo.}. \textbf{Importante:} Qué pasa si no convertimos las entradas en enteros? Se recomienda al lector que ensaye en su computador. Si quedan dudas en la sección problemas de este capítulo podrá encontrar la respuesta. \\
+Exploremos cómo realizar ambos mecanismos en Python.
 
-\lstinputlisting[language=Python,caption=Lectura y suma de dos números en Python,label=cod-suma]{./py/nociones/suma.py}
+\subsubsection{Condicionar las instrucciones}
 
-En Python también es posible condicionar la ejecución de ciertas instrucciones utilizando la expresión \emph{if}, que traduce \emph{si} en español. Dicha expresión, debe ir acompañada de una \emph{condición}, que no es más que la evaluación, \emph{verdadera} o \emph{falsa}, de una proposición utilizando los operadores lógicos: es igual (==) \footnote{Nótese que se usa doble igual para distinguir la comparación de la asignación.}, mayor ($>$), menor($<$), mayor o igual ($>=$), menor o igual ($<=$) o diferente (!=). Por ejemplo, el código \ref{cod-if} sólo ejecuta la instrucción que imprime \emph{Es cero}, si  el valor ingresado es igual a 0. Las instrucciones que están condicionadas \textbf{deben ir tabuladas}, como se observa en el código de ejemplo, y pueden ser una o más instrucciones de cualquier tipo. \\
+Para este fin utilizamos la expresión \emph{if}, que traduce \emph{si} en español. Dicha expresión, debe ir acompañada de una \emph{condición}, que no es más que la evaluación, \emph{verdadera} o \emph{falsa}, de una proposición utilizando los operadores lógicos: es igual (==) \footnote{Nótese que se usa doble igual para distinguir la comparación de la asignación.}, mayor ($>$), menor($<$), mayor o igual ($>=$), menor o igual ($<=$) o diferente (!=). Por ejemplo, el código \ref{cod-if} sólo ejecuta la instrucción que imprime \emph{Es cero}, si  el valor ingresado es igual a 0. Las instrucciones que están condicionadas \textbf{deben ir tabuladas}, como se observa en el código de ejemplo, y pueden ser una o más instrucciones de cualquier tipo. \\
 
-\lstinputlisting[language=Python,caption=Un \emph{if} en Python,label=cod-if]{./py/nociones/if.py}
+\lstinputlisting[language=Python,caption=Un \emph{if} en Python,label=cod-if]{./py/python/if.py}
 
 
 La instrucción \emph{if} puede ir acompañada de un \emph{else}, que traduce \emph{si no} en español, y que se utiliza para indicar qué instrucciones ejecutar cuando la condición no se cumple. Esta situación se puede observar en el código \ref{cod-ifelse}, en el cuál se reciben dos números y se imprime cuál de ellos es el mayor (en caso de ser iguales, no importará cuál mostremos). Nótese que el texto entre comillas se muestra tal cuál en patalla, mientras que el valor después de la coma se reemplaza por el valor que tenga la variable en el momento de la ejecución. \\
 
-\lstinputlisting[language=Python,caption=Un \emph{if-else} en Python,label=cod-ifelse]{./py/nociones/ifelse.py}
+\lstinputlisting[language=Python,caption=Un \emph{if-else} en Python,label=cod-ifelse]{./py/python/ifelse.py}
 
 Si se necesitan condicionar más caminos, se puede utilizar la expresión \emph{elif}, que es una abreviación de \emph{else if}. Por ejemplo, si quisiéramos saber cuál es el mayor de tres números (llámense $a$, $b$ y $c$), habría tres opciones: 
+
 \begin{itemize}
-\item Si $a$ es mayor que $b$ y que $c$, en tal caso, $a$ sería el mayor.
+\item \emph{Si} $a$ es mayor que $b$ y que $c$, en tal caso, $a$ sería el mayor.
 
-\item Si no, se debe descartar entre $b$ y $c$ cuál es mayor, luego, si $b$ es mayor que $c$, $b$ es el mayor.
+\item \emph{Si no}, se debe descartar entre $b$ y $c$ cuál es mayor, luego, \emph{si} $b$ es mayor que $c$, $b$ es el mayor.
 
-\item Si ninguna de las anteriores condiciones se cumple, es porque el mayor era $c$. 
+\item \emph{Si no}, ninguna de las anteriores condiciones se cumple, es porque el mayor era $c$. 
 \end{itemize}
 
 
-Lo expresado anteriormente se observa en el código \ref{cod-ifelifelse}.  \\
+Lo expresado anteriormente se observa en el código \ref{cod-ifelifelse}. Es importante resaltar en este punto, que si la condición es más compleja que evaluar un único valor, podemos usar los operadores \emph{and}, \emph{or} y \emph{not} para componer una expresión que sirva para representar el caso que necesitemos.   \\
 
-\lstinputlisting[language=Python,caption=El mayor de tres números,label=cod-ifelifelse]{./py/nociones/ifelifelse.py}
+\lstinputlisting[language=Python,caption=El mayor de tres números,label=cod-ifelifelse]{./py/python/ifelifelse.py}
 
-En cuanto a la repetición de instrucciones, se utiliza la instrucción \emph{for}, que traduce \emph{para} en español. Veamos como funciona: \\
 
-\lstinputlisting[language=Python,caption=Repetición de instrucciones en Python,label=cod-for]{./py/nociones/for.py}
+\subsubsection{Repetición de instrucciones}
+
+En cuanto a la repetición de instrucciones, se utiliza la instrucción \emph{for} \footnote{Entre otras que veremos en capítulos posteriores.}, que traduce \emph{para} en español. Veamos como funciona: \\
+
+\lstinputlisting[language=Python,caption=Repetición de instrucciones en Python,label=cod-for]{./py/python/for.py}
 
 El código anterior imprime los números desde el cero hasta el nueve (nótese que el límite superior \textbf{no} se incluye). Su lectura en español nos ayudará a entenderlo: \emph{para i en el rango de 0 a 10, imprima i}. La $i$ es una variable cualquiera, por lo cuál podemos utilizar otro nombre; es común usar $i$ por su relación con los índices y subíndices en matemáticas. Los dos números dentro del paréntesis de \emph{range} indican desde que valor inicia la repetición y en cuál termina. Al igual que con la estructura \emph{if}, las instrucciones que se repiten deben ir tabuladas.
 
-Es posible mezclar todas las instrucciones que hemos visto (y las que veremos), por ejemplo, tener programas como el del código \ref{cod-forif} que recibe dos números, imprime todos los enteros que hay entre ellos, indicando si son negativos o positivos.
+Si quisieramos mostrar los números en un rango digitado por el usuario, donde \emph{a} es el límite inferior y \emph{b} es el límite superior, podríamos contruir un programa como el que se ve en el fragmento \ref{cod-for-rango}.
+
+\lstinputlisting[language=Python,caption=El mayor de tres números,label=cod-for-rango]{./py/python/for-rango.py}
+
+Es posible mezclar no sólo las instrucciones de entrada y salida, si no también todas las demás que hemos visto (y las que veremos), por ejemplo, tener programas como el del código \ref{cod-forif} que recibe dos números, imprime todos los enteros que hay entre ellos, indicando si son negativos o positivos. \\
 
 
-\lstinputlisting[language=Python,caption=Repeticiones y decisiones en Python,label=cod-forif]{./py/nociones/forif.py}
+\lstinputlisting[language=Python,caption=Repeticiones y decisiones en Python,label=cod-forif]{./py/python/forif.py}
 
 
 
