@@ -1,27 +1,46 @@
-\chapter{Pensamiento imperativo}
+\chapter{Programación imperativa}
+ 
+Las restricciones propias de los computadores y el tipo de soluciones que se desean encontrar al codificar un programa, 
 
-Los algoritmos, al contrario de lo que parece, no son complicados para la mayoría de personas. Por ejemplo las multiplicaciones, divisiones, sumas y restas que hacemos en el papel son algoritmos que aprendimos por allá en la escuela primaria. Estamos en capacidad de enseñar a otras personas las instrucciones necesarias para realizar dichas operaciones; sin embargo, cuando se trata de explicarle a una máquina, las restricciones propias de memoria y procesamiento, hacen que el proceso sea un poco menos sencillo.
+\section{¿Qué es un algoritmo?}
 
-Muchas personas, sin saberlo, realizan pequeños programas de computador usando hojas de cálculo, determinando qué campos operar y dónde almacenar los resultados de dichas operaciones. La idea de los algoritmos que vamos a escribir es similar, la diferencia es que \emph{los datos no son estáticos y una posición de memoria cambiará muchas veces durante la ejecución del programa}, por lo cuál debemos abstraernos un poco más, de forma que podamos \emph{comprender el significado de nuestras instrucciones en el tiempo}.
+\newpage
 
-Mediante unos problemas, exploraremos las soluciones típicas que se pueden dar a los problemas usando \emph{programación imperativa}. Como podrá ver el lector, en ocasiones es posible encontrar repuestas matemáticas más cortas y rápidas, pero en algunos casos no es posible este tipo de aproximaciones. Dicho esto, ¡Es hora de programar!
 
-\section{Programación imperativa}
+\section{Paradigmas de programación}
+
+En la programación de ordenadores, existen a grandes rasgos dos corrientes que determinan la forma en que nos aproximamos a un problema \footnote{Básicamente el resto de paradigmas que puedan encontrarse se derivan a nivel teórico de alguno de estos dos.}. De igual forma, esos enfoques (o \emph{paradigmas}) nos brindan ciertas técnicas que guían la forma en cómo podemos construir nuestras soluciones.
+
+\begin{enumerate}
+\item \textbf{Programación imperativa}: el enfoque está en escribir instrucciones para modificar el estado de la memoria del computador, hasta eventualmente llegar a un estado que contenga la solución del problema.
+
+\item \textbf{Programación funcional}: está relacionada con conceptos mucho más cercanos a las matemáticas, que en general tienen que ver con la aplicación de funciones que no manejan estado y que pueden \emph{componerse} para llegar a la solución.
+\end{enumerate}
+
+Cabe resaltar que ambos paradigmas suelen mezclarse, en mayor o menor medida, para construir soluciones computacionales. De momento nos centraremos en explorar la \emph{programación imperativa}.
+
+\section{Pensamiento imperativo}
+
+Cómo dijimos anteriormente, en la \emph{programación imperativa} modificamos constantemente la memoria del computador para intentar llevarla hasta un estado en el que obtengamos la respuesta a nuestro problema. Esto plantea algunas dificultades ya que \emph{una posición de memoria cambiará muchas veces durante la ejecución del programa}, luego será necesario abstraernos un poco más, de forma que podamos \emph{comprender el significado de nuestras instrucciones en el tiempo}. Es decir, que en nuestros programas, una variable cambiará de valor muchas veces durante la ejecución, de forma que debemos estar familiarizados con algunas herramientas que nos permitan comprender que es lo que realmente tenemos almacenado en esa variable a medida que el programa es ejecutado.
+
+Mediante unos problemas, exploraremos las tres técnicas que debe dominar todo programador imperativo para manipular de forma básica las abstracciones básicas de la memoria del computador, a saber: cómo sumar múltiples datos, cómo contar elementos y cómo vigilar valores anteriores.
 
 \subsection{Las sumas de Gauss}
 
-\begin{minipage}{.7\textwidth} 
-Cuando Gauss estaba en la escuela una profesora quería mantener ocupados a sus estudiantes, como no preparó clase, les puso la aburrida tarea de sumar los números enteros entre 1 y 100. La sorpresa de la maestra fue mayúscula cuando Gauss exclamó, después de muy poco tiempo: ¡5050! Efectivamente era la respuesta correcta. La pregunta es, ¿cómo lo hizo Gauss? A continuación construiremos la respuesta.
-\end{minipage}
-\begin{minipage}{.30\textwidth}
-  \centering
-  \includegraphics[height=4cm]{./Images/gauss.jpg}
-\end{minipage}
+\begin{wrapfigure}{r}{0.3\textwidth}
+	\begin{center}
+		\includegraphics[width=0.3\textwidth]{./Images/gauss.jpg}
+	\end{center}	
+	\caption{Karl Gauss.}
+\end{wrapfigure}
+
+
+Se cuenta que cuando Karl Gauss estaba en la escuela primaria, su maestra asignó a la clase la tarea de sumar los enteros del 1 al 100 (por ejemplo, 1 + 2 + 3 + · · · + 100) para mantenerlos ocupados \cite[p.~59]{evansIntro}. Gracias a sus habilidades, Gauss pudo desarrollar una fórmula para calcular esta suma de una forma mucho más ágil. Exploremos dos formas de cómo solucionar este problema usando un computador.
 
 \subsubsection{Solución imperativa}
-Si Gauss hubiese tenido un computador a la mano, seguro habría escrito un programa en Python, cómo vimos, es posible repetir instrucciones de forma muy simple, utilizando la instrucción \emph{for}. Ahora, la pregunta es ¿cómo repetimos las instrucciones, de manera que al finalizar, el estado de la máquina tenga la respuesta a este problema?
+Cómo vimos en el capítulo anterior, en Python es posible repetir instrucciones de forma sencilla, utilizando la instrucción \emph{for}. Ahora, la pregunta es ¿cómo repetimos las instrucciones, de manera que al finalizar, el estado de la máquina tenga la respuesta a este problema?
 
-La respuesta es corta, pero no muy intuitiva, en especial si esta es la primera vez que usted deja el mundo del papel y lápiz, por el de los bits. Así que, antes de continuar, es recomendable que se tome un par de minutos y escriba un programa de computador, con las instrucciones que usted cree, darán la respuesta. No importa si al final el código tiene errores, poner a trabajar las neuronas es más importante que llegar a la solución al primer intento. Una vez tenga su respuesta, continúe leyendo.
+La respuesta es corta, pero quizá no muy intuitiva. Antes de continuar, es recomendable que se tome un par de minutos y escriba un programa de computador, con las instrucciones que usted cree, darán la respuesta. No importa si al final el código tiene errores, poner a trabajar las neuronas es más importante que llegar a la solución al primer intento. Una vez tenga su aproximación, continúe leyendo.
 \\
 
 Ya que no tenemos una hoja de papel para hacer un montón de operaciones, sólo posiciones de memoria que guardan bits (representadas en Python por el concepto de variables), necesitamos pensar muy bien como expresar las instrucciones. Hagámonos la siguiente pregunta, ¿será necesario almacenar en una variable diferente cada operación realizada? La respuesta es no. Imagine que usted tiene solo un pequeño trozo de papel, ¿cómo lo utilizaría para sumar los números del 1 al 100? Usted podría realizar operaciones y a medida que avanza ir borrando lo que ya no necesita guardarlas todas. Por ejemplo podría:
@@ -46,7 +65,7 @@ Puede revisar el código \ref{cod-for} para mayor claridad sobre el tratamiento 
 
 Si metemos la expresión dentro de un \emph{for}, ¿funcionará? de hecho no. Notemos que el computador acumula haciendo $suma$ igual a lo que tenía más $i$. Y entonces, ¿qué tiene $suma$ la primera vez? Nada, pero hay que decírselo al computador iniciándola en cero. Al final, nuestro programa será como el que se observa en el código \ref{cod-gauss}. \\
 
-\lstinputlisting[language=Python,caption=La suma de Gauss en Python,label=cod-gauss]{./py/nociones/gauss.py}
+\lstinputlisting[language=Python,caption=La suma de Gauss en Python,label=cod-gauss]{./py/imperativa/gauss.py}
 
 \subsubsection{Ejecución en la máquina RAM}
 
@@ -126,7 +145,7 @@ Es necesario aclarar, que para pasar la fórmula anterior al computador hay que 
 Así que, para que el resultado sea el esperado, es necesario utilizar signos de agrupación como se ve en el código \ref{cod-gauss-formula}. \\
 
 
-\lstinputlisting[language=Python,caption=Las sumas de Gauss.,label=cod-gauss-formula]{./py/nociones/gauss-formula.py}
+\lstinputlisting[language=Python,caption=Las sumas de Gauss.,label=cod-gauss-formula]{./py/imperativa/gauss-formula.py}
 
 \subsection{Los números primos}
 
@@ -140,7 +159,7 @@ Por ejemplo, 4 es divisible entre 2, porque al realizar la división 4/2 el resi
 
 Para hallar el residuo de una división en el computador, utilizamos el operador módulo (\%), como se observa en el código \ref{cod-mod}. \\
 
-\lstinputlisting[language=Python,caption=Hallando el módulo o residuo de una división.,label=cod-mod]{./py/nociones/codmod.py}
+\lstinputlisting[language=Python,caption=Hallando el módulo o residuo de una división.,label=cod-mod]{./py/imperativa/codmod.py}
 
 
 
@@ -173,7 +192,7 @@ En el código \ref{cod-primos} puede ver el programa completo. Sólo falta agreg
 
 \newpage
 
- \lstinputlisting[language=Python,caption=Divisibilidad y números primos.,label=cod-primos]{./py/nociones/primos.py}
+ \lstinputlisting[language=Python,caption=Divisibilidad y números primos.,label=cod-primos]{./py/imperativa/primos.py}
 
 
 
@@ -202,7 +221,7 @@ Para programarlo, debemos crear un espacio en memoria en el que podamos hacer se
 
 La única parte que es menos intuitiva, es la forma en que haremos que al poner al principio la variable \emph{anterior}. Todo esto se puede ver en el código \ref{cod-magnets}. \\
 
- \lstinputlisting[language=Python,caption=Solución del problema letras.,label=cod-magnets]{./py/nociones/letras.py}
+ \lstinputlisting[language=Python,caption=Solución del problema letras.,label=cod-magnets]{./py/imperativa/letras.py}
  
  
 \newpage
@@ -225,7 +244,7 @@ Realice un programa en Python para resolver los siguientes problemas:
 \end{Exercise}
 \begin{Answer}
 
-\lstinputlisting[language=Python,caption=Solución de los problemas de calentamiento.,label=cod-calentamiento]{./py/nociones/calentamiento.py}
+\lstinputlisting[language=Python,caption=Solución de los problemas de calentamiento.,label=cod-calentamiento]{./py/imperativa/calentamiento.py}
 \newpage
 \end{Answer}
 \vfill
@@ -240,7 +259,7 @@ Nota: recuerde que los códigos deben funcionar para cualquier entrada, no sólo
 
 \newpage
 \begin{Answer}
- \lstinputlisting[language=Python,caption=Solución del problema La Copia de Seguridad.,label=cod-seguridad]{./py/nociones/copiaseguridad.py}
+ \lstinputlisting[language=Python,caption=Solución del problema La Copia de Seguridad.,label=cod-seguridad]{./py/imperativa/copiaseguridad.py}
  
 \end{Answer}
 
@@ -268,7 +287,7 @@ Nota: recuerde que los códigos deben funcionar para cualquier entrada, no sólo
 	
 \end{Exercise}
 \begin{Answer}
-\lstinputlisting[language=Python,caption=Solución el Precio del Videojuego.,label=cod-vjprecio]{./py/nociones/vjprecio.py}
+\lstinputlisting[language=Python,caption=Solución el Precio del Videojuego.,label=cod-vjprecio]{./py/imperativa/vjprecio.py}
 \newpage
 \end{Answer}
 
