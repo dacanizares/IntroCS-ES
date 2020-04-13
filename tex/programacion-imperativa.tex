@@ -34,10 +34,10 @@ Mediante unos problemas, exploraremos las tres técnicas que debe dominar todo p
 	\caption{Karl Gauss.}
 \end{wrapfigure}
 
-
-Se cuenta que cuando Karl Gauss estaba en la escuela primaria, su maestra asignó a la clase la tarea de sumar los enteros del 1 al 100 (por ejemplo, 1 + 2 + 3 + · · · + 100) para mantenerlos ocupados \cite[p.~59]{evansIntro}. Gracias a sus habilidades, Gauss pudo desarrollar una fórmula para calcular esta suma de una forma mucho más ágil. Exploremos dos formas de cómo solucionar este problema usando un computador.
+Se cuenta que cuando Karl Gauss estaba en la escuela primaria, su maestra asignó a la clase la tarea de sumar los enteros del 1 al 100 (por ejemplo, 1 + 2 + 3 + · · · + 100) para mantenerlos ocupados \cite[p.~59]{evansIntro}. Gracias a sus habilidades, Gauss pudo desarrollar una fórmula para calcular esta suma de una forma mucho más ágil, obteniendo el resultado 5050. Exploremos dos formas de cómo solucionar este problema usando un computador.
 
 \subsubsection{Solución imperativa}
+
 Cómo vimos en el capítulo anterior, en Python es posible repetir instrucciones de forma sencilla, utilizando la instrucción \emph{for}. Ahora, la pregunta es ¿cómo repetimos las instrucciones, de manera que al finalizar, el estado de la máquina tenga la respuesta a este problema?
 
 La respuesta es corta, pero quizá no muy intuitiva. Antes de continuar, es recomendable que se tome un par de minutos y escriba un programa de computador, con las instrucciones que usted cree, darán la respuesta. No importa si al final el código tiene errores, poner a trabajar las neuronas es más importante que llegar a la solución al primer intento. Una vez tenga su aproximación, continúe leyendo.
@@ -69,36 +69,28 @@ Si metemos la expresión dentro de un \emph{for}, ¿funcionará? de hecho no. No
 
 \subsubsection{Ejecución en la máquina RAM}
 
-Vamos a ver cómo se modifica la memoria de la máquina hasta dar con la respuesta. La principal razón para no repetir este tipo de cosas es que \textbf{el programador debe aprender a leer el código por lo que significa y no por la forma en que la máquina lo ejecuta}; de otra manera nada ganaríamos con tener procesadores cada vez más rápidos, si a la hora de programar tenemos que repasar como ejecuta el computador las miles de iteraciones de nuestros programas. Por otro lado, el lector debe tener completamente claro lo que acabamos de programar, para que el comportamiento del resto de programas que veremos le resulte mucho más intuitivo.
+Vamos a ver cómo se modifica la memoria de la máquina hasta dar con la respuesta. Existe una razón para no repetir \emph{muy a menudo} este tipo de visualizaciones: \textbf{el programador debe aprender a leer el código por lo que significa}; de otra manera nada ganaríamos con tener procesadores cada vez más rápidos, si a la hora de programar tenemos que repasar como ejecuta el computador las miles de iteraciones de nuestros programas. Si en algún momento usted está confundido con qué hace un código, es valido hacerle seguimiento a cómo cambian las variables, pero debería hacerse con valores relativamente pequeños y manteniendo un pensamiento holístico (es decir, no simplemente repitiendo los pasos de forma mecánica) que permita entender qué es lo que realmente está haciendo el programa.
 
-Hecha esta aclaración, hagamos el seguimiento de la ejecución del programa:
+Hecha esta aclaración, hagamos el seguimiento de la ejecución del programa para un valor más pequeño como 5:
 
 \begin{itemize}
 \item Se inicia la variable $suma$ en 0.
-\item Se entra al ciclo en cuál la $i$ arranca en 1 y termina en 100.
+\item Se entra al ciclo en cuál la $i$ arranca en 1 y terminará en 5.
 	\begin{itemize}
 	\item En la primera iteración $suma=0+1$, luego, $suma = 1$
 	\item En la segunda iteración $suma=1+2$, luego, $suma = 3$
 	\item En la tercera iteración $suma=3+3$, luego, $suma = 6$
 	\item En la cuarta iteración $suma=6+4$, luego, $suma = 10$
 	\item En la quinta iteración $suma=10+5$, luego, $suma = 15$
-	\item ...
-	\item En la penúltima iteración $suma=4851+99$, luego, $suma = 4950$
-	\item En la última iteración $suma=4950+100$, luego, $suma = 50501$
 	\end{itemize}
-\item Cuando termina el ciclo se imprime el resultado $5050$
+\item Cuando termina el ciclo se imprime el resultado $15$
 \end{itemize}
 
-Como usted puede ver, el análisis previo es exactamente lo que hace el programa. Al principio puede resultar un poco difícil, pero usted tiene que ganar confianza como programador para poder enfrentar cada vez retos más difíciles y apasionantes.
-
-\begin{quote}
-\emph{La visualización (...) remarcaba precisamente aquello que el estudiante tiene que aprender a ignorar, reforzaba precisamente lo que el estudiante tiene que desaprender}.
-Profesor Edsger Dijsktra, en su ensayo sobre la crueldad de enseñar realmente ciencias de la computación.
-\end{quote}
+Como usted puede ver, el análisis previo es exactamente lo que hace el programa. Al principio puede resultar un poco difícil, pero usted irá ganando progresivamente más confianza como programador para poder enfrentar cada vez retos más difíciles y apasionantes, lo importante es no dejar de practicar.
 
 \subsubsection{Solución matemática}
 
-Aunque nuestro programa resultó funcionar muy bien, es claro que Gauss no pudo contar un computador en su época. Así que veamos cómo lo hizo.
+Aunque nuestro programa resultó funcionar muy bien, es claro que Gauss no pudo contar un computador en su época. Así que veamos cómo lo hizo. \emph{Nota:} si bien está breve explicación matemática puede resultar interesante, es importante aclarar que como tal está solución no entraría dentro de las llamadas \emph{soluciones imperativas}, ya que simplemente comprenderemos de dónde viene una fórmula matemática y cómo podemos escribirla en nuestra máquina.
 
 Gauss descubrió una fórmula que permite hallar fácilmente la sumatoria de los $n$ primeros números:
 
@@ -144,8 +136,9 @@ Es necesario aclarar, que para pasar la fórmula anterior al computador hay que 
 	
 Así que, para que el resultado sea el esperado, es necesario utilizar signos de agrupación como se ve en el código \ref{cod-gauss-formula}. \\
 
-
 \lstinputlisting[language=Python,caption=Las sumas de Gauss.,label=cod-gauss-formula]{./py/imperativa/gauss-formula.py}
+
+Como pudimos ver, en ocasiones existen fórmulas matemáticas que nos permiten resolver los problemas de formas más directas (y rápidas), pero no siempre será el caso. Al final del día, lo más importante para un programador es tener muchas herramientas computacionales y matemáticas, entre más de esas herramientas \textbf{domine y sepa aplicar}, más problemas podrá resolver y mejores soluciones podrá plantear para cada caso.
 
 \subsection{Los números primos}
 
