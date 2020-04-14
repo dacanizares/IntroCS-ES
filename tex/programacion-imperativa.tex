@@ -181,7 +181,7 @@ Para nuestro caso, esa variable la llamaremos $divisores$, la iniciaremos en 2 (
 divisores = divisores + 1
 \end{equation}
 
-En el código \ref{cod-primos} puede ver el programa completo. Sólo falta agregar, que al final es necesario verificar que el número no sea uno, ya que por convención el uno no es primo. \\
+Sólo falta agregar, que al final es necesario verificar que el número no sea uno, ya que por convención el uno no es primo. En el código \ref{cod-primos} puede verse el programa completo.  \\
 
 \newpage
 
@@ -189,33 +189,28 @@ En el código \ref{cod-primos} puede ver el programa completo. Sólo falta agreg
 
 
 
-\subsection{Las letras}
+\subsection{Vigilar valores anteriores}
 
+Luego de haber revisado cómo contar y cómo hacer sumatorias, sólo nos resta una técnica por revisar: \emph{vigilar valores anteriores}.
 
-Supongamos que van a ingresarnos $n$ palabras. La idea es contar cuántas palabras consecutivas son iguales. Por ejemplo:
+Supongamos que tenemos un programa que va a recibir $n$ números positivos por teclado y que al final debemos imprimir por pantalla el mayor de entre esos valores. ¿Cómo podríamos hacerlo? En el \autoref{chap:python} vimos que es posible con condicionales hallar el mayor de entre varios números, pero a medida que la cantidad de valores crece, las posibilidades también, lo que hace más complejo el código. En nuestro caso es aún peor, ya que no sabemos de antemano cuál será la cantidad de números ($n$), luego tenemos que ser más inteligentes en la forma de aproximarnos a la solución.
 
-\begin{itemize}
-	\item Si $n$ es 5, y letras, ingresadas en orden son:
-	\item A
-	\item A
-	\item B
-	\item A
-	\item A
-	\item La respuesta es dos. Porque se ingresaron dos As consecutivas.
-\end{itemize}
+La idea es tener \emph{vigilado} el mayor valor que nos hayan ingresado hasta un momento dado. Cuando se digita el nuevo número, simplemente debemos comparar si es mayor que el valor que teníamos \emph{vigilado}. De ser así, se actualiza el dato que teníamos como el mayor. Al terminar el programa deberíamos tener la respuesta.
 
+Es decir, suponiendo que $n = 4$ y que los números serán respectivamente $4, 6, 10, 1$, el programa debería comportarse más o menos así:
 
+\begin{enumerate}
+\item Como sabemos que nos van a digitar números positivos, el menor posible es 0, luego podemos iniciar vigilando dicho valor (cualquiera otro que nos ingresen será mayor), por lo tanto \textbf{mayor = 0}.
+\item Nos ingresan el primer número y lo comparamos contra el que teníamos como mayor, si el nuevo número es efectivamente mayor, actualizamos. En nuestro caso $4 > 0$, luego \textbf{mayor = 4}.
+\item Aplicamos la misma lógica con el resto de números. $6 > 4$, luego \textbf{mayor = 6}.
+\item $10 > 6$, entonces \textbf{mayor = 10}.
+\item $1 \leq 6$, entonces \textbf{mayor = 10} (no actualizamos).
+\end{enumerate}
 
-\subsubsection{Solución}
+Finalmente, lo anterior podemos verlo en el código \ref{cod-mayor}. \\
 
-Para este problema sólo basta tener en cuenta si la nueva letra es diferente al anterior, en tal caso se incrementa el número de grupos.
+ \lstinputlisting[language=Python,caption=Hallar el mayor número de entre una serie de valores.,label=cod-mayor]{./py/imperativa/mayor.py}
 
-Para programarlo, debemos crear un espacio en memoria en el que podamos hacer seguimiento a la letra \emph{anterior}. Al terminar de leer cada letra y mirar si se forma un grupo, debe actualizarse el anterior, para efectos de tener los datos preparados para la siguiente iteración.
-
-La única parte que es menos intuitiva, es la forma en que haremos que al poner al principio la variable \emph{anterior}. Todo esto se puede ver en el código \ref{cod-magnets}. \\
-
- \lstinputlisting[language=Python,caption=Solución del problema letras.,label=cod-magnets]{./py/imperativa/letras.py}
- 
  
 \newpage
 \section{Problemas}
