@@ -1,11 +1,21 @@
 \chapter{Programación imperativa}
  
-Las restricciones propias de los computadores y el tipo de soluciones que se desean encontrar al codificar un programa, 
+En este capítulo nos introduciremos de una forma más profunda a la programación de ordenadores, haciendo especial énfasis en algunos conceptos y técnicas que todo programador debería dominar.
 
 \section{¿Qué es un algoritmo?}
 
-\newpage
+Cómo hemos visto, para programar un computador es necesario listar una secuencia de instrucciones que la máquina debería ejecutar. De aquí se desprenden dos conceptos importantes, a saber:
 
+\begin{itemize}
+	\item \emph{Proceso}: es una secuencia de pasos.
+	\item \emph{Procedimiento}: Es la descripción de un proceso. 
+\end{itemize}
+
+Podríamos decir entonces que un listado de pasos es un \emph{procedimiento} y que el acto de seguirlos es el \emph{proceso} \cite[p.~2]{evansIntro}. Como los computadores no son máquinas, los \emph{procedimientos} que escribamos deben ser muy claros y las instrucciones no deberían dar lugar a ambigüedades. Luego los \emph{procedimientos} que ejecuta un computador deberían poder seguirse de forma mecánica, es decir, sin necesidad de realizar pensamientos adicionales. \textbf{Un algoritmo} es un procedimiento mecánico que eventualmente finalizará (no debería ejecutarse infinitamente).
+
+Ahora, para solucionar problemas en nuestros computadores debemos aprender a construir \emph{algoritmos}. Es importante resaltar que cuando hablamos de programación, queremos encontrar un \emph{algoritmo} que solucione todas las instancias de un problema, y no sólamente una \cite[p.~53]{evansIntro}, es decir, no queremos un programa que sepa sumar $2+2$, si no uno que sepa sumar cualquier par de numeros $a$ y $b$. 
+
+Dicho lo anterior, debemos pensar en encontrar \emph{soluciones generalizadas} y no simplemente resolver casos específicos de un problema, lo cuál es más complejo. Por suerte contamos con \emph{Paradigmas} que pueden guiar nuestras ideas para construir de una forma más predecible soluciones algorítmicas.
 
 \section{Paradigmas de programación}
 
@@ -17,7 +27,7 @@ En la programación de ordenadores, existen a grandes rasgos dos corrientes que 
 \item \textbf{Programación funcional}: está relacionada con conceptos mucho más cercanos a las matemáticas, que en general tienen que ver con la aplicación de funciones que no manejan estado y que pueden \emph{componerse} para llegar a la solución.
 \end{enumerate}
 
-Cabe resaltar que ambos paradigmas suelen mezclarse, en mayor o menor medida, para construir soluciones computacionales. De momento nos centraremos en explorar la \emph{programación imperativa}.
+Cabe resaltar que ambos paradigmas suelen mezclarse, en mayor o menor medida, para construir soluciones computacionales efectivas. De momento nos centraremos en explorar la \emph{programación imperativa}.
 
 \section{Pensamiento imperativo}
 
@@ -164,7 +174,7 @@ Por ejemplo, 2 es primo porque sólo lo divisible entre 1 y 2, pero 4 no es prim
 
 2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97 101 103 107 109 113 127 131 137 139 149 151 157 163 167 173 179 181 191 193 197 199 211 223 227 229 233 239 241 251 257 263 269 271 277 281 283 293 307 311 313 317 331 337 347 349 353 359 367 373 379 383 389 397 401 409 419 421 431 433 439 443 449 457 461 463 467 479 487 491 499 503 509 521 523 541 
 
-Conociendo los conceptos matemáticos, nuestra misión será crear un programa de computador que determine la cantidad de divisores de un número y posteriormente indique si es primo o no (en el próximo capítulo veremos cómo podemos hacer está última tarea más rápidamente).
+Conociendo los conceptos matemáticos, nuestra misión será crear un programa de computador que determine la cantidad de divisores de un número y posteriormente indique si es primo o no.
 
 \subsubsection{Solución}
 
@@ -183,19 +193,16 @@ divisores = divisores + 1
 
 Sólo falta agregar, que al final es necesario verificar que el número no sea uno, ya que por convención el uno no es primo. En el código \ref{cod-primos} puede verse el programa completo.  \\
 
-\newpage
-
- \lstinputlisting[language=Python,caption=Divisibilidad y números primos.,label=cod-primos]{./py/imperativa/primos.py}
-
+\lstinputlisting[language=Python,caption=Divisibilidad y números primos.,label=cod-primos]{./py/imperativa/primos.py}
 
 
 \subsection{Vigilar valores anteriores}
 
-Luego de haber revisado cómo contar y cómo hacer sumatorias, sólo nos resta una técnica por revisar: \emph{vigilar valores anteriores}.
+Luego de haber aprendido cómo contar y cómo hacer sumatorias (junto con algunos conceptos matemáticos), sólo nos resta una técnica por revisar: \emph{vigilar valores anteriores}.
 
 Supongamos que tenemos un programa que va a recibir $n$ números positivos por teclado y que al final debemos imprimir por pantalla el mayor de entre esos valores. ¿Cómo podríamos hacerlo? En el \autoref{chap:python} vimos que es posible con condicionales hallar el mayor de entre varios números, pero a medida que la cantidad de valores crece, las posibilidades también, lo que hace más complejo el código. En nuestro caso es aún peor, ya que no sabemos de antemano cuál será la cantidad de números ($n$), luego tenemos que ser más inteligentes en la forma de aproximarnos a la solución.
 
-La idea es tener \emph{vigilado} el mayor valor que nos hayan ingresado hasta un momento dado. Cuando se digita el nuevo número, simplemente debemos comparar si es mayor que el valor que teníamos \emph{vigilado}. De ser así, se actualiza el dato que teníamos como el mayor. Al terminar el programa deberíamos tener la respuesta.
+Una posible forma de solucionar este problema consiste  en  tener \emph{vigilado} el mayor valor que nos vayan ingresando. A medida que se digitan nuevos números, deberíamos comparar si el nuevo valor es mayor aquel que teníamos \emph{vigilado}. De ser así, se actualiza el dato que teníamos como el mayor. Repitiendo esta misma lógica, al terminar el programa deberíamos tener la respuesta como el valor \emph{vigilado}.
 
 Es decir, suponiendo que $n = 4$ y que los números serán respectivamente $4, 6, 10, 1$, el programa debería comportarse más o menos así:
 
@@ -207,18 +214,17 @@ Es decir, suponiendo que $n = 4$ y que los números serán respectivamente $4, 6
 \item $1 \leq 6$, entonces \textbf{mayor = 10} (no actualizamos).
 \end{enumerate}
 
-Finalmente, lo anterior podemos verlo en el código \ref{cod-mayor}. \\
+Lo anterior podemos verlo generalizado en el código \ref{cod-mayor}. Nótese que estamos simplemente \emph{vigilando} el mayor valor ingresado y que lo actualizamos a medida que el programa avanza en su ejecución. \\
 
  \lstinputlisting[language=Python,caption=Hallar el mayor número de entre una serie de valores.,label=cod-mayor]{./py/imperativa/mayor.py}
 
- 
 \newpage
-\section{Problemas}
+
 En este capítulo hemos aprendido lo básico de la programación y de las soluciones imperativa: cómo sumar elementos, cómo contar elementos y vigilar un elemento anterior. \\
 
-Mediante los problemas propuestos usted podrá auto-evaluarse y poner a prueba sus conocimientos. Para saber si su solución está correcta, piense en algunas entradas y las salidas respectivas a cada una de ellas, luego ejecute su programa y valide si el resultado fue correcto. Si no es así, piense ¿qué puede estar fallando?
+Mediante los problemas propuestos usted podrá a prueba sus conocimientos. Para saber si su solución está correcta, piense en algunas entradas y las salidas respectivas a cada una de ellas, luego ejecute su programa y valide si el resultado fue correcto. Si no es así, piense ¿qué puede estar fallando?
 
-\vfill
+\section{Problemas}
 
 \begin{Exercise}[title={Calentamiento}]
 Realice un programa en Python para resolver los siguientes problemas:
@@ -233,9 +239,8 @@ Realice un programa en Python para resolver los siguientes problemas:
 \begin{Answer}
 
 \lstinputlisting[language=Python,caption=Solución de los problemas de calentamiento.,label=cod-calentamiento]{./py/imperativa/calentamiento.py}
-\newpage
 \end{Answer}
-\vfill
+
 \begin{Exercise}[title={La Copia de Seguridad}]
 Bill quiere guardar sus documentos que pesan $x$ gigas en unos discos que tienen $q$ gigas de capacidad. Por ejemplo, si tiene que guardar 6 gigas en discos de 4 gigas, necesitará 2 discos (aunque el segundo lo llene sólo parcialmente).
 
@@ -245,7 +250,6 @@ Nota: recuerde que los códigos deben funcionar para cualquier entrada, no sólo
 
 \end{Exercise}
 
-\newpage
 \begin{Answer}
  \lstinputlisting[language=Python,caption=Solución del problema La Copia de Seguridad.,label=cod-seguridad]{./py/imperativa/copiaseguridad.py}
  
