@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+  {%- include head.html -%}
+
+  <body class="bg-white">
+
+    {%- include header.html -%}
+
+    <div id="main-container" class="container py-5" aria-label="Content">
+      {{ content }}
+    </div>
+
+    {%- if site.mini_footer_enabled != true -%}
+    {%- include footer.html -%}
+    {%- else -%}
+    {%- include mini-footer.html -%}
+    {%- endif -%}
+
+    {%- include foot.html -%}
+  </body>
+
+</html>

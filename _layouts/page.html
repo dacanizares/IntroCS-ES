@@ -1,0 +1,9 @@
+---
+layout: default
+---
+
+{%- if page.title and page.hide_title != true -%}
+<h1>{{ page.title | escape }}</h1>
+{%- endif -%}
+
+{{ content }}
