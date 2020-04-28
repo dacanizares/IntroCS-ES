@@ -1,3 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Prompt');
+
+:root {
+  --font-family-sans-serif: "Muli", "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+}
+
+.navbar, h1, h2, h3, h4, h5, h6, .h-font {
+  font-family: 'Muli' !important;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 #main-container {
   padding-top: 100px !important;
 }
@@ -8,3 +21,20 @@
   margin-right: 5px;
   fill: #828282;
 }
+
+#book-title {
+  text-transform: uppercase;
+  padding-bottom: 30px;
+}
+
+#book-title > h1 {
+  font-size: 24px;
+  padding-top: 15px;
+  border-top: 2px solid #fac760;
+  border-bottom: 2px solid #fac760;
+}
+
+#book-title > h1 > p {
+  font-size: 17px;
+}
+

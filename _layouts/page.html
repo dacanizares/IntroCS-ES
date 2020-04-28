@@ -1,9 +1,10 @@
 ---
 layout: default
 ---
+<div id="main-container" class="container py-5" aria-label="Content">
+  {%- if page.title and page.hide_title != true -%}
+  <h1>{{ page.title | escape }}</h1>
+  {%- endif -%}
 
-{%- if page.title and page.hide_title != true -%}
-<h1>{{ page.title | escape }}</h1>
-{%- endif -%}
-
-{{ content }}
+  {{ content }}
+</div>
