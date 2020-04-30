@@ -288,3 +288,6 @@ main.pdf
 
 # Temporarily disable images
 /Images
+
+# Ignore page
+/_site
